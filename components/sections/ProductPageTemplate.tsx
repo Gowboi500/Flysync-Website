@@ -13,6 +13,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FitScreen } from "@/components/visuals/FitScreen";
 import { PRODUCT_SCREENS } from "@/components/visuals/ProductScreens";
+import { API_OUT_PARTNERS } from "@/lib/apiPartners";
 import { SCREEN_SIZE } from "@/lib/screens";
 import type { ProductPage } from "@/lib/products";
 
@@ -90,6 +91,57 @@ function ProductScreen({ slug }: { slug: string }) {
   );
 }
 
+function ApiOutPartnersBlock({
+  content,
+}: {
+  content: NonNullable<ProductPage["apiOutPartners"]>;
+}) {
+  const [bodyBeforeCount, bodyAfterCount] = content.body.split("250+");
+  const body =
+    bodyAfterCount === undefined ? (
+      content.body
+    ) : (
+      <>
+        {bodyBeforeCount}
+        <span className="font-semibold text-accent">250+</span>
+        {bodyAfterCount}
+      </>
+    );
+
+  return (
+    <section className="section relative">
+      <div className="container-page">
+        <SectionHeading
+          eyebrow="API Out"
+          title={content.heading}
+          body={body}
+        />
+        <Reveal delay={0.08}>
+          <ul className="mx-auto mt-10 grid max-w-6xl grid-cols-2 justify-items-center gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            {API_OUT_PARTNERS.map((partner) => (
+              <li key={partner.name} className="w-full max-w-[11.5rem]">
+                <div className="flex h-[5rem] w-full items-center justify-center rounded-[1.25rem] border border-line bg-white px-6 ring-1 ring-sky-100/70">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    className={
+                      partner.className ??
+                      "max-h-11 max-w-[9.75rem] object-contain"
+                    }
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 export function ProductPageTemplate({ product }: { product: ProductPage }) {
   // Vacay365's benefit list is a plain checklist in the source content
   const benefitsAreChecklist = product.benefits.items.every((b) => !b.body);
@@ -141,6 +193,10 @@ export function ProductPageTemplate({ product }: { product: ProductPage }) {
           </Reveal>
         </div>
       </section>
+
+      {product.apiOutPartners && (
+        <ApiOutPartnersBlock content={product.apiOutPartners} />
+      )}
 
       <ChallengeGrid
         tint

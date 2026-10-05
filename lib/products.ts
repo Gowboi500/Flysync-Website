@@ -31,6 +31,7 @@ export type ProductPage = {
   benefits: { heading: string; items: { title: string; body: string }[] };
   steps: { heading: string; items: string[] };
   integrations?: { heading: string; body: string };
+  apiOutPartners?: { heading: string; body: string };
   /** Optional extra bands some pages carry */
   extras?: { heading: string; body: string }[];
   cta: { heading: string; body: string };
@@ -303,6 +304,10 @@ export const productPages: ProductPage[] = [
     integrations: {
       heading: "Seamlessly Connect With Your Existing Travel Ecosystem",
       body: "Integrate with payment gateways, CRM systems, accounting software, communication platforms, and travel APIs to create a fully connected departure management environment.",
+    },
+    apiOutPartners: {
+      heading: "API Out Partners for Series Booking",
+      body: "These are outbound supplier and travel API connections used for distributing and servicing series booking inventory across 250+ places globally.",
     },
     cta: {
       heading: "Grow Your Fixed Departure Business with Flysync",

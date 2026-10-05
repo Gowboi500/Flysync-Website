@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { clientLogos, type ClientLogo } from "@/lib/clients";
 import { home } from "@/lib/pages";
 
-const PARTNER_NAMES = ["Bittu Travels", "FlyNext", "FlyforSure", "Flybest"];
+const PARTNER_NAMES = ["FlyNext", "FlyforSure", "Flybest", "Fly360"];
 const PARTNERS = PARTNER_NAMES.map((name) => clientLogos.find((logo) => logo.name === name)).filter(
   (logo): logo is (typeof clientLogos)[number] => Boolean(logo),
 );
@@ -10,13 +10,13 @@ const PARTNERS = PARTNER_NAMES.map((name) => clientLogos.find((logo) => logo.nam
 /**
  * The customer wall, and nothing else.
  *
- * Customers are their own marks — thirty-nine real logo files in their own
+ * Customers are their own marks — thirty-seven real logo files in their own
  * colours, in two rows drifting against each other, with nothing drawn
  * around them. No pill, no card, no border: the only geometry in the row is
  * the artwork.
  *
  * That is the whole difficulty. An earlier pass ran the wall in grayscale,
- * which quietly solved three problems at once — thirty-nine palettes
+ * which quietly solved three problems at once — thirty-seven palettes
  * flattened to one texture, wildly different ink densities hidden, contrast
  * guaranteed. Bare colour gives all three back, and they are solved instead
  * by space (a fixed bounding area and 56px of air), by a borderless white
@@ -171,11 +171,7 @@ export function TrustedBy() {
                   alt={partner.name}
                   width={partner.w}
                   height={partner.h}
-                  className={
-                    partner.name === "Bittu Travels"
-                      ? "h-14 w-auto max-w-full object-contain"
-                      : "max-h-9 w-full object-contain"
-                  }
+                  className="max-h-9 w-full object-contain"
                 />
               </li>
             ))}

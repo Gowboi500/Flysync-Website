@@ -1,7 +1,7 @@
 /**
  * The customer wall.
  *
- * These are the client's own logo files (39 of them, supplied as PNGs at
+ * These are the client's own logo files (37 of them, supplied as PNGs at
  * ~1500px wide). They are not redrawn. A build-time pass trimmed each one to
  * its ink, scaled it to fit 340×136 — about 2× the largest container it is
  * ever painted into — and kept whichever of full-colour or 256-colour PNG
@@ -81,8 +81,6 @@ export type ClientLogo = {
 export const clientLogos: ClientLogo[] = [
   { name: "Arohaka", src: "/logos/arohaka.png", w: 331, h: 136, shape: "wide", plate: true },
   { name: "Bharath", src: "/logos/bharath.png", w: 136, h: 136, shape: "emblem", plate: true },
-  { name: "Bittu Travels", src: "/logos/bittu-travels.png", w: 158, h: 136, shape: "emblem" },
-  { name: "BudgetTicket", src: "/logos/budgetticket.png", w: 340, h: 80, shape: "wide" },
   { name: "Deal Fare", src: "/logos/deal-fare.png", w: 340, h: 131, shape: "wide" },
   { name: "DMC Leisure", src: "/logos/dmc-leisure.png", w: 116, h: 136, shape: "emblem" },
   { name: "DS Travels", src: "/logos/ds-travels.png", w: 183, h: 136, shape: "emblem" },

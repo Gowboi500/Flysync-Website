@@ -1,25 +1,5 @@
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
-
-const API_PARTNERS = [
-  { name: "TBO", logo: "/images/api-logos/tbo-official.svg" },
-  {
-    name: "Riya",
-    logo: "/images/api-logos/riya-official.png",
-    className: "h-16 w-auto max-w-[8.5rem] object-contain",
-  },
-  { name: "AIR IQ", logo: "/images/api-logos/airiq-official.png" },
-  { name: "BookNTravel", logo: "/images/api-logos/bookntravel-official.png" },
-  { name: "Alhind", logo: "/images/api-logos/alhind.png" },
-  { name: "Cleartrip", logo: "/images/api-logos/cleartrip-cropped.png" },
-  { name: "Tripjack", logo: "/images/api-logos/tripjack-official.png" },
-  {
-    name: "ORN",
-    logo: "/images/api-logos/orn.png",
-    className: "max-h-14 max-w-[4.25rem] object-contain",
-  },
-  { name: "FlightsMojo", logo: "/images/api-logos/flightsmojo.png" },
-  { name: "Travelogy", logo: "/images/api-logos/travelogy-replacement.png" },
-];
+import { API_IN_PARTNERS } from "@/lib/apiPartners";
 
 export function ApiConnectivity() {
   return (
@@ -32,7 +12,7 @@ export function ApiConnectivity() {
       <div className="container-page">
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
-            <p className="section-eyebrow">API Connectivity</p>
+            <p className="section-eyebrow">API In Connectivity</p>
             <h2
               id="api-connectivity-heading"
               className="mt-3 text-[length:var(--text-h2)] font-bold leading-[1.08] tracking-[-0.045em] text-fg"
@@ -40,16 +20,16 @@ export function ApiConnectivity() {
               Connecting <span className="text-accent">150+</span> Travel Businesses Through APIs
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-[1rem] leading-relaxed text-fg-body">
-              Flysync brings flight, hotel, payment, and supplier API connections into one reliable
-              platform, helping travel teams search, book, manage fares, and distribute inventory
-              without switching between systems.
+              Flysync brings airline, GDS, consolidator, and supplier API-in connections into one
+              reliable platform, helping travel teams search, book, manage fares, and control
+              inventory without switching between systems.
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.08}>
           <StaggerGroup className="mx-auto mt-10 grid max-w-6xl grid-cols-2 justify-items-center gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {API_PARTNERS.map((partner, index) => (
+            {API_IN_PARTNERS.map((partner, index) => (
               <StaggerItem key={partner.name} index={index} className="w-full max-w-[11.5rem]">
                 <div className="flex h-[5rem] w-full items-center justify-center rounded-[1.25rem] border border-line bg-white px-6 ring-1 ring-sky-100/70">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

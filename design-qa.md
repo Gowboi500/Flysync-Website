@@ -14,7 +14,7 @@ The implementation preserves the reference's core composition: warm cream backgr
 
 ## Focused region comparison
 
-The four logo tiles were reviewed directly in the rendered browser. Original supplied PNG marks are used for Bittu Travels, FlyNext, FlyforSure, and Flybest; none are recreated or approximated. The responsive grid retains all four tiles without cropping at the reviewed width.
+The four logo tiles were reviewed directly in the rendered browser. Original supplied PNG marks are used for FlyNext, FlyforSure, Flybest, and Fly360; none are recreated or approximated. The responsive grid retains all four tiles without cropping at the reviewed width.
 
 ## Required fidelity surfaces
 
@@ -30,7 +30,7 @@ The four logo tiles were reviewed directly in the rendered browser. Original sup
 
 ## Implementation checklist
 
-- [x] Restrict the strip to Bittu Travels, FlyNext, FlyforSure, and Flybest.
+- [x] Restrict the strip to FlyNext, FlyforSure, Flybest, and Fly360.
 - [x] Place each original logo in a white rounded rectangle.
 - [x] Match the reference's warm background, spacing, and subtle elevation.
 - [x] Validate with local browser rendering and TypeScript.
