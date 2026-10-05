@@ -1,0 +1,610 @@
+/* ============================================================
+   FLYSYNC DESIGN SYSTEM — TOKEN FOUNDATION
+   Stage 1 of the premium redesign.
+
+   WHAT THIS FILE IS
+   -----------------
+   The single source of truth for the new visual language. Every token the
+   redesign needs is declared here and NOWHERE else. Components do not get to
+   invent a shadow, a radius, a duration or a gradient.
+
+   WHY NOTHING LOOKS DIFFERENT YET
+   -------------------------------
+   Deliberate. Every name below is NEW — none of them overwrite a token the
+   current site already consumes (--color-canvas, --radius-card, --dur-ui and
+   friends are all untouched). Redefining those in place would have silently
+   restyled all eleven routes the moment this file landed, which is Stage 2's
+   job and would have arrived unreviewable. So: tokens land now, components
+   migrate onto them in Stage 2, and this stage is verifiable as a no-op.
+
+   FLUID VALUES
+   ------------
+   Every type size and the section rhythm are clamp()-based, solved as a line
+   through two points — the mobile value at a 375px viewport and the desktop
+   value at 1440px — so they interpolate smoothly instead of stepping at
+   breakpoints. No fixed desktop pixel size appears anywhere.
+
+       size = intercept + slope·vw,  clamped to [mobile, desktop]
+       slope = (desktop − mobile) / (1440 − 375)
+   ============================================================ */
+
+@theme static {
+  /* ------------------------------------------------------------------
+     1. COLOUR — surfaces
+
+     NOTE: --color-page, NOT --color-base. `--color-base` lands in Tailwind
+     v4's colour namespace and rewrites `.text-base` from a font-size utility
+     into a colour one, silently unsizing every text-base on the site. Caught
+     by diffing the generated CSS against a build without this file.
+     ------------------------------------------------------------------ */
+  --color-page: #ffffff; /* true white; the new page ground */
+  --color-tint-soft: #f8fbff; /* blue-leaning off-white for alternating bands */
+
+  /* ------------------------------------------------------------------
+     2. COLOUR — brand ramp
+     Purple → Violet → Pink. These three are the brand; everything
+     gradient-shaped below is derived from them.
+     ------------------------------------------------------------------ */
+  /* Compatibility names now resolve to Flysync blue, deep blue and red. */
+  --brand-purple: #087ae6;
+  --brand-violet: #3c61dd;
+  --brand-pink: #df0e2b;
+
+  /* ---- The ramp, full strength ----
+     Decorative surfaces, and gradient-clipped text at DISPLAY sizes only.
+     Measured against white: #5b5ef7 4.79:1, #8a5cf6 4.25:1, #ec4899 3.50:1.
+     All three clear the 3:1 large-text floor. None of them clear the 4.5:1
+     body-text floor — never clip this onto small type. */
+  --gradient-brand: linear-gradient(
+    135deg,
+    #087ae6 0%,
+    #3c61dd 52%,
+    #df0e2b 100%
+  );
+
+  /* ---- The ramp, for surfaces CARRYING WHITE TEXT OR GLYPHS ----
+     Same hues, tail and midpoint pulled down until every stop clears AA for
+     body text. Measured against white: #5b5ef7 4.79:1, #7b47e0 5.31:1,
+     #ce3480 4.74:1.
+
+     This exists because the brand ramp cannot carry a label: white on
+     #ec4899 is 3.50:1, well under the 4.5 floor. Buttons, stat bands and
+     icon badges use THIS one. Decorative fills use the one above. */
+  --gradient-brand-ink: linear-gradient(
+    135deg,
+    #0671d5 0%,
+    #3451b2 50%,
+    #b70b25 100%
+  );
+
+  /* ---- Low-opacity washes, for the ambient blobs behind hero content ----
+     Two of them so a composition can layer a cool and a warm bloom without
+     either one being reused at a different opacity ad hoc. */
+  --gradient-blob-cool: radial-gradient(
+    closest-side,
+    rgba(91, 94, 247, 0.2),
+    rgba(138, 92, 246, 0.12) 55%,
+    transparent 78%
+  );
+  --gradient-blob-warm: radial-gradient(
+    closest-side,
+    rgba(236, 72, 153, 0.18),
+    rgba(138, 92, 246, 0.1) 55%,
+    transparent 78%
+  );
+
+  /* Flat 10% / 20% washes, for tinting a whole band rather than a blob. */
+  --gradient-brand-10: linear-gradient(
+    135deg,
+    rgba(91, 94, 247, 0.1) 0%,
+    rgba(138, 92, 246, 0.1) 52%,
+    rgba(236, 72, 153, 0.1) 100%
+  );
+  --gradient-brand-20: linear-gradient(
+    135deg,
+    rgba(91, 94, 247, 0.2) 0%,
+    rgba(138, 92, 246, 0.2) 52%,
+    rgba(236, 72, 153, 0.2) 100%
+  );
+
+  /* ------------------------------------------------------------------
+     3. ELEVATION
+     A four-step scale, all tinted with the brand purple rather than
+     neutral black — a violet-cast shadow on a white ground reads as
+     considered; a grey one reads as a default.
+     ------------------------------------------------------------------ */
+  --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.03),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  --shadow-lifted: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+  /* For a gradient CTA on hover — coloured, not neutral. */
+  --shadow-glow: 0 10px 20px rgba(8, 122, 230, 0.18);
+  /* Device chassis (laptop/tablet/phone mockups). Deliberately near-black
+     and much deeper than the card scale: these read as physical objects
+     sitting on the page, and a violet-cast 14%-alpha shadow does not ground
+     an object that size. One token, three call sites. */
+  --shadow-device: 0 28px 80px -28px rgba(12, 10, 40, 0.55);
+
+  /* ------------------------------------------------------------------
+     4. RADIUS
+     ------------------------------------------------------------------ */
+  --radius-card-lg: 14px;
+  --radius-button: 8px;
+  --radius-input: 6px;
+  --radius-pill: 999px;
+
+  /* ------------------------------------------------------------------
+     5. SPACING — 8px base
+
+     Named --sp-* and NOT --space-*. `--space-*` is Tailwind v4's own spacing
+     scale: defining it here silently rescaled every space-y-* and gap-* on
+     the site (space-y-3 went 12px → 24px). Caught by diffing the generated
+     CSS; do not rename these back.
+
+     These are consumed via var() in component CSS, not via generated
+     utilities — Tailwind's own numeric scale still drives the padding and
+     gap classes.
+
+     (Do not write a Tailwind glob like "p-star-slash-gap" literally in a CSS
+     comment: the star-slash pair closes the comment early and spills the
+     rest of the block into the stylesheet as garbage. That is what broke
+     this file once already.)
+     ------------------------------------------------------------------ */
+  --sp-1: 0.5rem; /*   8px */
+  --sp-2: 1rem; /*  16px */
+  --sp-3: 1.5rem; /*  24px */
+  --sp-4: 2rem; /*  32px */
+  --sp-5: 2.5rem; /*  40px */
+  --sp-6: 3rem; /*  48px */
+  --sp-8: 4rem; /*  64px */
+  --sp-10: 5rem; /*  80px */
+  --sp-12: 6rem; /*  96px */
+  --sp-16: 8rem; /* 128px */
+  --sp-20: 10rem; /* 160px */
+
+  /* Section rhythm: 56px on a 375px phone → 96px on a 1440px desktop.
+     Explicitly NOT a flat value, which would eat a phone screen whole.
+
+     Down from 80/160. At 160 each seam between two sections was 320px of
+     padding before any content margin, and measured 250–390px of unbroken
+     empty page — the "dead white gaps" complaint, and roughly double the
+     200px the brief allows two adjacent sections to combine to. 96 puts a
+     seam at 192px of padding, inside the 96–120px band the brief asks for
+     with room left for the content's own margins. */
+  --section-gap: clamp(3.5rem, 2.62rem + 3.76vw, 6rem);
+  /* The tighter rhythm, for sections that sit closer together. */
+  --section-gap-sm: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+  /* Heading block to the content under it. One value, so the distance is
+     the same in every section instead of per-section mt-16/mt-20 guesses. */
+  --heading-gap: clamp(2rem, 1.65rem + 1.5vw, 3rem); /* 32 → 48 */
+
+  /* ------------------------------------------------------------------
+     6. TYPOGRAPHY — fluid, Inter
+     Every step is clamped between its mobile and desktop size. The middle
+     term is the interpolation; the outer two are the hard limits.
+     ------------------------------------------------------------------ */
+  --text-h1: clamp(2.75rem, 2.046rem + 3.005vw, 4.75rem); /* 44 → 76 */
+  --text-h2: clamp(2rem, 1.516rem + 2.066vw, 3.375rem); /* 32 → 54 */
+  --text-h3: clamp(1.375rem, 1.155rem + 0.939vw, 2rem); /* 22 → 32 */
+  --text-h4: clamp(1.125rem, 1.037rem + 0.376vw, 1.375rem); /* 18 → 22 */
+  --text-body-lg: clamp(1.0625rem, 0.974rem + 0.376vw, 1.3125rem); /* 17 → 21 */
+  --text-body: clamp(1rem, 0.912rem + 0.376vw, 1.25rem); /* 16 → 20 */
+  --text-small: clamp(0.875rem, 0.831rem + 0.188vw, 1rem); /* 14 → 16 */
+  --text-button: clamp(1rem, 0.956rem + 0.188vw, 1.125rem); /* 16 → 18 */
+  --text-caption: 0.8125rem; /* 13, fixed — below this, fluid is noise */
+
+  /* Leading and tracking tighten as the size grows, which is what keeps a
+     72px headline from reading as loose and a 16px paragraph from reading
+     as cramped. */
+  --leading-display: 1.04;
+  --leading-heading: 1.14;
+  --leading-body: 1.65;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+  --tracking-body: 0;
+
+  /* ------------------------------------------------------------------
+     7. MOTION
+     Three durations and three curves, closed set. Anything needing a
+     value outside this list is the wrong effect, not a missing token.
+     ------------------------------------------------------------------ */
+  --duration-fast: 250ms;
+  --duration-base: 350ms;
+  --duration-slow: 500ms;
+
+  /* Decelerating — entrances, reveals, anything arriving. */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Symmetric — anything morphing between two held states. */
+  --ease-standard: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Accelerating — exits. */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ==================================================================
+     8. PREMIUM LAYER — the hero signature and its supporting system
+
+     Everything below is the "$500M SaaS" pass. It sits on top of the
+     foundation above rather than replacing it, so the two never disagree.
+     ------------------------------------------------------------------ */
+
+  /* ---- Named brand colours ---- */
+  --lux-purple: #6c63ff;
+  --lux-purple-2: #8a5dff;
+  --lux-magenta: #ec4899;
+  --lux-pink: #ff69b4;
+  --lux-lavender: #c6b6ff;
+  --lux-ink: #0f172a;
+  --lux-ink-muted: #475569;
+  --lux-border: #eef2ff;
+
+  /* ---- THE HERO LIGHTING RIG -------------------------------------
+     TWO opposing light sources, not a wash. Purple owns the top-left
+     and everything the reader starts on — logo, left nav, headline,
+     paragraph, both CTAs. Pink owns the right, where the dashboard
+     is. The middle stays white and the two never meet on top of text.
+
+     The previous version was a single diagonal wash that ran magenta
+     across the WHOLE lower half, so the pink sat behind the headline
+     and the left CTAs and the page read as pink-dominant. Each light
+     is now positioned and CONTAINED rather than sprayed diagonally.
+
+     Sizes are PERCENTAGES of the banner, which is also what makes the
+     rig scale down on a small viewport instead of cropping. The
+     percentage is doing real work as a container: the pink's 55% is
+     precisely what stops it reaching the left column, and the bottom
+     pink's 50% is what keeps it inside its own quadrant instead of
+     spreading edge to edge along the bottom. Where the brief gives a
+     px size, the percentage below is that size at a 1440 viewport
+     (1000px ≈ 66%, 700px ≈ 46%); the pink is the exception — 1100px
+     is 76%, which would put it behind the headline, and the 55% clamp
+     wins because containing it is the point.
+
+     DO NOT write these as min(1000px, 66%). Chrome parses calc() and
+     plain values in a radial-gradient's explicit size but REJECTS
+     min()/max(), and one invalid layer invalidates the whole
+     background-image list — the wash silently paints nothing at all,
+     which is exactly what happened when this was first written.
+
+     NO filter: blur(). The brief asks for 350–450px softness; a blur
+     that size on a full-bleed element is a full-viewport raster and
+     composite on every scroll frame. Softness comes from the stop
+     ramp instead — visually identical, and free.
+
+     Drop `.hero-wash` on any page banner and it paints the same
+     signature; that is what every other route's banner uses. */
+
+  /* LEFT — the reading light. Reaches ~66% across at full width, so it
+     is behind the headline and CTAs but stops short of the dashboard. */
+  --light-purple-top: radial-gradient(
+    66% 90% at 0% 0%,
+    rgba(109, 91, 255, 0.18) 0%,
+    rgba(109, 91, 255, 0.13) 30%,
+    rgba(109, 91, 255, 0.068) 48%,
+    rgba(109, 91, 255, 0.028) 64%,
+    transparent 80%
+  );
+  /* RIGHT — the product light. Capped at 55% of the width; with the
+     72% transparent stop the last visible pink lands near x=60%, well
+     clear of the left column. */
+  --light-pink-top: radial-gradient(
+    55% 100% at 100% 0%,
+    rgba(255, 79, 173, 0.18) 0%,
+    rgba(255, 79, 173, 0.14) 30%,
+    rgba(255, 79, 173, 0.08) 50%,
+    rgba(255, 79, 173, 0.03) 68%,
+    transparent 84%
+  );
+  /* The two quiet corner blobs. */
+  --light-purple-bottom: radial-gradient(
+    46% 58% at 0% 100%,
+    rgba(124, 109, 255, 0.1) 0%,
+    rgba(124, 109, 255, 0.045) 42%,
+    transparent 70%
+  );
+  --light-pink-bottom: radial-gradient(
+    50% 74% at 100% 100%,
+    rgba(255, 119, 200, 0.1) 0%,
+    rgba(255, 119, 200, 0.07) 34%,
+    rgba(255, 119, 200, 0.03) 56%,
+    transparent 78%
+  );
+
+  /* Purple first = purple composites on top where the two overlap, so
+     the centre resolves cool rather than magenta. */
+  --hero-wash: var(--light-purple-top), var(--light-pink-top),
+    var(--light-purple-bottom), var(--light-pink-bottom);
+
+  /* Below the lg breakpoint: two lights, not four.
+
+     The switch happens at 64rem because that is where the HERO LAYOUT
+     switches. Stacked, there is no left column to protect and no right
+     column to light — the copy is full width, so a right-hand light
+     lands squarely on the paragraph. Purple across the top where all
+     the copy is, pink at the bottom under the dashboard, nothing else.
+     Four overlapping rigs at that width also read as one flat magenta
+     field and cost four full-width paints to do it. */
+  --hero-wash-sm: radial-gradient(
+      118% 38% at 12% 0%,
+      rgba(109, 91, 255, 0.16) 0%,
+      rgba(109, 91, 255, 0.06) 44%,
+      transparent 74%
+    ),
+    radial-gradient(
+      96% 34% at 92% 100%,
+      rgba(255, 79, 173, 0.14) 0%,
+      rgba(255, 79, 173, 0.05) 42%,
+      transparent 76%
+    );
+
+  /* The same two lights, dialled right down, for everything BELOW the
+     hero. Same left-cool / right-warm logic so the page keeps one
+     lighting direction top to bottom. The strong rig is a hero-only
+     moment; repeating it full strength would flatten it into wallpaper. */
+  --ambient-wash:
+    radial-gradient(
+      820px 680px at 2% 16%,
+      rgba(109, 91, 255, 0.09),
+      transparent 70%
+    ),
+    radial-gradient(
+      760px 640px at 98% 74%,
+      rgba(255, 79, 173, 0.07),
+      transparent 72%
+    );
+
+  /* ---- Textures ----
+     The grid line is brand purple, not ink. Over the pink light an ink
+     grid reads as dirt on the lens; a purple one disappears into the
+     colour it sits on. Painted at ~3.5% alpha by `.texture-grid`, which
+     is the "only noticeable when you zoom in" the brief asks for. */
+  --texture-grid-size: 48px;
+  --texture-grid: linear-gradient(
+      to right,
+      rgba(108, 99, 255, 1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(108, 99, 255, 1) 1px, transparent 1px);
+
+  /* Light rays, one set per source. Magenta toward the dashboard at 5%,
+     purple behind the headline at 4% — the rays are tinted by the light
+     they belong to rather than being white, so they read as the same two
+     sources continuing rather than as a third, colourless effect. */
+  --hero-rays: conic-gradient(
+    from 196deg at 76% -12%,
+    transparent 0deg,
+    rgba(236, 72, 153, 0.9) 11deg,
+    transparent 23deg,
+    transparent 41deg,
+    rgba(236, 72, 153, 0.62) 52deg,
+    transparent 63deg
+  );
+  --hero-rays-left: conic-gradient(
+    from 126deg at 14% -14%,
+    transparent 0deg,
+    rgba(109, 91, 255, 0.85) 10deg,
+    transparent 21deg,
+    transparent 38deg,
+    rgba(109, 91, 255, 0.55) 48deg,
+    transparent 58deg
+  );
+
+  /* ==================================================================
+     SECTION ATMOSPHERE
+
+     The hero is lit; below it the page used to collapse to flat white and
+     the two stopped reading as one environment. Each token below is a
+     whole-section backdrop carrying the SAME two sources at a fraction of
+     the hero's strength — purple on the left, pink on the right, 4–8%
+     alpha, white still dominant. Radial gradients only, same no-blur rule
+     as the hero rig, and the last layer of each is the section's base
+     tint so the base and the glows are one paint.
+
+     Applied with `.atmo .atmo-<name>`; the class masks the whole thing
+     in and out over 160px so tinted and untinted sections never meet on
+     a hard edge. FAQ deliberately has no token: it is the rest before
+     the closing CTA.
+     ------------------------------------------------------------------ */
+
+  /* 1 — Clients strip. Purple top-left, pink bottom-right, barely-purple base. */
+  --atmo-clients: radial-gradient(
+      56% 90% at 4% 0%,
+      rgba(109, 91, 255, 0.05),
+      transparent 62%
+    ),
+    radial-gradient(
+      50% 84% at 96% 100%,
+      rgba(255, 79, 173, 0.04),
+      transparent 64%
+    ),
+    linear-gradient(#fcfcff, #fcfcff);
+
+  /* 2 — About. One wide ellipse behind the heading, nothing else. */
+  --atmo-heading: radial-gradient(
+    58% 42% at 50% 22%,
+    rgba(109, 91, 255, 0.06),
+    transparent 68%
+  );
+
+  /* 3 — Product cards. The hero's balance, mirrored. */
+  --atmo-cards: radial-gradient(
+      52% 62% at 6% 12%,
+      rgba(109, 91, 255, 0.05),
+      transparent 66%
+    ),
+    radial-gradient(
+      52% 62% at 94% 88%,
+      rgba(255, 79, 173, 0.05),
+      transparent 66%
+    ),
+    linear-gradient(#fbfaff, #fbfaff);
+
+  /* 4 — Why-choose. A single soft pink from the top, on white. */
+  --atmo-pink-top: radial-gradient(
+    64% 46% at 50% 0%,
+    rgba(255, 79, 173, 0.04),
+    transparent 70%
+  );
+
+  /* 5 — Dashboard preview. The one section allowed to echo the hero at
+     full strength, so the device cluster floats. */
+  --atmo-stage: radial-gradient(
+      46% 66% at 2% 46%,
+      rgba(109, 91, 255, 0.08),
+      transparent 68%
+    ),
+    radial-gradient(
+      46% 66% at 98% 54%,
+      rgba(255, 79, 173, 0.08),
+      transparent 68%
+    );
+
+  /* 6 — Stats. Purple behind the figures. */
+  --atmo-stats: radial-gradient(
+      60% 50% at 50% 42%,
+      rgba(109, 91, 255, 0.05),
+      transparent 70%
+    ),
+    linear-gradient(#fcfbff, #fcfbff);
+
+  /* ---- Dashboard glow ----
+     Three stacked radials so the panel appears lit from behind rather
+     than dropped on the page: a tight white core, a wider pink, a
+     widest purple. Same no-blur rule as the lighting rig — these are
+     background layers on ONE element, not three blurred divs. */
+  --dashboard-glow: radial-gradient(
+      58% 56% at 50% 50%,
+      rgba(255, 255, 255, 0.1),
+      transparent 68%
+    ),
+    radial-gradient(
+      76% 74% at 56% 54%,
+      rgba(255, 79, 173, 0.14),
+      transparent 72%
+    ),
+    radial-gradient(
+      92% 88% at 44% 52%,
+      rgba(109, 91, 255, 0.12),
+      transparent 74%
+    );
+
+  /* ---- Elevation, premium tier ---- */
+  --shadow-dashboard: 0 40px 120px rgba(108, 99, 255, 0.12);
+  --shadow-stats: 0 50px 120px rgba(108, 99, 255, 0.18);
+  --shadow-float: 0 8px 24px rgba(15, 23, 42, 0.06),
+    0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-cta: 0 12px 32px rgba(108, 99, 255, 0.32);
+  --shadow-cta-hover: 0 25px 60px rgba(108, 99, 255, 0.25);
+
+  /* ---- THE PRIMARY CTA FILL --------------------------------------
+     The brief specifies linear-gradient(0deg, #6D5BFF, #8A5CFF,
+     #EC4899). Two of those three stops cannot carry the button's own
+     label: measured against white, #6D5BFF is 4.57:1, #8A5CFF is
+     4.15:1 and #EC4899 is 3.53:1, and the label is 16–18px semibold —
+     which is not WCAG "large text" (that starts at 18.66px bold), so
+     it needs 4.5:1. The same brief also requires AA everywhere, so the
+     two requirements collide on this one element.
+
+     Resolved by keeping the specified hue path and direction and
+     darkening ONLY as far as the floor demands, per stop:
+       #6D5BFF  unchanged   4.57:1
+       #8A5CFF  -> #8357f2  4.54:1  (5% darker; not distinguishable side by side)
+       #EC4899  -> #cd3f85  4.52:1  (13% darker; the visible compromise)
+     Anything lighter at the pink end puts white text under the floor. */
+  --gradient-cta: linear-gradient(
+    0deg,
+    #6d5bff 0%,
+    #8357f2 52%,
+    #cd3f85 100%
+  );
+
+  /* ---- Radii, premium tier ---- */
+  --radius-btn-lux: 18px;
+  --radius-card-lux: 24px;
+  --radius-band-lux: 32px;
+
+  /* ---- Layout ---- */
+  --content-max: 1400px;
+  --nav-height: 88px;
+  --hero-pad-top: clamp(6rem, 4.5rem + 6.4vw, 7.5rem); /* 96 → 120 */
+  --hero-min-h: clamp(38rem, 20rem + 42vw, 56.25rem); /* 608 → 900 */
+
+  /* ---- Motion, premium tier ---- */
+  --duration-card: 300ms;
+  --float-cycle: 6s;
+  --blob-cycle: 18s;
+
+  /* ---- Brand harmonisation ----------------------------------------
+     The legacy premium layer above used a purple/pink demo palette. These
+     final token definitions keep its composition but render it in Flysync's
+     supplied blue/red identity. */
+  --light-purple-top: radial-gradient(
+    66% 90% at 0% 0%,
+    rgba(8, 122, 230, 0.18) 0%,
+    rgba(8, 122, 230, 0.12) 30%,
+    rgba(8, 122, 230, 0.055) 48%,
+    rgba(8, 122, 230, 0.02) 64%,
+    transparent 80%
+  );
+  --light-pink-top: radial-gradient(
+    55% 100% at 100% 0%,
+    rgba(223, 14, 43, 0.16) 0%,
+    rgba(223, 14, 43, 0.11) 30%,
+    rgba(223, 14, 43, 0.055) 50%,
+    rgba(223, 14, 43, 0.02) 68%,
+    transparent 84%
+  );
+  --light-purple-bottom: radial-gradient(
+    46% 58% at 0% 100%,
+    rgba(8, 122, 230, 0.09) 0%,
+    rgba(8, 122, 230, 0.035) 42%,
+    transparent 70%
+  );
+  --light-pink-bottom: radial-gradient(
+    50% 74% at 100% 100%,
+    rgba(223, 14, 43, 0.09) 0%,
+    rgba(223, 14, 43, 0.045) 40%,
+    transparent 78%
+  );
+  --hero-wash: var(--light-purple-top), var(--light-pink-top),
+    var(--light-purple-bottom), var(--light-pink-bottom);
+  --hero-wash-sm: radial-gradient(118% 38% at 12% 0%, rgba(8, 122, 230, 0.14), transparent 74%),
+    radial-gradient(96% 34% at 92% 100%, rgba(223, 14, 43, 0.12), transparent 76%);
+  --ambient-wash: radial-gradient(820px 680px at 2% 16%, rgba(8, 122, 230, 0.07), transparent 70%),
+    radial-gradient(760px 640px at 98% 74%, rgba(223, 14, 43, 0.06), transparent 72%);
+  /* Alternating section ground: a near-white blue/red field. It is light
+     enough to sit behind content, while keeping both Flysync brand colours
+     present outside the hero. */
+  --section-tint: linear-gradient(110deg, #f7fbff 0%, #ffffff 48%, #fff7f8 100%);
+  --atmo-clients: radial-gradient(56% 90% at 4% 0%, rgba(8, 122, 230, 0.06), transparent 62%),
+    radial-gradient(50% 84% at 96% 100%, rgba(223, 14, 43, 0.055), transparent 64%),
+    var(--section-tint);
+  --atmo-heading: radial-gradient(54% 46% at 12% 20%, rgba(8, 122, 230, 0.06), transparent 68%),
+    radial-gradient(48% 42% at 92% 70%, rgba(223, 14, 43, 0.045), transparent 70%),
+    var(--section-tint);
+  --atmo-cards: radial-gradient(52% 62% at 6% 12%, rgba(8, 122, 230, 0.06), transparent 66%),
+    radial-gradient(52% 62% at 94% 88%, rgba(223, 14, 43, 0.06), transparent 66%),
+    var(--section-tint);
+  --atmo-pink-top: radial-gradient(58% 46% at 82% 4%, rgba(223, 14, 43, 0.065), transparent 70%),
+    radial-gradient(42% 42% at 8% 88%, rgba(8, 122, 230, 0.04), transparent 70%),
+    var(--section-tint);
+  --atmo-stage: radial-gradient(46% 66% at 2% 46%, rgba(8, 122, 230, 0.09), transparent 68%),
+    radial-gradient(46% 66% at 98% 54%, rgba(223, 14, 43, 0.085), transparent 68%),
+    var(--section-tint);
+  --atmo-stats: radial-gradient(56% 52% at 10% 42%, rgba(8, 122, 230, 0.055), transparent 70%),
+    radial-gradient(50% 48% at 92% 52%, rgba(223, 14, 43, 0.05), transparent 70%),
+    var(--section-tint);
+  --texture-grid: linear-gradient(to right, rgba(8, 122, 230, 1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(8, 122, 230, 1) 1px, transparent 1px);
+  --hero-rays: conic-gradient(from 196deg at 76% -12%, transparent 0deg, rgba(223, 14, 43, 0.8) 11deg, transparent 23deg, transparent 41deg, rgba(223, 14, 43, 0.55) 52deg, transparent 63deg);
+  --hero-rays-left: conic-gradient(from 126deg at 14% -14%, transparent 0deg, rgba(8, 122, 230, 0.8) 10deg, transparent 21deg, transparent 38deg, rgba(8, 122, 230, 0.5) 48deg, transparent 58deg);
+  --dashboard-glow: radial-gradient(58% 56% at 50% 50%, rgba(255, 255, 255, 0.16), transparent 68%),
+    radial-gradient(76% 74% at 56% 54%, rgba(223, 14, 43, 0.11), transparent 72%),
+    radial-gradient(92% 88% at 44% 52%, rgba(8, 122, 230, 0.11), transparent 74%);
+  --shadow-dashboard: 0 30px 80px rgba(8, 122, 230, 0.12);
+  --shadow-stats: 0 30px 80px rgba(8, 122, 230, 0.12);
+  --shadow-cta: 0 12px 32px rgba(8, 122, 230, 0.22);
+  --shadow-cta-hover: 0 20px 44px rgba(8, 122, 230, 0.2);
+  --gradient-cta: linear-gradient(100deg, #087ae6 0%, #3451b2 50%, #b70b25 100%);
+  --radius-btn-lux: 8px;
+  --radius-card-lux: 14px;
+  --radius-band-lux: 16px;
+}

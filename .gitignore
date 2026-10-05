@@ -1,0 +1,20 @@
+node_modules
+.next
+out
+.env*.local
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+.env*
+
+# Client source material (PDFs, large binaries)
+Website content/
+
+# Raw customer logo artwork, 13MB of 1500px PNGs. The normalised set that
+# the site actually serves is public/logos (238KB) — see lib/clients.ts.
+Customer Logos/
+Customer Logos.zip
+
+# Screenshot output from scripts/visual/shots.mjs
+shots/

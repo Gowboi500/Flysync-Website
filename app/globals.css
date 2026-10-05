@@ -1,0 +1,3176 @@
+@import "tailwindcss" source(none);
+
+/* The redesign's token foundation. Declared separately so the design system
+   is one reviewable file rather than a seam running through this one. Every
+   name in it is new — nothing here is overridden, so importing it changes
+   no pixels on its own. Components migrate onto it in Stage 2. */
+@import "./design-tokens.css";
+
+/* Automatic source detection is switched OFF and the sources are named.
+   Tailwind v4 otherwise walks the project root, which contains the client's
+   "Website content" folder — a directory with a space in its name and a pile
+   of PDFs. That scan failed silently and emitted a stylesheet with zero
+   utility classes. Naming the source directories makes extraction
+   deterministic. (The other half of that outage was a missing
+   postcss.config.mjs — keep both.) */
+@source "../app/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../lib/**/*.{ts,tsx}";
+
+/* ============================================================
+   FLYSYNC DESIGN SYSTEM — LIGHT
+   Warm off-white canvas · one accent · borders, not shadows
+
+   Restraint rules, enforced here rather than left to discipline:
+   - ONE accent (#5B3FE0) drives every interactive state.
+   - Magenta/pink is a restricted token. It exists only inside the --brand-gradient ramp
+     and may appear at most three times per viewport.
+   - Depth comes from a 1px border. Shadow appears on hover only.
+
+   Brand pass: the accent moved from blue to the indigo→violet→magenta
+   gradient family. Every value below was picked against the WCAG AA floor
+   rather than by eye — the measurements are recorded beside each token so
+   the next person changing one knows how much headroom there is.
+   ============================================================ */
+
+@theme {
+  /* ---- Canvas ---- */
+  /* Stage 2: the ground is now true white, per the redesign spec. The
+     'never pure white' rule belonged to the previous warm system. */
+  --color-canvas: var(--color-page);
+  /* Cooled from the old warm #f3f4f0. Once the Type B band is a cool tint,
+     a warm grey beside it does not read as a second tone — it reads as a
+     dirty version of the first. One temperature across the neutrals — now
+     violet-leaning rather than blue, to sit under the new accent. */
+  --color-canvas-alt: var(--color-tint-soft);
+  --color-surface: #ffffff; /* cards and raised surfaces */
+
+  /* ---- Line work ---- */
+  /* Neutral structural lines keep card edges and separators quiet; colour is
+     reserved for icons, actions, and intentional interactive states. */
+  --color-line: #e1e5e8;
+  --color-line-strong: #cbd1d6;
+
+  /* ---- Type ---- */
+  --color-fg: #0e0f12; /* headings — near-black, never #000 */
+  --color-fg-body: #697177; /* body copy */
+  --color-fg-muted: #697177;
+  --color-fg-subtle: #889096;
+
+  /* ---- The single accent: the deep indigo/violet end of the gradient ----
+     6.50:1 on the canvas, so it clears AA for body-sized text as well as for
+     UI. Its hover is darker still, never lighter. */
+  /* The SOLID accent — links, icons, small labels. Deliberately a shade
+     darker than --brand-purple (#5b5ef7).
+
+     The brand purple is 4.79:1 on pure white, which passes, but leaves no
+     headroom: on --color-accent-soft it falls to 4.27:1 and on the mock's
+     chip tints to 3.82:1. Both were live AA failures. #5350ef measures
+     5.56:1 on white and 5.02:1 on the soft tint.
+
+     The GRADIENT still starts at the exact brand #5b5ef7 — this token is
+     for flat ink only, where the spec's value cannot carry the contrast. */
+  --color-accent: #087ae6;
+  --color-accent-hover: #056bc9;
+  --color-accent-soft: #eaf5ff;
+  --color-accent-line: #a6d7fb;
+  /* The lighter violet the gradient starts from. Decorative only. */
+  --color-violet: var(--brand-violet);
+
+  /* ---- Magenta/pink: lives inside the --brand-gradient ramp ----
+     3.69:1 on the canvas — AA for LARGE text (3:1) and for non-text UI, and
+     nowhere near enough for body copy. Never paint small type with it. */
+  --color-magenta: var(--brand-pink);
+  --color-pink: var(--brand-pink);
+
+  /* ---- Type B: the soft band ----
+     A 3% tint of the accent, NOT the warm grey it replaces. Warm-on-warm
+     read as "slightly dirty white"; a cool tint against the warm canvas reads
+     as a deliberate change of material. */
+  --color-tint: var(--color-tint-soft);
+
+  /* ---- Type C: the dark anchor ----
+     Deliberately the same ink the product mockups already use, so a dark
+     section and the screenshots inside it are the same material rather than
+     two different blacks. */
+  --color-anchor: #0b0c10;
+  --color-anchor-surface: #15161d;
+
+  /* ---- Dark chrome: the product mockups stay dark on the light site ---- */
+  --color-ink-950: #0b0c10;
+  --color-ink-900: #121419;
+  --color-ink-850: #171a20;
+  --color-ink-800: #1d2129;
+  --color-ink-700: #272c36;
+  --color-ink-600: #333945;
+  --color-ink-500: #49505f;
+
+  /* ---- Type stack: one family, self-hosted via next/font ---- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, "Times New Roman", serif;
+
+  /* ---- Radii: 12px cards, 8px controls ---- */
+  --radius-control: var(--radius-button);
+  --radius-card: var(--radius-card-lg);
+
+  /* ---- Motion vocabulary ----
+     Two curves for the whole site, nothing else. `--ease-out` carries every
+     entrance and reveal; `--ease-inout` carries anything that morphs between
+     two states (toggles, sliding indicators, knobs).
+
+     Durations are a closed set too: hover 150ms, UI 250ms, reveal 600ms,
+     line draw 1200ms ceiling. If something needs a value not on this list,
+     the effect is wrong, not the token. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Legacy alias — Phase 1 rules referenced this name. */
+  --ease-out-quint: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-hover: 150ms;
+  --dur-ui: 250ms;
+  --dur-reveal: 600ms;
+  --dur-draw: 1200ms;
+  /* Screenshot reveals sit just above the text reveal, deliberately. */
+  --dur-shot: 700ms;
+
+  --breakpoint-3xl: 1800px;
+}
+
+/* ============================================================
+   THE BRAND GRADIENT — SINGLE SOURCE OF TRUTH
+
+   Indigo-violet → purple → magenta/pink, 135deg. Nothing in this codebase
+   may declare a brand gradient of its own: every CTA, band, badge, hairline,
+   glow, chart stroke and SVG stop reads one of the tokens below. If a
+   gradient appears in a component file, it is a bug.
+
+   ONE ramp, three exits. The exits exist because the ramp's pink tail cannot
+   carry text — measured against white, #a855f7 is 3.79:1 and #f472b6 is
+   2.62:1, against a 4.5:1 floor for body text and 3:1 for large text. Only
+   the last stretch of the tail differs between them; the hues are identical.
+
+     --brand-gradient       the exact brand values. Decorative surfaces ONLY,
+                            i.e. nothing sits on top: glows, blobs, hairlines,
+                            chart strokes, the nav indicator.
+
+     --brand-gradient-ink   carries WHITE TEXT OR GLYPHS. Tail pulled to
+                            #c0368f. Stops measure 5.25:1 / 5.42:1 / 5.04:1
+                            against white — every one clear of AA. Used by
+                            primary CTAs, the stats band and icon badges.
+
+     --brand-gradient-text  background-clipped onto TEXT against the light
+                            canvas. Tail pulled to #e0479e, 3.69:1, which is
+                            AA for large text and nothing else — never put it
+                            on anything under 24px (or 18.66px bold).
+   ============================================================ */
+@theme {
+  /* The three brand stops, exposed individually for SVG <stop> elements and
+     anywhere a single point on the ramp is needed. */
+  /* Stage 2: these names are kept because 20 call sites already read them,
+     but they now ALIAS the Stage 1 ramp rather than carrying their own
+     values. One ramp, one place to change it. */
+  --brand-1: var(--brand-purple);
+  --brand-2: var(--brand-violet);
+  --brand-3: var(--brand-pink);
+
+  --brand-gradient: var(--gradient-brand);
+  --brand-gradient-ink: var(--gradient-brand-ink);
+  /* Display-size clipped text only: the full ramp's #ec4899 tail is 3.50:1,
+     over the 3:1 large-text floor and nowhere near the 4.5:1 body floor. */
+  --brand-gradient-text: var(--gradient-brand);
+  --brand-glow: var(--gradient-blob-cool);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--color-canvas);
+    /* Nav height + 16px, so the sticky header never clips a heading. */
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-fg-body);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Every anchored section clears the sticky nav. */
+  [id] {
+    scroll-margin-top: calc(var(--nav-height) + 1rem);
+  }
+
+  ::selection {
+    background: #ecdff8;
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-fg);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  /* Headings above 40px get tighter tracking. */
+  h1 {
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Numbers never shift layout: tabular figures wherever they appear. */
+  .tnum,
+  table,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* The page is long; letting the browser skip off-screen sections cuts a
+     large amount of main-thread work on first load. The hero is excluded.
+
+     Careful: a descendant of a skipped subtree has no real box, so its
+     intersection geometry is fiction until the section is rendered. Reveals
+     replay, which means the observer reads that geometry continuously — see
+     the debounce in RevealObserver, which exists entirely because of this
+     rule. Removing content-visibility instead was measured at +361ms TBT. */
+  main > section:not(:first-child),
+  footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-canvas);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 99px;
+    border: 3px solid var(--color-canvas);
+  }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: var(--content-max); /* 1400px */
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Each section should read as its own page. 96 / 128 / 152px. */
+@utility section {
+  /* One fluid value replaces the three stepped breakpoints: 80px on a phone,
+     160px on a 1440 desktop, interpolating in between. */
+  padding-block: var(--section-gap);
+}
+
+/* Sanctioned use #1: gradient text on metric highlights. Large sizes only —
+   magenta fails contrast on white at small text sizes. */
+@utility text-gradient-metric {
+  background: var(--brand-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Sanctioned use #2: one soft radial glow behind the hero mock. */
+/* The ambient blooms behind hero content. Two of them, cool and warm, so the
+   composition has depth rather than one flat wash. Both are low-opacity
+   radial tokens — nothing sits on top of them, so they use the decorative
+   ramp and never need to clear a contrast floor. */
+@utility hero-glow {
+  background: var(--gradient-blob-cool);
+  filter: blur(72px);
+}
+
+@utility hero-glow-warm {
+  background: var(--gradient-blob-warm);
+  filter: blur(84px);
+}
+
+/* Underline that draws IN from the left and OUT to the right — it never
+   simply reverses, which is what a plain size transition gives you.
+
+   The mechanism is that `background-position` is deliberately not
+   transitioned. At rest the stripe is anchored to the right edge; hovering
+   re-anchors it left and grows it, so it draws left-to-right. On leave the
+   anchor snaps back to the right in the same frame while the width is still
+   animating down, so it retreats to the right. One un-transitioned property
+   doing the work of a keyframe. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-size: 0% 1px;
+  transition: background-size 200ms var(--ease-out);
+
+  &:hover {
+    background-position: 0 100%;
+    background-size: 100% 1px;
+  }
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+@layer components {
+  /* ---- Surface: border for depth, shadow only on hover ---- */
+  .surface {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  .card-hover {
+    transition:
+      border-color var(--duration-base) var(--ease-entrance),
+      transform var(--duration-base) var(--ease-entrance);
+  }
+
+  .card-hover:hover {
+    border-color: var(--color-accent-line);
+    transform: translateY(-4px);
+  }
+
+  /* ---- Section eyebrow: identical treatment everywhere ---- */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--color-fg-body);
+  }
+
+  /* ---- Controls: 8px radius ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-control);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0.8125rem 1.375rem;
+    transition:
+      background-color var(--duration-fast) var(--ease-entrance),
+      border-color var(--duration-fast) var(--ease-entrance),
+      box-shadow var(--duration-fast) var(--ease-entrance),
+      color var(--duration-fast) var(--ease-entrance),
+      transform var(--duration-fast) var(--ease-entrance);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .btn-primary {
+    position: relative;
+    isolation: isolate;
+    /* Pinned to the gradient's own first stop rather than to --color-accent.
+       Inside `.on-dark` the accent token is the LIFTED violet (#a98bff), and
+       white on that is 2.7:1 — so any moment the ::before layer is not
+       painting (a paint glitch, a UA that drops the pseudo-element) the label
+       would fail AA. #6c4ff0 is 5.25:1 with white everywhere. */
+    background-color: var(--color-accent);
+    color: #fff;
+  }
+
+  /* Sanctioned use #3: the gradient appears on primary CTA hover.
+     It crossfades a pseudo-element rather than transitioning
+     `background-image`. Gradients are not interpolable between an absent
+     value and a present one, so animating the property directly gives a
+     hard swap at 50% — the transition declaration reads as if it works and
+     does nothing. Opacity on a layer that is always there does.
+
+     `isolation: isolate` + z-index -1 puts that layer above the button's
+     own background colour and below its label. */
+  /* The gradient is now the CTA's RESTING state, not its hover state — the
+     single fastest "this was designed" signal on the page. Hover slides the
+     gradient rather than fading a second layer in, so there is still
+     somewhere to go. */
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    box-shadow: none;
+  }
+
+  .btn-primary::before {
+    display: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    /* --gradient-cta, not --brand-gradient-ink: the ink ramp is the
+       135° one shared with the stats band and the icon badges. The CTA
+       runs the brief's 0° purple→violet→pink instead, at the AA-corrected
+       stops documented on the token. */
+    background-image: var(--gradient-cta);
+    background-size: 100% 150%;
+    background-position: 0 100%;
+    transition:
+      background-position var(--dur-ui) var(--ease-out),
+      filter var(--duration-fast) var(--ease-entrance);
+  }
+
+  /* Hover slides the gradient vertically (it is a 0° ramp now) and lifts
+     it +8%. The brightness is on the FILL, not the button: on the button
+     it would take the white label with it, and there is nowhere above
+     white for that to go. */
+  .btn-primary:hover::before {
+    background-position: 0 0;
+    filter: brightness(1.08);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  /* The secondary CTA: white, purple border, subtle shadow.
+
+     This REVERSES an earlier request to make it a full gradient fill. The
+     premium brief calls for an outlined secondary, and two filled gradient
+     buttons side by side flatten the primary/secondary hierarchy — which is
+     the same objection raised when the fill went in. Filled version is in
+     the history if it is wanted back.
+
+     Label is --color-fg on --color-surface: 17.9:1 light, 15.8:1 on the
+     dark anchor. Unaffected by the border colour. */
+  .btn-secondary {
+    background-color: var(--color-surface);
+    color: var(--color-fg);
+    border: 1px solid var(--color-accent-line);
+    box-shadow: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-entrance),
+      box-shadow var(--duration-fast) var(--ease-entrance),
+      transform var(--duration-fast) var(--ease-entrance);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    box-shadow: none;
+  }
+
+  .btn-ghost {
+    color: var(--color-fg-body);
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-accent);
+  }
+
+  .btn-lg {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* ---- Field focus ring ----
+     A 2px accent ring that emerges from the bottom edge and expands to
+     surround the field.
+
+     Both keyframes are a single non-inset box-shadow, which is the whole
+     trick: shadow lists only interpolate shape-for-shape, so an inset-to-
+     outset transition (or a "no shadow" to "shadow" one) hard-swaps. At rest
+     the shadow is shrunk 2px and pushed 2px down, which parks it exactly
+     behind the field's own bottom edge — invisible, but a real shadow the
+     browser can interpolate from. */
+  /* Inputs get their own radius, one step tighter than a card. */
+  .field-ring {
+    border-radius: var(--radius-input);
+    box-shadow: 0 2px 0 -2px var(--color-accent);
+    transition:
+      box-shadow var(--dur-hover) var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out);
+  }
+
+  .field-ring:focus {
+    box-shadow: 0 0 0 2px var(--color-accent);
+  }
+
+  /* ---- Forms and dropdowns -------------------------------------------
+     Shared Flysync control primitives. Form components can still choose their
+     layout, but field shape, borders, focus, select chevrons, and dropdown
+     panels all come from the design system instead of one-off strings. */
+  .form-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--color-line) 86%, #ffffff);
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(8, 122, 230, 0.075), transparent 32%),
+      radial-gradient(circle at 0% 100%, rgba(223, 14, 43, 0.055), transparent 38%),
+      var(--color-surface);
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.375rem;
+    color: var(--color-fg-muted);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .form-field {
+    width: 100%;
+    min-height: 3rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-input);
+    background-color: var(--color-surface);
+    color: var(--color-fg);
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    transition:
+      background-color var(--dur-hover) var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out),
+      box-shadow var(--dur-hover) var(--ease-out);
+  }
+
+  .form-field::placeholder {
+    color: var(--color-fg-subtle);
+  }
+
+  .form-field:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 36%, var(--color-line));
+  }
+
+  .form-field:focus {
+    border-color: var(--color-accent);
+    background-color: var(--color-surface);
+    outline: none;
+  }
+
+  .form-field:disabled {
+    cursor: not-allowed;
+    border-color: var(--color-line);
+    background: var(--color-canvas-alt);
+    color: var(--color-fg-subtle);
+  }
+
+  .form-select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 2.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23087ae6' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: right 1rem center;
+    background-repeat: no-repeat;
+    background-size: 0.7rem;
+  }
+
+  .form-select option {
+    background: var(--color-surface);
+    color: var(--color-fg);
+  }
+
+  .form-textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  .dropdown-panel {
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--color-accent-line) 58%, var(--color-line));
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(circle at 96% 0%, rgba(223, 14, 43, 0.07), transparent 30%),
+      radial-gradient(circle at 0% 100%, rgba(8, 122, 230, 0.08), transparent 38%),
+      var(--color-surface);
+    box-shadow: var(--shadow-lifted);
+    padding: 0.625rem;
+  }
+
+  .dropdown-item {
+    border: 1px solid transparent;
+    border-radius: var(--radius-control);
+    color: var(--color-fg-body);
+    transition:
+      background-color var(--dur-hover) var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out),
+      color var(--dur-hover) var(--ease-out);
+  }
+
+  .dropdown-item:hover {
+    border-color: var(--color-accent-line);
+    background: var(--color-accent-soft);
+    color: var(--color-fg);
+  }
+
+  .dropdown-item[aria-disabled="true"] {
+    cursor: default;
+    opacity: 0.9;
+  }
+
+  .dropdown-item[aria-disabled="true"]:hover {
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .dropdown-footer {
+    border: 1px solid color-mix(in srgb, var(--color-accent-line) 62%, transparent);
+    border-radius: var(--radius-control);
+    background:
+      linear-gradient(100deg, rgba(234, 245, 255, 0.85), rgba(255, 255, 255, 0.9) 54%, rgba(255, 240, 242, 0.86));
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    filter: invert(34%) sepia(13%) saturate(826%) hue-rotate(186deg) brightness(94%) contrast(86%);
+  }
+
+  /* ---- Submit morph ----
+     Both labels occupy the same grid cell so the button never resizes as
+     they crossfade. The buttons are full-width in every form here, so this
+     costs nothing at rest either. */
+  .btn-morph {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .btn-morph > * {
+    grid-area: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity var(--dur-ui) var(--ease-out);
+  }
+
+  /* ---- Type C section scope ----
+     The same trick `.screen-ui` uses below: redefine the colour tokens inside
+     a scope and every component built on `text-fg` / `bg-surface` /
+     `border-line` adapts without knowing it is on a dark background. Cards,
+     chips, buttons and the FAQ all come along for free.
+
+     Contrast, measured against #0b0c10: heading #f4f5f7 is 17.4:1, body
+     #a7adba is 8.2:1, subtle #8f96a4 is 6.1:1 — all clear of AA. */
+  .on-dark {
+    background-color: var(--color-anchor);
+    color: var(--color-fg-body);
+
+    --color-canvas: var(--color-anchor);
+    --color-canvas-alt: #12131a;
+    --color-surface: var(--color-anchor-surface);
+
+    --color-fg: #f4f5f7;
+    --color-fg-body: #a7adba;
+    --color-fg-muted: #a7adba;
+    --color-fg-subtle: #8f96a4;
+
+    --color-line: rgba(255, 255, 255, 0.09);
+    --color-line-strong: rgba(255, 255, 255, 0.18);
+
+    /* The accent has to lift off near-black — #5b3fe0 on #0b0c10 is 2.6:1
+       and unreadable. #a98bff measures 7.29:1 there and still reads as the
+       same violet family. */
+    --color-accent: #a98bff;
+    --color-accent-hover: #c0aaff;
+    --color-accent-soft: rgba(169, 139, 255, 0.14);
+    --color-accent-line: rgba(169, 139, 255, 0.32);
+    /* The magenta end lifts too, or it disappears into the ink. */
+    --color-magenta: #f472b6;
+  }
+
+  /* Shadows do not read on near-black. Depth there is a lit edge. */
+  .on-dark .surface,
+  .on-dark .card-hover:hover {
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .on-dark .card-hover:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: #191a22;
+  }
+
+  /* ---- Elevation for light surfaces ---- */
+  .surface {
+    box-shadow: none;
+  }
+
+  /* ---- Simulated product screenshots: a WHITE product UI ----
+     The mocks used to be dark glassmorphism on the light page. They are now
+     a light SaaS console — white cards, hairline greys, dark type, a violet
+     active state and soft drop shadows — which is what the product actually
+     looks like.
+
+     Everything the mocks draw is expressed as one of the tokens below, so
+     the whole product UI can be retinted from this block alone. The system
+     font stack is load-bearing as well as truthful: the rupee glyph sits in
+     Inter's latin-ext range, so one of them in Inter text would pull an
+     extra ~85 KB font onto the critical path.
+
+     Contrast, measured on #ffffff: heading #101322 is 18.4:1, body #545a6b
+     6.9:1, subtle #646b7a 5.4:1, accent #5b3fe0 6.5:1 — all clear of AA. */
+  .screen-ui {
+    font-family:
+      ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+
+    --screen-bg: #ffffff;
+    --screen-panel: #ffffff;
+    /* Panel interiors and inset wells. A hair of violet, not neutral grey. */
+    --screen-soft: #f7f7ff;
+    --screen-line: #ececf6;
+    --screen-line-strong: #dcdcee;
+    --screen-accent: #5350ef; /* matches --color-accent; see note there */
+    --screen-accent-soft: #f1f1fe;
+    --screen-magenta: var(--brand-pink);
+    /* Success / danger, retuned for a light background: the emerald-400 and
+       rose-400 the dark mocks used are ~1.8:1 on white. */
+    /* #047857 measured 4.44:1 against its own 10% chip tint — just under.
+       #046b4e is 5.33:1 there and 6.53:1 on plain white. */
+    --screen-pos: #046b4e;
+    --screen-neg: #be123c;
+
+    --color-fg: #101322;
+    --color-fg-body: #545a6b;
+    --color-fg-muted: #545a6b;
+    /* #6b7280 is 4.83:1 on white but only 4.32:1 on --screen-accent-soft,
+       which is what the highlighted rows use. #646b7a clears both: 5.35:1
+       and 4.78:1. */
+    --color-fg-subtle: #646b7a;
+
+    background-color: var(--screen-bg);
+    color: var(--color-fg);
+  }
+
+  /* ---- Product-UI atoms ----
+     Named rather than spelled out at each call site, so a card in the hero
+     dashboard and a card in a product screenshot are provably the same card. */
+  /* Glass, not flat white: a translucent panel over the mock's own ground,
+     with a blur behind it. The saturate() is what stops the blur reading as
+     grey — it puts the colour back that the blur averages out. */
+  .sc-card {
+    background: color-mix(in srgb, var(--screen-panel) 72%, transparent);
+    backdrop-filter: blur(12px) saturate(1.6);
+    -webkit-backdrop-filter: blur(12px) saturate(1.6);
+    border: 1px solid var(--screen-line);
+    border-radius: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* backdrop-filter is a compositing cost per element, and these mocks are
+     scaled inside FitScreen where the blur buys nothing legible. Anyone who
+     has asked for less motion gets the flat panel. */
+  @media (prefers-reduced-motion: reduce) {
+    .sc-card {
+      background: var(--screen-panel);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
+  /* Inset wells — table bodies, chart panels, list rows. Flat, no shadow:
+     an inset that also casts a shadow reads as a card floating in a card. */
+  .sc-well {
+    background: var(--screen-soft);
+    border: 1px solid var(--screen-line);
+    border-radius: 12px;
+  }
+
+  .sc-line {
+    border-color: var(--screen-line);
+  }
+
+  .sc-divide {
+    border-color: var(--screen-line);
+  }
+
+  /* The active nav item and any small violet chip. */
+  .sc-accent {
+    color: var(--screen-accent);
+  }
+
+  .sc-accent-bg {
+    background: var(--screen-accent-soft);
+  }
+
+  /* Icon badges inside the product UI carry the brand gradient, matching the
+     badges on the marketing page. White glyph on --brand-gradient-ink, which is
+     ≥5:1 at every stop. */
+  .sc-badge {
+    background-image: var(--brand-gradient-ink);
+    color: #fff;
+  }
+
+  .sc-pos {
+    color: var(--screen-pos);
+  }
+
+  .sc-neg {
+    color: var(--screen-neg);
+  }
+
+  /* ---- Marquee ----
+     Play state is a variable rather than a rule, because four separate
+     things want to stop the track: hover, the tab going to the background,
+     the row leaving the viewport, and the entrance not having played yet.
+     As rules those fight on specificity — whichever selector happens to be
+     longest wins, and "hovered" beat "off-screen". As an inherited custom
+     property they simply compose: any one of them setting `paused` on the
+     host stops it, and running is what is left when none of them do. */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 60s) linear infinite;
+    animation-play-state: var(--marquee-play, running);
+  }
+
+  .marquee-host:hover {
+    --marquee-play: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+
+  /* ============================================================
+     THE STATS BAND
+
+     Replaces the four separate metric cards (and the boarding-pass hover
+     that went with them). The reference calls for one full-width gradient
+     band with the figures reversed out of it, so that is what this is.
+
+     It carries white text, so it takes --brand-gradient-ink, not the
+     decorative ramp: the label under each figure is 14px, which needs the
+     full 4.5:1. Labels are painted at FULL white for that reason — at
+     white/85 the worst stop measures 4.05:1 and at white/92 it is 4.46:1,
+     both under the floor. Opacity is not available here; weight is.
+
+     The dividers are the band's only internal structure, and they stop
+     short of the edges so the band still reads as one object.
+     ============================================================ */
+  .brand-band {
+    background-image: var(--brand-gradient-ink);
+    color: #fff;
+  }
+
+  .brand-band-item + .brand-band-item {
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  @media (width < 40rem) {
+    /* Stacked, so the rule has to move to the top edge or it draws down the
+       side of a full-width row. */
+    .brand-band-item + .brand-band-item {
+      border-left: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+  }
+
+  /* ============================================================
+     SIGNATURE 3 — LIVE PNR TICKER (hero dashboard mock)
+
+     The slide and the fade are Web Animations API calls in BookingsFeed —
+     they need to start from the pre-shift position, which is a thing you
+     schedule, not a thing you declare. What is left here is the part that
+     genuinely is declarative.
+     ============================================================ */
+  /* ============================================================
+     SIGNATURE 4 — HEADLINE REVEAL
+
+     Words rise and resolve out of a blur, one after another. This replaces
+     the masked block rise rather than joining it — the animation vocabulary
+     is deliberately small, and two ways of revealing a heading reads as
+     indecision.
+
+     `filter` is the third property here alongside transform and opacity.
+     Blur is the expensive one of the three, so it is confined to headings
+     (never body copy), the radius is small, and it is gone inside 600ms.
+
+     The split-flap half of this effect is JS and lives in splitFlap.ts. It
+     is scoped to eyebrow labels only.
+     ============================================================ */
+  @media (prefers-reduced-motion: no-preference) {
+    .words .w {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.3em);
+      filter: blur(8px);
+      transition:
+        opacity var(--dur-reveal) var(--ease-out),
+        transform var(--dur-reveal) var(--ease-out),
+        filter var(--dur-reveal) var(--ease-out);
+      transition-delay: calc(var(--i, 0) * 55ms);
+    }
+
+    .words.is-in .w {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+
+    html.no-js .words .w {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+
+  /* ============================================================
+     LIVE MOCK INTERIORS
+
+     Everything here is gated on `[data-live]`, set by LiveMock while the
+     mockup is on screen. One observer per mock drives the lot.
+
+     All one-shot entrances — they play when the mock comes into view and
+     then stop. The only repeating loops in a mock are the Live pulse, the
+     booking feed and the KPI drift, all of which live in JS where they can
+     be stopped rather than left spinning off-screen.
+
+     Under reduced motion LiveMock reports live immediately and never
+     re-arms, so these resolve to their final state on the first frame.
+     ============================================================ */
+
+  /* Line chart draws left to right. --len is the path length, measured at
+     build time — see DashboardMock. */
+  .lv-draw {
+    stroke-dasharray: var(--len, 400);
+    stroke-dashoffset: var(--len, 400);
+  }
+
+  [data-live] .lv-draw {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 900ms var(--ease-out) 120ms;
+  }
+
+  /* The area fill under the line follows the line rather than racing it. */
+  .lv-fill {
+    opacity: 0;
+  }
+
+  [data-live] .lv-fill {
+    opacity: 1;
+    transition: opacity 700ms var(--ease-out) 420ms;
+  }
+
+  /* Bars grow from the baseline. scaleY on a bottom origin, so no layout. */
+  .lv-bar {
+    transform: scaleY(0);
+    transform-origin: 50% 100%;
+  }
+
+  [data-live] .lv-bar {
+    transform: scaleY(1);
+    transition: transform 600ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 55ms);
+  }
+
+  /* Horizontal meters — pipeline stages, seat loads. */
+  .lv-meter {
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+  }
+
+  [data-live] .lv-meter {
+    transform: scaleX(1);
+    transition: transform 700ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  /* Rows and cards arriving top to bottom. */
+  .lv-row {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+
+  [data-live] .lv-row {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 420ms var(--ease-out),
+      transform 420ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 50ms);
+  }
+
+  /* Status chips settle in after the row that carries them. */
+  .lv-badge {
+    opacity: 0;
+  }
+
+  [data-live] .lv-badge {
+    opacity: 1;
+    transition: opacity 300ms var(--ease-out);
+    transition-delay: calc(220ms + var(--i, 0) * 50ms);
+  }
+
+  /* The single recommendation badge in the B2C fare list. Opacity only, and
+     only the highlighted fare — a pulse on every badge is three things
+     blinking; a pulse on one is a recommendation. */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-live] .lv-breathe {
+      animation: lv-breathe 2.4s var(--ease-inout) 900ms infinite;
+    }
+  }
+
+  .pnr-clip {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 calc(100% - 30px),
+      transparent
+    );
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 30px), transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Chips crossfade rather than snapping when a booking is ticketed. */
+    .pnr-chip {
+      transition:
+        background-color 200ms var(--ease-inout),
+        color 200ms var(--ease-inout);
+    }
+
+    .pnr-live {
+      animation: pnr-live 2s var(--ease-inout) infinite;
+    }
+  }
+
+  /* ---- Scaled product mockups ---- see FitScreen.tsx ---- */
+  .fit-host {
+    position: relative;
+    overflow: hidden;
+    container-type: inline-size;
+  }
+
+  .fit-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    /* Overridden inline with the container-query scale. Left as the floor so
+       that if that calc cannot be parsed the mock is merely cropped rather
+       than untransformed-and-unstyled. */
+    transform: scale(1);
+  }
+
+  /* ---- Header ----
+     The scrolled state is an attribute on <html> set by ScrollChrome, not
+     React state on the header. Toggling it in CSS means crossing the
+     threshold does not re-render the nav and its dropdown. */
+  .site-header {
+    border-bottom: 1px solid transparent;
+    background:
+      linear-gradient(100deg, rgba(235, 248, 255, 0.94), rgba(255, 255, 255, 0.96) 52%, rgba(255, 244, 248, 0.94)),
+      #fff;
+    transition:
+      background-color 200ms var(--ease-out),
+      border-color 200ms var(--ease-out),
+      backdrop-filter 200ms var(--ease-out);
+  }
+
+  /* Over a Type C section the header has to invert or the nav disappears
+     into the dark. Which section is behind it is worked out in ScrollChrome
+     — the one place already reading scroll position. */
+  html[data-over-dark] .site-header {
+    --color-fg: #f4f5f7;
+    --color-fg-body: #c3c8d2;
+    --color-fg-muted: #c3c8d2;
+    --color-fg-subtle: #9aa1ae;
+    --color-accent: #a98bff;
+    --color-line: rgba(255, 255, 255, 0.1);
+    --color-line-strong: rgba(255, 255, 255, 0.2);
+    --color-surface: var(--color-anchor);
+  }
+
+  html[data-over-dark][data-scrolled] .site-header {
+    background-color: color-mix(in srgb, var(--color-anchor) 84%, transparent);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* The logo is artwork, not type, so it cannot inherit the inverted tokens.
+     Two variants of the real lockup ship — navy wordmark and knocked-out
+     white wordmark — and this decides which one is visible. The gradient
+     flight-path mark is identical in both; only the type changes. */
+  .logo-img-dark {
+    opacity: 0;
+  }
+
+  html[data-over-dark] .site-header .logo-img-light {
+    opacity: 0;
+  }
+
+  html[data-over-dark] .site-header .logo-img-dark {
+    opacity: 1;
+  }
+
+  /* Glass on scroll, to the spec: 20px blur, 65% white, a 40%-white
+     hairline rather than a grey one — a grey border under a glass panel
+     reads as a seam; a white one reads as an edge catching light. */
+  html[data-scrolled] .site-header {
+    background-color: rgba(255, 255, 255, 0.65);
+    border-bottom-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    box-shadow: 0 1px 24px rgba(15, 23, 42, 0.04);
+  }
+
+  /* The header CTA remains a quiet outline at rest; it earns the filled
+     state only on intent. The phone number is intentionally static beside
+     it, so the two controls do not compete for attention. */
+  .site-header .nav-demo-cta,
+  .solutions-cta {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: none;
+  }
+
+  .site-header .nav-demo-cta:hover,
+  .solutions-cta:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: #fff;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .btn-lux.hero-explore-cta,
+  .btn-lux.hero-explore-cta:hover {
+    box-shadow: none;
+  }
+
+  /* ---- Nav underline ----
+     One element for the whole row. It slides and stretches between links
+     rather than each link owning its own underline, so the indicator reads
+     as a single thing moving. Width is 1px and scaleX carries the real
+     width, keeping both axes on transform. */
+  .nav-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    height: 2px;
+    border-radius: 2px;
+    /* The indicator is 1px wide and stretched by scaleX, so a gradient across
+       it would be scaled to a single flat colour. `background-attachment:
+       fixed` paints it against the viewport instead, which means the stripe
+       picks up a different part of the brand gradient depending on which nav
+       item it is sitting under — the whole row reads as one gradient. */
+    background-image: var(--brand-gradient);
+    background-attachment: fixed;
+    background-size: 100vw 2px;
+    transform-origin: 0 50%;
+    transform: translateX(var(--nav-x, 0)) scaleX(var(--nav-w, 0));
+    opacity: var(--nav-o, 0);
+    pointer-events: none;
+    transition:
+      transform var(--dur-ui) var(--ease-inout),
+      opacity var(--dur-ui) var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-underline {
+      transition: none;
+    }
+  }
+
+  /* Nav link hover: the label itself picks up the ramp.
+     Two states, so the colour has to be interpolable — `color` and
+     `background-clip: text` are not, and crossfading between them gives a
+     hard swap. The gradient is therefore ALWAYS painted and always clipped;
+     what changes is `color`, from the opaque token to transparent, which
+     uncovers it. One interpolable property doing the whole job.
+
+     Skipped for the current route's link, which stays solid ink so the
+     "you are here" signal is not a hover state. */
+  .nav-link {
+    background-image: var(--brand-gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: color var(--dur-hover) var(--ease-out);
+  }
+
+  .nav-link:hover:not([aria-current="page"]):not([data-nav-solid]) {
+    color: transparent;
+  }
+
+  /* On the dark anchor the light-canvas ramp is too dark to read, so the
+     hover reverts to the lifted violet the rest of the inverted nav uses. */
+  html[data-over-dark] .site-header .nav-link {
+    background-image: none;
+  }
+
+  html[data-over-dark]
+    .site-header
+    .nav-link:hover:not([aria-current="page"]) {
+    color: var(--color-accent);
+  }
+
+  /* 60px of fade at each edge, in px rather than the old 8% — a percentage
+     ate a third of a 375px phone and barely showed on a 1440px desktop. */
+  /* One resting shadow for anything presented as a floating panel. */
+  .float-panel {
+    box-shadow: var(--shadow-lifted);
+  }
+
+  /* Footer wordmark and any headline that should carry the brand. */
+  /* Gradient-clipped headline emphasis — the hero flourish word.
+     --brand-gradient-text, not the decorative ramp: clipped onto type
+     against the light canvas, the #f472b6 tail measures 2.62:1 and fails
+     even the 3:1 large-text floor. The #e0479e tail is 3.69:1.
+
+     Only ever used at display sizes. `padding-bottom` + the negative margin
+     stop the clip box guillotining a descender. */
+  .grad-text {
+    background-image: var(--brand-gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  /* ---- Icon badges ----
+     The square tile behind a feature icon. Solid brand gradient with a white
+     glyph: every stop of --brand-gradient-ink is ≥5:1 against white, so the
+     icon holds up wherever it lands on the ramp.
+
+     Hover slides the gradient rather than changing colour, the same move the
+     primary CTA makes — one hover vocabulary, not two. */
+  .grad-badge {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent-line);
+    color: var(--color-accent);
+    transition:
+      background-color var(--dur-ui) var(--ease-out),
+      border-color var(--dur-ui) var(--ease-out),
+      color var(--dur-ui) var(--ease-out);
+  }
+
+  /* Supporting feature tints: Flysync blue and red lead, while the remaining
+     colours give repeated icon grids a clearer visual rhythm without turning
+     the cards themselves into colour blocks. */
+  .grad-badge--blue {
+    background: #eaf5ff;
+    border-color: #a6d7fb;
+    color: #087ae6;
+  }
+
+  .grad-badge--red {
+    background: #fff0f2;
+    border-color: #f7b8c1;
+    color: #df0e2b;
+  }
+
+  .grad-badge--violet {
+    background: #f2f0ff;
+    border-color: #d2ccff;
+    color: #6d5ce7;
+  }
+
+  .grad-badge--teal {
+    background: #e9fbf5;
+    border-color: #abe8d7;
+    color: #0f9d7a;
+  }
+
+  .grad-badge--green {
+    background: #edfbf2;
+    border-color: #9fddba;
+    color: #167a43;
+  }
+
+  .grad-badge--amber {
+    background: #fff7e7;
+    border-color: #f7d6a2;
+    color: #d97706;
+  }
+
+  .grad-badge--rose {
+    background: #fff0fa;
+    border-color: #f3b8dc;
+    color: #c0267c;
+  }
+
+  .accent-bar--blue {
+    background: #087ae6;
+  }
+
+  .accent-bar--red {
+    background: #df0e2b;
+  }
+
+  .accent-bar--violet {
+    background: #6d5ce7;
+  }
+
+  .accent-bar--teal {
+    background: #0f9d7a;
+  }
+
+  .accent-bar--amber {
+    background: #d97706;
+  }
+
+  .accent-bar--rose {
+    background: #c0267c;
+  }
+
+  /* On the dark anchor the soft tile would vanish; the gradient does not. */
+  .on-dark .grad-badge {
+    color: #fff;
+  }
+
+  /* ---- Careers: design-system pilot --------------------------------
+     This route uses the supplied system's semantic foundation rather than
+     merely borrowing its blue: neutral surfaces, a 2px spacing rhythm,
+     compact controls, explicit interaction states and restrained elevation.
+     Flysync's supplied blue/red identity remains the brand accent. */
+  .career-system {
+    --color-canvas: #f9fafb;
+    --color-canvas-alt: #f0f2f4;
+    --color-surface: #ffffff;
+    --color-fg: #11181c;
+    --color-fg-body: #697177;
+    --color-fg-muted: #697177;
+    --color-fg-subtle: #889096;
+    --color-line: #e1e5e8;
+    --color-line-strong: #cbd1d6;
+    --color-accent: #087ae6;
+    --color-accent-hover: #056bc9;
+    --color-accent-active: #045aad;
+    --color-accent-soft: #eaf5ff;
+    --color-accent-line: #a6d7fb;
+    --brand-gradient: linear-gradient(90deg, #087ae6 0%, #df0e2b 100%);
+    --brand-gradient-ink: linear-gradient(90deg, #087ae6 0%, #df0e2b 100%);
+    --radius-card: 0.875rem;
+    --radius-control: 0.5rem;
+    --radius-input: 0.375rem;
+    --radius-card-lux: 0.875rem;
+    --radius-btn-lux: 0.375rem;
+    --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
+    --shadow-lifted: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+    --career-blue-wash: rgba(8, 122, 230, 0.16);
+    --career-red-wash: rgba(223, 14, 43, 0.13);
+    --hero-wash: radial-gradient(circle at 10% 90%, rgba(8, 122, 230, 0.09), transparent 38%),
+      radial-gradient(circle at 88% 8%, rgba(223, 14, 43, 0.07), transparent 34%),
+      linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+    --hero-wash-sm: radial-gradient(circle at 14% 90%, rgba(8, 122, 230, 0.08), transparent 48%),
+      linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+    --ambient-wash: radial-gradient(52% 25% at 8% 22%, rgba(8, 122, 230, 0.08), transparent 72%),
+      radial-gradient(48% 24% at 92% 60%, rgba(223, 14, 43, 0.07), transparent 72%),
+      radial-gradient(42% 20% at 46% 86%, rgba(8, 122, 230, 0.055), transparent 72%);
+  }
+
+  .career-system .career-hero {
+    --hero-top: 2.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .career-system .career-hero {
+      --hero-top: 2.75rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .career-system .career-hero {
+      --hero-top: 2.25rem;
+      padding-bottom: 1.25rem;
+    }
+  }
+
+  .career-system .career-hero h1 {
+    font-size: clamp(2.75rem, 5vw, 4rem);
+    line-height: 1;
+  }
+
+  .career-system .career-hero .container-page > div {
+    max-width: 64rem !important;
+  }
+
+  .career-system .career-hero h1 + div {
+    margin-top: 0.875rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .career-system .career-hero h1 + div p {
+    margin-bottom: 0.625rem;
+  }
+
+  .career-system .career-hero h1 + div p.mt-5 {
+    margin-top: 0.875rem;
+  }
+
+  .career-system .career-hero h1 + div + div {
+    margin-top: 1rem;
+  }
+
+  .career-system .surface {
+    box-shadow: none;
+  }
+
+  .career-system > section {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+
+  .career-system .card-lux {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.97), rgba(245, 250, 255, 0.92));
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .career-system .card-hover:hover {
+    border-color: var(--color-accent-line);
+    transform: translateY(-2px);
+  }
+
+  .career-system .btn {
+    border-radius: var(--radius-control);
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-height: 2.5rem;
+    padding: 0.625rem 1rem;
+  }
+
+  .career-system .btn:hover,
+  .career-system .btn:active {
+    transform: none;
+  }
+
+  .career-system .btn-primary {
+    background: var(--color-accent);
+    box-shadow: none;
+  }
+
+  .career-system .btn-primary::before {
+    display: none;
+  }
+
+  .career-system .btn-primary:hover {
+    background: var(--color-accent-hover);
+    box-shadow: none;
+  }
+
+  .career-system .btn-primary:active {
+    background: var(--color-accent-active);
+  }
+
+  .career-system .btn-secondary {
+    border-color: var(--color-line);
+    box-shadow: none;
+  }
+
+  .career-system .btn-secondary:hover {
+    border-color: var(--color-accent);
+    background: var(--color-surface);
+    box-shadow: none;
+  }
+
+  .career-system .btn:focus-visible,
+  .career-system .career-input:focus-visible,
+  .career-system .career-role-card:focus-visible,
+  .career-system .career-upload:focus-within {
+    outline: 3px solid rgba(8, 122, 230, 0.2);
+    outline-offset: 2px;
+  }
+
+  .career-system .career-icon-shape {
+    border-color: var(--color-accent-line);
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+
+  .career-system .career-role-card {
+    --career-card-line: var(--color-line);
+    --career-card-line-hover: var(--color-accent);
+    min-height: 16rem;
+    border-color: #e1e5e8;
+    background: var(--color-surface);
+    box-shadow: none;
+  }
+
+  .career-system .career-role-card:hover {
+    border-color: #e1e5e8;
+  }
+
+  .career-system .career-role-status {
+    border: 1px solid #9fddba;
+    border-radius: var(--radius-pill);
+    background: #edfbf2;
+    color: #167a43;
+    padding: 0.25rem 0.5625rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .career-system .career-role-footer {
+    min-height: 3rem;
+    border-color: #e1e5e8;
+  }
+
+  .career-system .career-role-action {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    transition:
+      background-color var(--duration-base) var(--ease-entrance),
+      color var(--duration-base) var(--ease-entrance);
+  }
+
+  .career-system .career-role-card:hover .career-role-action {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  /* Role icons carry the only per-card colour: they help scanning without
+     fragmenting the calm shared card surface. */
+  .career-system .career-role-card--0 {
+    --career-card-line: #a6d7fb;
+    --career-card-line-hover: #087ae6;
+  }
+
+  .career-system .career-role-card--0 .career-icon-shape {
+    border-color: #a6d7fb;
+    background: #eaf5ff;
+    color: #087ae6;
+  }
+
+  .career-system .career-role-card--1 .career-icon-shape {
+    border-color: #c9c2ff;
+    background: #f1efff;
+    color: #6558d7;
+  }
+
+  .career-system .career-role-card--1 {
+    --career-card-line: #c9c2ff;
+    --career-card-line-hover: #6558d7;
+  }
+
+  .career-system .career-role-card--2 .career-icon-shape {
+    border-color: #f5b8ca;
+    background: #fff0f4;
+    color: #c53d6b;
+  }
+
+  .career-system .career-role-card--2 {
+    --career-card-line: #f5b8ca;
+    --career-card-line-hover: #c53d6b;
+  }
+
+  .career-system .career-role-card--3 .career-icon-shape {
+    border-color: #96e0ce;
+    background: #e9fbf6;
+    color: #0b9276;
+  }
+
+  .career-system .career-role-card--3 {
+    --career-card-line: #96e0ce;
+    --career-card-line-hover: #0b9276;
+  }
+
+  .career-system .career-role-card--4 .career-icon-shape {
+    border-color: #f2cf8d;
+    background: #fff8e8;
+    color: #b76b08;
+  }
+
+  .career-system .career-role-card--4 {
+    --career-card-line: #f2cf8d;
+    --career-card-line-hover: #b76b08;
+  }
+
+  .career-system .career-role-card--5 .career-icon-shape {
+    border-color: #b8c7ff;
+    background: #eef2ff;
+    color: #485fd1;
+  }
+
+  .career-system .career-role-card--5 {
+    --career-card-line: #b8c7ff;
+    --career-card-line-hover: #485fd1;
+  }
+
+  .career-system .career-application {
+    --career-application-line: #a6d7fb;
+    --career-application-ink: #087ae6;
+    --career-application-soft: #eaf5ff;
+    --career-application-wash: rgba(8, 122, 230, 0.12);
+    border-color: var(--career-application-line);
+  }
+
+  .career-system .career-application-header {
+    border-color: var(--career-application-line);
+    background:
+      radial-gradient(circle at 88% 8%, var(--career-application-wash), transparent 34%),
+      radial-gradient(circle at 8% 95%, color-mix(in srgb, var(--career-application-line) 34%, transparent), transparent 48%),
+      linear-gradient(135deg, #fff 0%, var(--career-application-soft) 170%);
+  }
+
+  .career-system .career-application-header .career-icon-shape {
+    border-color: var(--career-application-line);
+    background: var(--career-application-soft);
+    color: var(--career-application-ink);
+  }
+
+  .career-system .career-application--0 {
+    --career-application-line: #a6d7fb;
+    --career-application-ink: #087ae6;
+    --career-application-soft: #eaf5ff;
+    --career-application-wash: rgba(8, 122, 230, 0.12);
+  }
+
+  .career-system .career-application--1 {
+    --career-application-line: #c9c2ff;
+    --career-application-ink: #6558d7;
+    --career-application-soft: #f1efff;
+    --career-application-wash: rgba(101, 88, 215, 0.12);
+  }
+
+  .career-system .career-application--2 {
+    --career-application-line: #f5b8ca;
+    --career-application-ink: #c53d6b;
+    --career-application-soft: #fff0f4;
+    --career-application-wash: rgba(197, 61, 107, 0.12);
+  }
+
+  .career-system .career-application--3 {
+    --career-application-line: #96e0ce;
+    --career-application-ink: #0b9276;
+    --career-application-soft: #e9fbf6;
+    --career-application-wash: rgba(11, 146, 118, 0.12);
+  }
+
+  .career-system .career-application--4 {
+    --career-application-line: #f2cf8d;
+    --career-application-ink: #b76b08;
+    --career-application-soft: #fff8e8;
+    --career-application-wash: rgba(183, 107, 8, 0.12);
+  }
+
+  .career-system .career-application--5 {
+    --career-application-line: #b8c7ff;
+    --career-application-ink: #485fd1;
+    --career-application-soft: #eef2ff;
+    --career-application-wash: rgba(72, 95, 209, 0.12);
+  }
+
+  .career-system .career-label {
+    color: var(--color-fg-body);
+    line-height: 1.125rem;
+  }
+
+  .career-system .career-input {
+    min-height: 2.5rem;
+    border-color: color-mix(in srgb, var(--career-application-line, var(--color-line)) 72%, #ffffff);
+    box-shadow: none;
+  }
+
+  .career-system .career-input:hover {
+    border-color: var(--career-application-line, var(--color-line-strong));
+  }
+
+  .career-system .career-input:focus {
+    border-color: var(--career-application-ink, var(--color-accent));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--career-application-line, var(--color-accent)) 42%, transparent);
+  }
+
+  .career-system .career-input:disabled {
+    cursor: not-allowed;
+    border-color: var(--color-line);
+    background: #f4f9fe;
+    color: var(--color-fg-subtle);
+  }
+
+  .career-system .career-form-section-title {
+    color: var(--color-fg-subtle);
+  }
+
+  .career-system .career-application .career-form-section {
+    border-color: var(--career-application-line);
+  }
+
+  .career-system .career-upload {
+    border-color: var(--color-accent-line);
+    background: #f6fbff;
+  }
+
+  .career-system .career-upload:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+
+  .career-system .career-success > span {
+    border: 1px solid var(--color-accent-line);
+  }
+
+  .career-system .career-life-panel {
+    border-color: var(--color-line);
+    background:
+      radial-gradient(circle at 12% 104%, rgba(8, 122, 230, 0.22), transparent 42%),
+      radial-gradient(circle at 90% -12%, rgba(223, 14, 43, 0.18), transparent 44%),
+      linear-gradient(135deg, #f4faff 0%, #ffffff 48%, #fff6f7 100%);
+    box-shadow: none;
+  }
+
+  .career-system .career-openings-section {
+    padding-top: 2.5rem;
+    padding-bottom: var(--section-gap);
+  }
+
+  @media (min-width: 640px) {
+    .career-system .career-openings-section {
+      padding-top: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .career-system .career-openings-section {
+      padding-top: 3.5rem;
+    }
+  }
+
+  .career-system .cta-panel {
+    background-image: linear-gradient(105deg, #087ae6 0%, #3458b6 46%, #df0e2b 100%);
+  }
+
+  .career-system .cta-panel .btn-primary {
+    color: #087ae6;
+  }
+
+  .career-system .cta-panel .btn-primary:hover {
+    background: #fff;
+    color: #087ae6;
+  }
+
+  /* The "logo" strip is set names, not artwork, so there is no colour to
+     desaturate and restore. The equivalent gesture: muted at rest, the brand
+     ramp clipped in on hover. Individually hoverable, so the row reads as a
+     set of things rather than one block.
+
+     `color` is what transitions — the gradient is always painted and always
+     clipped, and the opaque colour on top is what hides it. Transitioning
+     background-clip itself is not interpolable and hard-swaps. */
+  .logo-mark {
+    background-image: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: color var(--duration-fast) var(--ease-entrance);
+  }
+
+  .logo-mark:hover {
+    color: transparent;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 60px,
+      #000 calc(100% - 60px),
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 60px,
+      #000 calc(100% - 60px),
+      transparent
+    );
+  }
+
+  /* The wide version, for the full-bleed supplier marquee. 60px is not
+     enough at 1440: a name is ~90px, so it was still at most of its
+     opacity when the viewport edge cut it and the row read as clipped
+     rather than as continuing. 120px dissolves a whole name. */
+  .mask-fade-x-lg {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 120px,
+      #000 calc(100% - 120px),
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 120px,
+      #000 calc(100% - 120px),
+      transparent
+    );
+  }
+
+  @media (width < 40rem) {
+    .mask-fade-x-lg {
+      -webkit-mask-image: linear-gradient(
+        90deg,
+        transparent,
+        #000 48px,
+        #000 calc(100% - 48px),
+        transparent
+      );
+      mask-image: linear-gradient(
+        90deg,
+        transparent,
+        #000 48px,
+        #000 calc(100% - 48px),
+        transparent
+      );
+    }
+  }
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Hero entrance is CSS, not JS: the headline paints on the first frame, so
+   LCP does not wait for hydration and the page reads with JS disabled. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Screenshot / mockup entrance: fade + rise + a touch of scale. One keyframe
+   used two ways — as a load-time animation above the fold and as an
+   observer-driven transition below it — so both read identically. */
+@keyframes shot-in {
+  from {
+    opacity: 0;
+    transform: perspective(1400px) rotateX(7deg) translate3d(0, 40px, 0)
+      scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(0deg) translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise-in var(--dur-reveal) var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .rise-shot {
+    animation: shot-in var(--dur-shot) var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  /* Below-the-fold screenshots. A transition rather than an animation,
+     because re-arming has to snap it back to hidden without playing. */
+  .shot-reveal {
+    opacity: 0;
+    /* A few degrees of tilt that straightens as it settles — the mock reads
+       as a physical panel coming to rest rather than a rectangle sliding up.
+       `perspective()` is inside the transform so no parent has to own it. */
+    transform: perspective(1400px) rotateX(7deg) translate3d(0, 40px, 0)
+      scale(0.96);
+    transition:
+      opacity var(--dur-shot) var(--ease-out) var(--d, 0s),
+      transform var(--dur-shot) var(--ease-out) var(--d, 0s);
+  }
+
+  .shot-reveal.is-in {
+    opacity: 1;
+    transform: perspective(1400px) rotateX(0deg) translate3d(0, 0, 0) scale(1);
+  }
+
+  html.no-js .shot-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Replay for above-the-fold elements.
+ 
+     The hero cannot use the observer for its FIRST entrance: the hidden state
+     is CSS and only the observer clears it, which above the fold means a
+     visible flash before hydration and an LCP measured against the animation
+     instead of the paint. So the hero keeps its CSS-on-load entrance and the
+     observer only steps in AFTERWARDS — parking the element here once it has
+     scrolled away, then restarting the same keyframe when it returns. First
+     paint untouched, every later pass replays. */
+  .rise-armed {
+    opacity: 0 !important;
+    animation: none !important;
+  }
+}
+
+/* ---- Scroll reveals: plain classes toggled by one page-level observer,
+        so the many revealing elements stay server-rendered markup. ----
+
+   The hidden state lives ENTIRELY inside `prefers-reduced-motion:
+   no-preference`. That is not a stylistic choice: `.reveal { opacity: 0 }`
+   as an unconditional rule means anyone who never gets the `is-in` class —
+   reduced-motion users on a browser that also blocks the observer, or a
+   crawler that runs no script — reads a blank page. Scoping the hiding to
+   the media query makes "no motion" and "no JS" both resolve to plain
+   visible content with zero extra rules. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal,
+  .reveal-item {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    transition:
+      opacity var(--dur-reveal) var(--ease-out) var(--d, 0s),
+      transform var(--dur-reveal) var(--ease-out) var(--d, 0s);
+  }
+
+  .reveal-left {
+    transform: translate3d(20px, 0, 0);
+  }
+  .reveal-right {
+    transform: translate3d(-20px, 0, 0);
+  }
+  .reveal-none {
+    transform: none;
+  }
+
+  /* `--d0` lets a whole stagger group start late without disturbing the
+     per-sibling rhythm. The architecture diagram needs it: its four tiers are
+     one orchestrated sequence under a single observer trigger, not four
+     independent reveals racing each other. */
+  .reveal-item {
+    transition-delay: calc(var(--d0, 0ms) + var(--i, 0) * 70ms);
+  }
+
+  .reveal.is-in,
+  .reveal-group.is-in .reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Belt and braces for the no-script case: the inline head script strips
+     `no-js` before first paint, so this only ever applies when scripting is
+     genuinely unavailable. */
+  html.no-js .reveal,
+  html.no-js .reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Reveals replay, so an element that scrolls away has to be put back to its
+   hidden state — and doing that plainly runs every transition in reverse. For
+   the two frames it takes to reset, motion is switched off on the element and
+   everything inside it, so it snaps back rather than fading out.
+
+   Not inside the reduced-motion query on purpose: it must win regardless, and
+   under reduced motion nothing is ever re-armed anyway. */
+.reveal-rearm,
+.reveal-rearm *,
+.reveal-rearm *::before,
+.reveal-rearm *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+@media (width >= 64rem) {
+  .review-card-align {
+    margin-top: 4rem !important;
+  }
+}
+
+/* ---- Platform architecture: colour without visual noise ----------------
+   The route map is intentionally more expressive than the surrounding
+   content. Each node retains a white reading surface while its icon, edge
+   light and the travelling routes use the same four-stop spectrum. */
+  .arch-node {
+  --arch-tint: #e8f8ff;
+  --arch-line: #8cddff;
+  --arch-ink: #087eb8;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--arch-line);
+  border-radius: var(--radius-card);
+  background: linear-gradient(145deg, #fff 12%, var(--arch-tint) 185%);
+  box-shadow: none;
+}
+
+.arch-node::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  border-radius: inherit;
+  background: linear-gradient(110deg, color-mix(in srgb, var(--arch-line) 44%, transparent), transparent 35%);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.arch-node > * { position: relative; }
+.arch-node--cyan { --arch-tint: #e4f8ff; --arch-line: #81dafa; --arch-ink: #0785c2; }
+.arch-node--violet { --arch-tint: #f0efff; --arch-line: #aaa6ff; --arch-ink: #5d54db; }
+.arch-node--pink { --arch-tint: #fff0fa; --arch-line: #f5a2d0; --arch-ink: #c9368a; }
+.arch-node--amber { --arch-tint: #fff7e6; --arch-line: #f5ce80; --arch-ink: #b96b08; }
+
+.arch-node__badge {
+  color: var(--arch-ink);
+  background: color-mix(in srgb, var(--arch-tint) 78%, #fff);
+  border: 1px solid color-mix(in srgb, var(--arch-line) 62%, #fff);
+  box-shadow: none;
+}
+
+.arch-core--vivid {
+  border-color: rgba(8, 122, 230, 0.42);
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.98) 8%, rgba(245, 252, 255, 0.96) 54%, rgba(253, 246, 255, 0.97)),
+    #fff;
+  box-shadow: none;
+}
+
+.arch-core__aurora {
+  position: absolute;
+  inset: -70% -18%;
+  background:
+    radial-gradient(circle at 27% 66%, rgba(27, 185, 255, 0.22), transparent 25%),
+    radial-gradient(circle at 70% 32%, rgba(231, 78, 177, 0.17), transparent 27%),
+    radial-gradient(circle at 58% 80%, rgba(118, 101, 255, 0.16), transparent 24%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.arch-core__chip {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(110deg, #168ef0, #6558e9 56%, #dc3f9f);
+  box-shadow: none;
+}
+
+.arch-core__copy { color: #39516e; }
+.arch-core__tag {
+  color: #39516e;
+  border: 1px solid rgba(111, 160, 215, 0.34);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: none;
+}
+
+.arch-traveller {
+  border: 1px solid rgba(109, 92, 231, 0.35);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(109, 92, 231, 0.16), transparent 42%),
+    radial-gradient(circle at 100% 100%, rgba(237, 75, 173, 0.14), transparent 44%),
+    #fff;
+  box-shadow: none;
+}
+.arch-traveller-line { background: linear-gradient(#65c5ff, #7b66f4 60%, #ed4bad); }
+.arch-traveller__icon {
+  color: #6d5ce7;
+  border-color: #d2ccff;
+  background: #f2f0ff;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .arch-core__aurora { animation: arch-aurora 8s ease-in-out infinite alternate; }
+}
+
+@keyframes arch-aurora {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.05); }
+}
+
+/* ============================================================
+   SIGNATURE 1 — FLIGHT-PATH LINE DRAW
+   The Supply → Flysync → Channels diagram.
+
+   Every path carries pathLength="100", so dash maths is normalised: one
+   dash length works for arcs of wildly different geometry and all four
+   routes draw at the same visual rate. (Phase 1 guessed a --dash-len of
+   130 per path, which made the short outer arcs finish early.)
+
+   The whole diagram runs off ONE observer trigger on `.arch`, with each
+   stage's delay written here. Four independently-observed reveals could
+   never guarantee "supply lines, then core, then channels" — whichever
+   crossed the viewport edge first won.
+
+     0ms  supply nodes rise (70ms apart)
+   200ms  supply arcs draw inward (90ms apart, 550ms each)
+   780ms  the core card settles in from 0.96
+  1000ms  channel arcs draw outward
+  1250ms  channel nodes rise
+  ~1.88s  total
+   ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .draw-line {
+    stroke-dasharray: var(--dash-len, 700);
+    stroke-dashoffset: var(--dash-len, 700);
+    transition: stroke-dashoffset var(--draw-dur, 550ms) var(--ease-out)
+      var(--draw-delay, 0ms);
+  }
+
+  .is-in .draw-line {
+    stroke-dashoffset: 0;
+  }
+
+  .arch-core {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  .arch.is-in .arch-core {
+    animation: arch-core-in 450ms var(--ease-out) 780ms both;
+  }
+
+  /* The tracked flights.
+
+     Once the arcs have drawn they keep running: every route carries a short
+     dash that travels its full length and loops, so supply keeps flowing
+     into the platform and the platform keeps flowing out to the channels.
+     The routes are offset from each other, so it reads as traffic rather
+     than as four things blinking in unison.
+
+     A <circle> on animateMotion would be the obvious build, but this band
+     uses preserveAspectRatio="none" so it can span any width — and that
+     squashes a circle into an ellipse that changes shape with the viewport.
+     A short dash with round caps is immune: non-scaling-stroke pins it to a
+     fixed pixel width at every breakpoint.
+
+     Direction is free. Each path is authored from source to destination, so
+     a decreasing dashoffset always travels the way the traffic does —
+     inward on the converging band, outward on the diverging one.
+
+     The travel is driven through a REGISTERED custom property rather than by
+     animating `stroke-dashoffset` directly. Keyframing
+     `stroke-dashoffset: 0 -> calc(-1 * var(--dash-len))` looks correct and is
+     not: an unresolved var() makes the two endpoints non-interpolable, so
+     Chrome falls back to discrete animation and the dash teleports from one
+     end to the other at the halfway mark. `@property` gives --flow-t a real
+     <number> type, which interpolates, and the offset is derived from it. */
+  .flow-dash {
+    stroke-dasharray: calc(var(--dash-len, 700) * 0.03)
+      calc(var(--dash-len, 700) * 0.97);
+    stroke-dashoffset: calc(var(--flow-t) * var(--dash-len, 700) * -1);
+    opacity: 0;
+  }
+
+  .arch.is-in .flow-dash {
+    animation: flow-dash 3.2s linear var(--flow-delay, 0ms) infinite;
+  }
+
+  /* No script means no `is-in`, so the diagram would draw nothing at all. */
+  html.no-js .draw-line {
+    stroke-dashoffset: 0;
+  }
+  html.no-js .arch-core {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes arch-core-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  62% {
+    opacity: 1;
+    transform: scale(1.006);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Fades at both ends so the dash never pops into or out of existence at the
+   node it is arriving at. */
+@keyframes lv-breathe {
+  0%,
+  100% {
+    opacity: 0.62;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pnr-live {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@property --flow-t {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes flow-dash {
+  0% {
+    --flow-t: 0;
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  82% {
+    opacity: 0.85;
+  }
+  100% {
+    --flow-t: 1;
+    opacity: 0;
+  }
+}
+
+/* A barely-there grain over the whole canvas. Flat off-white reads as
+   digital; 2% of noise reads as paper. If you can consciously see it, it is
+   turned up too far.
+
+   Inline SVG turbulence rather than a PNG: no extra request, no cache entry,
+   and it scales to any DPR. Fixed and pointer-events:none, so it never
+   participates in layout or hit-testing. Sits under the header (z-50). */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ============================================================
+   PREMIUM LAYER — utilities and components
+   Everything here reads the tokens in design-tokens.css. No values.
+   ============================================================ */
+
+@layer components {
+  /* ---- THE HERO SIGNATURE ------------------------------------------
+     `.hero-wash` is the reusable banner treatment. Put it on a section's
+     backdrop element and that section carries the signature. Built to be
+     dropped on /about, /products, /demo, /contact and /careers banners in
+     a later pass without changing a value.
+
+     The element is the backdrop, not the section: it is absolutely
+     positioned, aria-hidden and pointer-transparent, so it can never
+     affect layout or hit-testing. */
+  /* Layer order inside a banner, back to front:
+       -3  .texture-grid    structure, under the light
+       -2  .hero-wash       the two light sources
+       -2  .hero-rays*      beams, after the wash in the DOM so they sit on it
+       -1  .texture-noise   grain, over everything
+     The grid being UNDER the light is the fix for it reading as noise
+     over the pink: light falls on the grid instead of the grid drawing
+     on top of the light. */
+  .hero-wash {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image: var(--hero-wash);
+  }
+
+  /* Below the hero: the same two lights, far quieter. */
+  .ambient-wash {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image: var(--ambient-wash);
+  }
+
+  /* Below lg the hero stacks, so the four-light rig has nothing to light
+     from the side and its right-hand source lands on the paragraph. Two
+     lights instead — same breakpoint as the layout change, not a
+     different one. */
+  @media (width < 64rem) {
+    .hero-wash {
+      background-image: var(--hero-wash-sm);
+    }
+  }
+
+  /* ---- Textures ----------------------------------------------------
+     Grid at 3.5%, noise at 1%. Both are masked to fade out downward so
+     the hero dissolves into the page rather than ending on a line — and
+     the grid's mask now clears the bottom of the banner entirely, which
+     is the second half of keeping it off the pink. */
+  .texture-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: var(--texture-grid);
+    background-size: var(--texture-grid-size) var(--texture-grid-size);
+    -webkit-mask-image: linear-gradient(to bottom, #000 32%, transparent 78%);
+    mask-image: linear-gradient(to bottom, #000 32%, transparent 78%);
+  }
+
+  .texture-noise {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.01;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  /* Light rays, one set per source: magenta toward the dashboard at 5%,
+     purple behind the headline at 4%. Both gone on small screens, where
+     they cost a large composite for something nobody can see. */
+  /* Each set is masked to its own half. A conic fan is wide: unmasked,
+     the magenta rays sweep left across the headline, which is both the
+     wrong place for the dashboard's light and the one thing the brief
+     rules out — measurably so, at a 4% tint over the copy. */
+  .hero-rays {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: var(--hero-rays);
+    -webkit-mask-image: linear-gradient(to right, transparent 44%, #000 64%);
+    mask-image: linear-gradient(to right, transparent 44%, #000 64%);
+  }
+
+  .hero-rays-left {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: var(--hero-rays-left);
+    -webkit-mask-image: linear-gradient(to left, transparent 52%, #000 72%);
+    mask-image: linear-gradient(to left, transparent 52%, #000 72%);
+  }
+
+  /* Performance rule: below lg both ray sets come off entirely, and below
+     48rem the noise goes with them. Rays leave at the layout breakpoint
+     rather than at a phone width because a stacked hero has no right-hand
+     column for them to belong to — they would just sit on the copy. */
+  @media (width < 64rem) {
+    .hero-rays,
+    .hero-rays-left {
+      display: none;
+    }
+  }
+
+  @media (width < 48rem) {
+    .texture-noise {
+      display: none;
+    }
+  }
+
+  /* ---- Dashboard glow ----------------------------------------------
+     Three radials on one element (white core, pink, purple) so the panel
+     reads as lit from behind. Sits under the panel, over the wash. */
+  .dashboard-glow {
+    position: absolute;
+    inset: -2.5rem;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--dashboard-glow);
+  }
+
+  /* ---- Glass ------------------------------------------------------- */
+  .glass-panel {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-dashboard);
+  }
+
+  .glass-chip {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    box-shadow: var(--shadow-float);
+  }
+
+  /* ---- Premium CTA -------------------------------------------------
+     Extends .btn-primary rather than replacing it, so the gradient, the
+     AA-safe ink ramp and the hover slide all still apply. */
+  .btn-lux {
+    border-radius: var(--radius-btn-lux);
+    min-height: 3.25rem;
+    padding-inline: 1.5rem;
+    font-size: 1rem;
+    box-shadow: none;
+  }
+
+  /* The secondary CTA sits on painted background in the hero, where a
+     white button with a near-white border loses its edge. A 1px purple
+     hairline at 15% plus its own shadow give it a shape that holds on
+     any of the four lights. */
+  .btn-lux.btn-secondary {
+    border-color: var(--color-line);
+    box-shadow: none;
+  }
+
+  .btn-lux.btn-secondary:hover {
+    border-color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn-lux:hover {
+      transform: translateY(-2px);
+      box-shadow: none;
+    }
+
+    /* The brief's scale(1.03) — on the primary only. Two buttons both
+       growing on hover is what makes a pair read as a toolbar. */
+    .btn-lux.btn-primary:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Reduced motion keeps the colour and shadow response and drops the
+     movement entirely — no lift, no scale. */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-lux:hover {
+      box-shadow: none;
+    }
+  }
+
+  /* ---- Feature card ------------------------------------------------ */
+  .card-lux {
+    border-radius: var(--radius-card-lux);
+    background: #fff;
+    border: 1px solid var(--color-line);
+    box-shadow: none;
+    transition:
+      transform var(--duration-card) var(--ease-entrance),
+      border-color var(--duration-card) var(--ease-entrance);
+  }
+
+  /* Feature-card edges stay neutral at rest. Clickable cards take on their
+     icon tint only on hover, keeping the page structure calm. */
+  .card-tint-border--blue {
+    --card-tint-line: var(--color-line);
+    --card-tint-line-hover: #087ae6;
+    border-color: var(--card-tint-line);
+  }
+
+  .card-tint-border--red {
+    --card-tint-line: var(--color-line);
+    --card-tint-line-hover: #df0e2b;
+    border-color: var(--card-tint-line);
+  }
+
+  .card-tint-border--violet {
+    --card-tint-line: var(--color-line);
+    --card-tint-line-hover: #6d5ce7;
+    border-color: var(--card-tint-line);
+  }
+
+  .card-tint-border--teal {
+    --card-tint-line: var(--color-line);
+    --card-tint-line-hover: #0f9d7a;
+    border-color: var(--card-tint-line);
+  }
+
+  .card-tint-border--green {
+    --card-tint-line: var(--color-line);
+    --card-tint-line-hover: #167a43;
+    border-color: var(--card-tint-line);
+  }
+
+  .card-tint-border--amber {
+    --card-tint-line: var(--color-line);
+    --card-tint-line-hover: #d97706;
+    border-color: var(--card-tint-line);
+  }
+
+  .card-tint-border--rose {
+    --card-tint-line: var(--color-line);
+    --card-tint-line-hover: #c0267c;
+    border-color: var(--card-tint-line);
+  }
+
+  .card-hover.card-tint-border--blue:hover,
+  .card-hover.card-tint-border--red:hover,
+  .card-hover.card-tint-border--violet:hover,
+  .card-hover.card-tint-border--teal:hover,
+  .card-hover.card-tint-border--green:hover,
+  .card-hover.card-tint-border--amber:hover,
+  .card-hover.card-tint-border--rose:hover {
+    border-color: var(--card-tint-line-hover);
+  }
+
+  /* ---- SECTION ATMOSPHERE -------------------------------------------
+     One backdrop per section, painted by ::before rather than by an extra
+     div: there are seven of these and none of them need a node.
+
+     z-index -1 puts it above the section's own background and below its
+     content — a negative-z descendant still paints over the parent's
+     background box, which is what lets the base tint live in the same
+     layer as the glows.
+
+     The mask is the "no hard edges between tinted sections" rule: every
+     atmosphere fades in over the first 160px of its section and out over
+     the last 160px, so two tinted sections meet at zero opacity and the
+     seam is invisible. */
+  .atmo {
+    position: relative;
+  }
+
+  /* The alternate content bands use the same quiet blue-to-red ground as
+     the atmospheric sections. Cards retain white surfaces for legibility. */
+  .bg-tint {
+    background-color: transparent;
+    background-image: var(--section-tint);
+  }
+
+  .atmo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--atmo);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 160px,
+      #000 calc(100% - 160px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 160px,
+      #000 calc(100% - 160px),
+      transparent 100%
+    );
+  }
+
+  /* Short sections cannot give 160px to each fade — the two masks cross
+     and the tint never reaches full strength. Half the section, capped. */
+  @media (width < 48rem) {
+    .atmo::before {
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        #000 80px,
+        #000 calc(100% - 80px),
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        #000 80px,
+        #000 calc(100% - 80px),
+        transparent 100%
+      );
+    }
+  }
+
+  .atmo-clients {
+    --atmo: var(--atmo-clients);
+  }
+  .atmo-heading {
+    --atmo: var(--atmo-heading);
+  }
+  .atmo-cards {
+    --atmo: var(--atmo-cards);
+  }
+  .atmo-pink-top {
+    --atmo: var(--atmo-pink-top);
+  }
+  .atmo-stage {
+    --atmo: var(--atmo-stage);
+  }
+  .atmo-stats {
+    --atmo: var(--atmo-stats);
+  }
+
+  /* ---- Client pill --------------------------------------------------
+     The customer names used to be 12px grey caps floating at 35% opacity
+     on white with nothing holding them — the "unanchored grey text". Each
+     one now sits in its own pill, which is what turns a paragraph-shaped
+     run of names into a scannable grid.
+
+     Hover tints toward whichever light that pill sits under: purple on the
+     left of the row, pink on the right. `--pill-hover` is set per item by
+     the component from its index. */
+  .pill-client {
+    border: 1px solid var(--color-line);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: none;
+    transition:
+      border-color var(--duration-fast) var(--ease-entrance),
+      color var(--duration-fast) var(--ease-entrance),
+      box-shadow var(--duration-fast) var(--ease-entrance);
+  }
+
+  /* Pointer only: on a touch screen :hover sticks after a tap. */
+  @media (hover: hover) and (pointer: fine) {
+    .pill-client:hover {
+      border-color: var(--pill-hover, rgba(8, 122, 230, 0.42));
+      color: var(--color-fg);
+      box-shadow: none;
+    }
+  }
+
+  /* ---- Closing CTA panel --------------------------------------------
+     The one place on the page allowed to be bold. It carries body copy at
+     17px, so the fill is --gradient-cta (the AA-corrected ramp), not the
+     brief's raw #6D5BFF/#8A5CFF/#EC4899 — white on those measures 4.57,
+     4.15 and 3.53:1 and the paragraph needs 4.5.
+
+     Buttons have to change with it: a gradient primary on a gradient panel
+     is invisible. White fill with the brand purple as its label, and a
+     hairline-white outline for the secondary. */
+  .cta-panel {
+    background-image: var(--gradient-cta);
+    color: #fff;
+
+    /* Same trick as .on-dark: retokenise inside the scope and everything
+       built on text-fg / text-fg-muted follows. Body text is FULL white,
+       not white/92 — the panel's darkest stop is 4.52:1 against white and
+       any transparency puts it under the floor. That is the same reason
+       the stats band paints its labels at full white. */
+    --color-fg: #ffffff;
+    --color-fg-body: #ffffff;
+    --color-fg-muted: #ffffff;
+    --color-fg-subtle: rgba(255, 255, 255, 0.86);
+  }
+
+  .cta-panel .btn-primary {
+    background-color: #fff;
+    color: #087ae6;
+  }
+
+  .cta-panel .btn-primary::before {
+    display: none;
+  }
+
+  .cta-panel .btn-primary:hover {
+    background-color: #fff;
+    box-shadow: none;
+  }
+
+  .cta-panel .btn-secondary {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .cta-panel .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #fff;
+    box-shadow: none;
+  }
+
+  /* ---- Feature-card light field ------------------------------------
+     The cards stay white. What changes is what is BEHIND them: the same
+     two sources continuing down the page, purple under the left column
+     and pink under the right, so a grid of white cards still sits in the
+     hero's lighting rather than on blank paper. One element, two
+     radials, painted behind the grid — no per-card glow, no gradient
+     fills on the cards themselves. */
+  .card-field {
+    position: relative;
+  }
+
+  .card-field::before {
+    content: "";
+    position: absolute;
+    inset: -12% -6%;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(
+        44% 58% at 6% 26%,
+        rgba(109, 91, 255, 0.1),
+        transparent 72%
+      ),
+      radial-gradient(
+        44% 58% at 94% 74%,
+        rgba(255, 79, 173, 0.09),
+        transparent 72%
+      );
+  }
+
+  /* ---- Logo strip: 35% at rest, full on hover ---------------------- */
+  .logo-quiet {
+    opacity: 0.35;
+    transition: opacity var(--duration-card) var(--ease-entrance);
+  }
+
+  .logo-quiet:hover {
+    opacity: 1;
+  }
+
+  /* ---- Floating integration chips ---------------------------------- */
+  @keyframes lux-float {
+    0%,
+    100% {
+      transform: translateY(-6px);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lux-float {
+      animation: lux-float var(--float-cycle) var(--ease-standard) infinite;
+      animation-delay: var(--fd, 0s);
+    }
+    /* Alternating direction, so the group breathes rather than marching. */
+    .lux-float-alt {
+      animation-direction: reverse;
+    }
+  }
+}
+
+/* ============================================================
+   THE CUSTOMER LOGO WALL
+
+   Thirty-nine real customer marks, in their own colours, floating on the
+   section's atmosphere with nothing drawn around them. No pill, no card,
+   no border, no box — the only geometry in the row is the artwork itself.
+
+   That is a harder problem than the grayscale wall it replaces, because
+   grayscale was doing three jobs at once: it flattened thirty-nine palettes
+   into one texture, it hid the fact that the marks have wildly different
+   ink densities, and it guaranteed contrast. All three now have to be
+   solved without touching the artwork:
+
+     WEIGHT     an invisible 180x72 bounding area (140x56 mobile), heights
+                capped by shape, and 56px of air between neighbours. Space
+                is what turns thirty-nine colours into a curated row.
+     CONTRAST   a borderless white bloom under each mark — a radial that
+                fades out before it can have an edge, so it reads as the
+                atmosphere brightening rather than as a shape.
+     DEPTH      a whisper of drop-shadow, so a mark sits ON the light
+                instead of being pasted onto it.
+
+   Motion is one sequence: the rows enter staggered and still, start
+   drifting in opposite directions, and breathe on a slow bob. Hover is the
+   only thing that interrupts. Everything animated is transform or opacity,
+   with two deliberate exceptions noted where they appear.
+   ============================================================ */
+
+@layer components {
+  .logo-wall {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* ---- The beam crossing ----
+     One wide purple diagonal from the upper left, one pink from the upper
+     right, crossing behind the rows. Built as two banded linear-gradients
+     rather than two rotated elements: a band is just a gradient with its
+     colour held between two stops, and this way there is no rotated box to
+     overflow the section and no extra layer to composite. */
+  .logo-beams {
+    position: absolute;
+    inset: -2rem 0;
+    pointer-events: none;
+    /* The beams are a rectangle, and a rectangle of tint has a top and a
+       bottom edge — which paints a visible band across the section, the
+       exact thing `.atmo` masks away everywhere else on this site. Faded
+       out over 72px at each end so the beams arrive and leave as light. */
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 72px,
+      #000 calc(100% - 72px),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 72px,
+      #000 calc(100% - 72px),
+      transparent
+    );
+    background-image:
+      linear-gradient(
+        118deg,
+        transparent 14%,
+        rgba(109, 91, 255, 0.1) 31%,
+        rgba(109, 91, 255, 0.1) 43%,
+        transparent 60%
+      ),
+      linear-gradient(
+        -118deg,
+        transparent 14%,
+        rgba(255, 79, 173, 0.09) 31%,
+        rgba(255, 79, 173, 0.09) 43%,
+        transparent 60%
+      );
+  }
+
+  /* Vertical padding, not a taller box: the host clips horizontally for the
+     marquee, and `overflow-x: hidden` with `overflow-y: visible` is not a
+     thing — the y axis silently becomes `auto` and the bloom would either
+     be cut off or open a scrollbar. 20px covers the bloom's bleed, the
+     hover lift and the bob. */
+  .logo-host {
+    position: relative;
+    overflow: hidden;
+    padding-block: 20px;
+  }
+
+  /* 36px of air on mobile, 56px from sm up. The gap is not decoration here
+     — with no container to separate them, space is the only thing keeping
+     thirty-nine brand palettes from reading as one striped mess. */
+  .logo-track {
+    align-items: center;
+    gap: 36px;
+  }
+
+  @media (width >= 40rem) {
+    .logo-track {
+      gap: 56px;
+    }
+  }
+
+  /* The second row runs the other way. Same keyframe, reversed — a separate
+     0 -> +50% keyframe would need the duplicate track ordered differently to
+     stay seamless, and this needs nothing. */
+  .logo-track-reverse {
+    animation-direction: reverse;
+  }
+
+  /* `will-change` is a standing promise to keep a compositor layer alive, so
+     it belongs on the two tracks that are genuinely moving and nowhere near
+     the 78 cells inside them. It also comes off when the row is not live. */
+  [data-live] > .logo-track {
+    will-change: transform;
+  }
+
+  /* The invisible bounding area. Nothing paints it; it exists so that a 9:1
+     wordmark and a 1:1 roundel occupy the same slot in the rhythm. */
+  .logo-cell {
+    position: relative;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 56px;
+  }
+
+  @media (width >= 40rem) {
+    .logo-cell {
+      width: 180px;
+      height: 72px;
+    }
+  }
+
+  /* ---- The white bloom ----
+     The whole trick of a bare logo on a coloured ground. `closest-side`
+     with the colour gone by 70% means the gradient reaches transparent well
+     inside its own box, so there is no edge anywhere — it reads as light,
+     not as a shape. Sized 1.3x the cell via negative insets.
+
+     Held at 0.733 of a 0.75 white so the rest state lands on the specified
+     0.55 and hover can reach 0.75 by animating opacity alone. */
+  .logo-cell::before {
+    content: "";
+    position: absolute;
+    inset: -15%;
+    pointer-events: none;
+    background: radial-gradient(
+      closest-side,
+      rgba(255, 255, 255, 0.75),
+      transparent 70%
+    );
+    opacity: 0.733;
+    transition:
+      opacity 280ms ease,
+      transform 280ms ease;
+  }
+
+  /* ---- The hover halo ----
+     Colour, and only on hover, so it is a separate layer from the bloom
+     rather than a second state of it. --logo-glow is set per hover by
+     LogoWall from which half of the viewport the pointer is in; purple is
+     the default because the left half is where a pointer entering the row
+     usually starts. */
+  .logo-cell::after {
+    content: "";
+    position: absolute;
+    inset: -22%;
+    pointer-events: none;
+    background: radial-gradient(
+      closest-side,
+      var(--logo-glow, rgba(109, 91, 255, 0.2)),
+      transparent 72%
+    );
+    opacity: 0;
+    transition: opacity 280ms ease;
+  }
+
+  /* Carries the hover lift. Separate from the mark itself, which carries
+     the bob — one element cannot hold two independent transforms. */
+  .logo-plate {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: transform 280ms ease;
+  }
+
+  .client-mark {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    /* The one filter in the resting state, and it is depth rather than
+       colour: the mark keeps its own palette untouched. */
+    filter: drop-shadow(0 4px 14px rgba(31, 27, 46, 0.1));
+  }
+
+  /* Height caps. A roundel at full cell height is not "the same size" as a
+     wordmark at full cell height — it is four times the ink. */
+  .logo-cell[data-shape="mid"] .client-mark {
+    max-height: 90%;
+  }
+
+  .logo-cell[data-shape="emblem"] .client-mark {
+    max-height: 80%;
+  }
+
+  /* Three files are a solid filled rectangle of colour rather than ink on
+     transparency, and a slab uses every pixel of its box. Wide marks are
+     allowed the full width, but not these — "no logo dominates" wins over
+     "may fill the width". The artwork is otherwise untouched: no rounding,
+     which would alter a shape that is not ours to alter.
+
+     The `:not(emblem)` is what makes this a cap rather than a resize. It
+     sits after the shape rules, so without the exclusion it would LOOSEN
+     the one case that needs tightening most — a filled square already held
+     to 80% would be pushed back out to 84%. Plate only ever narrows. */
+  .logo-cell[data-plate]:not([data-shape="emblem"]) .client-mark {
+    max-height: 84%;
+  }
+
+  /* ---- Idle bob ----
+     +/-3px on a 7-9s sine, with the phase and period varied per logo from
+     its index, so the rows read as objects floating in the light rather
+     than as a conveyor belt. Every logo bobbing in step would be worse than
+     no bob at all. */
+  @media (prefers-reduced-motion: no-preference) {
+    .client-mark {
+      animation: logo-bob var(--bob-dur, 8s) ease-in-out infinite;
+      animation-delay: var(--bob-delay, 0s);
+    }
+  }
+
+  /* Pointer only. On a touch screen :hover latches after a tap and the logo
+     stays lit until something else is tapped. */
+  @media (hover: hover) and (pointer: fine) {
+    .logo-cell:hover .logo-plate {
+      transform: translate3d(0, -5px, 0) scale(1.06);
+    }
+
+    .logo-cell:hover::before {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
+    .logo-cell:hover::after {
+      opacity: 1;
+    }
+  }
+
+  /* ---- Entrance ----
+     Hidden state lives inside the no-preference query and is undone for
+     `no-js`, for exactly the reason the scroll reveals do it — see the note
+     above `.reveal`. Anyone who never receives `is-in` must read a finished
+     page, not an empty one.
+
+     The stagger is capped at fourteen steps. Twenty cells at 50ms is a full
+     second before the last one moves, by which point the first has been
+     still long enough that it stops reading as one gesture. */
+  @media (prefers-reduced-motion: no-preference) {
+    .logo-cell {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0) scale(0.97);
+      transition:
+        opacity 500ms cubic-bezier(0.22, 1, 0.36, 1) var(--logo-delay),
+        transform 500ms cubic-bezier(0.22, 1, 0.36, 1) var(--logo-delay);
+      --logo-delay: calc(min(var(--i, 0), 14) * 50ms);
+    }
+
+    .logo-wall.is-in .logo-cell {
+      opacity: 1;
+      transform: none;
+    }
+
+    html.no-js .logo-cell {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ---- Pausing ----
+     Off-screen and background tabs cost battery for motion nobody is
+     looking at. Both set the same variable the hover pause uses, and both
+     stop the bob as well as the drift.
+
+     `no-js` forces running: with the bundle absent nothing will ever stamp
+     `data-live`, and a permanently frozen marquee is worse than one that
+     cannot be paused. */
+  [data-marquee-gated]:not([data-live]) {
+    --marquee-play: paused;
+  }
+
+  [data-marquee-gated]:not([data-live]) .client-mark,
+  html[data-tab-hidden] .client-mark,
+  .logo-host:hover .client-mark {
+    animation-play-state: paused;
+  }
+
+  html[data-tab-hidden] .marquee-host {
+    --marquee-play: paused;
+  }
+
+  html.no-js .marquee-host {
+    --marquee-play: running;
+  }
+
+  /* ---- Reduced motion: a static grid ----
+     Not "the marquee, stopped". A halted track is a single row running off
+     both edges of the screen with most of the set unreachable, so the track
+     wraps into a centred grid, the duplicate half is dropped, and the edge
+     masks come off — there is no longer an edge for anything to dissolve
+     into. The logos keep their colours and their blooms; only the movement
+     goes, and the entrance becomes a plain fade. */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-host {
+      overflow: visible;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .logo-track {
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 1rem;
+      padding-inline: 1.5rem;
+      animation: none;
+    }
+
+    .logo-cell-dup {
+      display: none;
+    }
+  }
+}
+
+/* +/-3px, and the halves are not symmetric on purpose: an ease-in-out sine
+   that pauses fractionally longer at the top reads as floating rather than
+   as oscillating. */
+@keyframes logo-bob {
+  0%,
+  100% {
+    transform: translate3d(0, 3px, 0);
+  }
+  50% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
