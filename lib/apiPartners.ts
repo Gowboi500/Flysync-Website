@@ -29,6 +29,7 @@ export const API_IN_PARTNERS: ApiPartner[] = [
     className: "max-h-14 max-w-[7rem] object-contain",
   },
   { name: "Mystifly", logo: "/images/api-logos/api-in/mystifly.png" },
+  { name: "Cleartrip", logo: "/images/api-logos/api-in/cleartrip.png" },
   {
     name: "Riya",
     logo: "/images/api-logos/api-in/riya.png",
