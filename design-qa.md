@@ -1,3 +1,60 @@
+# Blogs coming-soon card QA
+
+## Comparison target
+
+- Source visual truth: user-provided Zoho Blog card reference screenshot in the current conversation. The screenshot shows a desktop blog-card row with a large 16:9 image area, category metadata, article title, and a bottom date/byline row.
+- Implementation route: `http://127.0.0.1:3002/blogs`
+- Implementation screenshots:
+  - `tmp/design-qa/blogs-desktop.png`
+  - `tmp/design-qa/blogs-mobile.png`
+- Reviewed state: Blogs page, coming-soon card section visible.
+- Source pixels: approximately 1366 x 596 from the attached reference image. Source density was treated as 1x for layout comparison.
+- Implementation pixels: desktop full-page capture 1440 x 2668 at CSS viewport 1440 x 1200, deviceScaleFactor 1; mobile full-page capture 390 x 3902 at CSS viewport 390 x 1200, deviceScaleFactor 1.
+
+## Full-view comparison
+
+The implemented blog section follows the requested reference structure while adapting it to the Flysync design system: three cards in a desktop row, a wide media slot at the top, compact category metadata, larger title copy, and a final metadata row that contains only the date. Because the user requested a temporary skeleton/coming-soon treatment, the thumbnail area uses skeleton panels instead of fake article imagery.
+
+## Focused region comparison
+
+The card metadata was checked in browser-rendered desktop and mobile screenshots. The previous-style author/byline pattern is absent: no `By` label and no author names render. Each card has one date-only line with a calendar icon and month/year text. The cards stack cleanly on the 390px mobile viewport without horizontal overflow.
+
+## Required fidelity surfaces
+
+- Fonts and typography: Flysync's existing Inter-based hierarchy is retained; card titles use a stronger, larger blog-card scale similar to the reference without exceeding the app's compact card rhythm.
+- Spacing and layout rhythm: Desktop uses a three-column row with even gutters; mobile stacks cards with stable image aspect ratios and no text overlap.
+- Colors and visual tokens: The cards use Flysync surface, border, accent, and atmospheric colors rather than Zoho green, which keeps the page consistent with the rest of the site.
+- Image quality and asset fidelity: The reference images were intentionally not recreated because the requested current state is skeleton/coming-soon UI. Skeleton media areas render as temporary placeholders, not article artwork.
+- Copy and content: Upcoming card topics and dates render; author names and `By` labels do not render.
+
+## Browser-rendered checks
+
+- Desktop route returned 200 and rendered 3 cards.
+- Mobile route rendered 3 stacked cards.
+- Console/page errors: none captured.
+- Horizontal overflow: none detected.
+- Author/byline check: `By`, `Subhiksha`, `Karthik`, and `Priya` were not present in rendered page text.
+
+## Findings
+
+- No actionable P0, P1, or P2 issues for the requested blog-card coming-soon scope.
+
+## Implementation checklist
+
+- [x] Replace the plain coming-soon block with a blog-card grid.
+- [x] Match the reference card rhythm with wide media slots, category labels, titles, and bottom metadata.
+- [x] Use skeleton/coming-soon media instead of fake blog images.
+- [x] Remove author/byline content and keep the metadata line date-only.
+- [x] Verify desktop and mobile browser rendering.
+
+## Follow-up polish
+
+- [P3] When real blog assets are ready, replace the skeleton media with real thumbnails and preserve the same date-only metadata pattern.
+
+final result: passed
+
+---
+
 # Partner logo strip QA
 
 ## Comparison target
