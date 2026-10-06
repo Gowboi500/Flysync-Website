@@ -175,6 +175,7 @@ export const nav = {
   })),
   links: [
     { name: "About", href: "/about" },
+    { name: "Blogs", href: "/blogs" },
     { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contact" },
   ],
