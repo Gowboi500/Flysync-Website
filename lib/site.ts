@@ -15,13 +15,13 @@ export const site = {
     "Complete travel technology platform for B2B, B2C, corporate travel, fixed departures and API distribution. Built in Chennai for travel businesses across India.",
 
   contact: {
-    phone: "+91 95005 31771",
-    phoneHref: "tel:+919500531771",
+    phone: "+91 9600731771",
+    phoneHref: "tel:+919600731771",
     email: "support@flysync.in",
     emailHref: "mailto:support@flysync.in",
-    whatsapp: "919500531771",
+    whatsapp: "919600731771",
     whatsappHref:
-      "https://wa.me/919500531771?text=Hi%20Flysync%2C%20I%27d%20like%20to%20know%20more%20about%20your%20travel%20technology%20platform.",
+      "https://wa.me/919600731771?text=Hi%20Flysync%2C%20I%27d%20like%20to%20know%20more%20about%20your%20travel%20technology%20platform.",
     address: {
       line1: "3rd Floor, Sri Sakthi Towers",
       line2: "Babu St Junction, Balaji Avenue",

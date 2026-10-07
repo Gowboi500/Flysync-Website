@@ -40,8 +40,8 @@ export default function ContactPage() {
           <Link href="/demo" className="btn btn-primary btn-lg">
             Book a Free Demo
           </Link>
-          <a href="tel:+919500531771" className="btn btn-secondary btn-lg">
-            +91 95005 31771
+          <a href="tel:+919600731771" className="btn btn-secondary btn-lg">
+            +91 9600731771
           </a>
         </PageHero>
 
@@ -146,7 +146,7 @@ export default function ContactPage() {
           <Link href="/demo" className="btn btn-primary btn-lg">
             Book a Free Demo
           </Link>
-          <a href="tel:+919500531771" className="btn btn-secondary btn-lg">
+          <a href="tel:+919600731771" className="btn btn-secondary btn-lg">
             Contact Our Team
           </a>
         </CTABanner>
