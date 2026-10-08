@@ -51,7 +51,7 @@ function ProductScreen({ slug }: { slug: string }) {
     slug === "corporate-booking-portal-sign-in"
       ? { w: 1440, h: 1024 }
       : slug === "corporate-booking-portal-trip-search"
-      ? { w: 2974, h: 2116 }
+      ? { w: 1485, h: 1059 }
       : slug === "b2b-portal"
       ? { w: 2880, h: 2048 }
       : slug === "b2b-portal-solution"
