@@ -26,7 +26,7 @@ type RoleMeta = {
 const ROLE_META: Record<string, RoleMeta> = {
   "Digital Marketing": {
     title: "Digital Marketing",
-    description: "Shape campaigns, content, and growth for travel businesses.",
+    description: "Shape campaigns, content and growth for travel businesses.",
     icon: Megaphone,
   },
   "Business Development": {
@@ -51,7 +51,7 @@ const ROLE_META: Record<string, RoleMeta> = {
   },
   "Technical Support": {
     title: "Technical Support",
-    description: "Solve product questions with empathy, clarity, and care.",
+    description: "Solve product questions with empathy, clarity and care.",
     icon: Headphones,
   },
 };

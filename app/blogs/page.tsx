@@ -20,7 +20,7 @@ const blogCardPlaceholders = [
 export const metadata: Metadata = {
   title: "Blogs",
   description:
-    "Read Flysync blogs on travel technology, B2B booking platforms, API integrations, booking operations, and product updates.",
+    "Read Flysync blogs on travel technology, B2B booking platforms, API integrations, booking operations and product updates.",
   alternates: { canonical: "/blogs" },
 };
 
@@ -33,8 +33,8 @@ export default function BlogsPage() {
         <div aria-hidden="true" className="texture-grid" />
         <PageHero
           eyebrow="Blogs"
-          headline="Travel technology insights from Flysync"
-          sub="Practical articles, product notes, and operations guides for travel businesses building better booking, distribution, and agent workflows."
+          headline="Travel Technology insights from Flysync"
+          sub="Practical articles, product notes and operations guides for travel businesses building better booking, distribution and agent workflows."
         >
           <Link href="/demo" className="btn btn-primary btn-lg">
             Book a Demo
@@ -49,7 +49,7 @@ export default function BlogsPage() {
             <SectionHeading
               eyebrow="Coming soon"
               title="New articles are being prepared"
-              body="Useful reads on travel booking systems, API connectivity, CRM workflows, agent management, and digital growth are on the way."
+              body="Useful reads on travel booking systems, API connectivity, CRM workflows, agent management and digital growth are on the way."
             />
 
             <StaggerGroup className="mt-[var(--heading-gap)] grid gap-8 md:grid-cols-2 xl:grid-cols-3">
@@ -114,7 +114,7 @@ export default function BlogsPage() {
 
         <CTABanner
           heading="Want help with your travel technology stack?"
-          body="Book a walkthrough and see how Flysync can support your booking, CRM, distribution, and reporting workflows."
+          body="Book a walkthrough and see how Flysync can support your booking, CRM, distribution and reporting workflows."
         >
           <Link href="/demo" className="btn btn-primary btn-lg">
             Book Free Demo

@@ -478,7 +478,7 @@ function CrmScreen() {
         <div className="sc-well flex items-center gap-1.5 rounded-md px-2.5 py-1.5">
           <Users className="sc-accent h-2.5 w-2.5" strokeWidth={2} />
           <span className="text-[0.5rem] text-fg-subtle">
-            12 follow-ups due today
+            12 follow ups due today
           </span>
         </div>
       </div>

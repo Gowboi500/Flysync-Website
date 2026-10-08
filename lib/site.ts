@@ -23,15 +23,15 @@ export const site = {
     whatsappHref:
       "https://wa.me/919600731771?text=Hi%20Flysync%2C%20I%27d%20like%20to%20know%20more%20about%20your%20travel%20technology%20platform.",
     address: {
-      line1: "3rd Floor, Sri Sakthi Towers",
-      line2: "Babu St Junction, Balaji Avenue",
-      line3: "Chitlapakkam Main Road, Indira Nagar",
-      city: "Chitlapakkam, Chennai",
+      line1: "3rd floor, Sri Sakthi Towers",
+      line2: "Babu St junction, Balaji Ave",
+      line3: "Chitlapakkam Main Rd",
+      city: "Chitlapakkam, Tambaram",
       state: "Tamil Nadu",
       postalCode: "600073",
       country: "India",
     },
-    hours: "Monday – Saturday · 9:30 AM – 7:30 PM",
+    hours: "10.00 am–7.00 pm",
   },
 
   social: {
@@ -67,7 +67,7 @@ export const features = [
   {
     icon: "Users",
     title: "Vacay 365 CRM",
-    body: "Holiday enquiries, costed itineraries, branded quotations and follow-ups in one pipeline.",
+    body: "Holiday enquiries, costed itineraries, branded quotations and follow ups in one pipeline.",
   },
   {
     icon: "FileBarChart2",

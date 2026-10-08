@@ -20,14 +20,14 @@ import type { ProductPage } from "@/lib/products";
 function featureIconFor(title: string, fallback: string) {
   const text = title.toLowerCase();
 
-  if (text.includes("agent") || text.includes("sub-agent")) return "Users";
+  if (text.includes("agent") || text.includes("sub agent")) return "Users";
   if (text.includes("markup") || text.includes("pricing") || text.includes("fare") || text.includes("promotion") || text.includes("offer")) return "Tags";
   if (text.includes("inventory") || text.includes("package")) return "Layers";
   if (text.includes("credit") || text.includes("wallet") || text.includes("payment") || text.includes("expense") || text.includes("cost")) return "Wallet";
   if (text.includes("booking") || text.includes("reservation")) return "CalendarRange";
   if (text.includes("report") || text.includes("analytics") || text.includes("insight") || text.includes("dashboard")) return "LineChart";
   if (text.includes("supplier") || text.includes("api") || text.includes("integration")) return "Plug";
-  if (text.includes("notification") || text.includes("reminder") || text.includes("follow-up")) return "Bell";
+  if (text.includes("notification") || text.includes("reminder") || text.includes("follow up")) return "Bell";
   if (text.includes("departure") || text.includes("calendar")) return "CalendarRange";
   if (text.includes("passenger") || text.includes("customer") || text.includes("employee") || text.includes("team")) return "Users";
   if (text.includes("website") || text.includes("seo")) return "Globe";

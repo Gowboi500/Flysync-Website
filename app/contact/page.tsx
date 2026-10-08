@@ -131,7 +131,7 @@ export default function ContactPage() {
                 <div className="overflow-hidden rounded-card border border-line">
                   <iframe
                     title="Flysync Technologies Private Limited office location, Chitlapakkam, Chennai"
-                    src="https://www.google.com/maps?q=Sri+Sakthi+Towers+Balaji+Avenue+Chitlapakkam+Chennai+600073&output=embed"
+                    src="https://www.google.com/maps?q=3rd+floor+Sri+Sakthi+Towers+Babu+St+junction+Balaji+Ave+Chitlapakkam+Main+Rd+Chitlapakkam+Tambaram+Tamil+Nadu+600073+India&output=embed"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     className="h-72 w-full lg:h-80"

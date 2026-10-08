@@ -45,11 +45,11 @@ export const productPages: ProductPage[] = [
     icon: "Network",
     card: {
       headline: "Manage Your Agent Network with Ease",
-      body: "A comprehensive B2B booking platform that enables travel agencies and partners to search, book, and manage travel services through a single centralized system.",
+      body: "A comprehensive B2B booking platform that enables travel agencies and partners to search, book and manage travel services through a single centralized system.",
     },
     hero: {
       headline: "B2B Travel Portal Software for Modern Travel Businesses",
-      sub: "Transform the way you manage your travel partner network with an advanced B2B booking platform built for modern travel businesses. Enable seamless agent bookings, automate pricing and commissions, manage credit limits, and distribute live travel inventory through a single, powerful system designed to improve efficiency, increase revenue, and support business growth at scale.",
+      sub: "Transform the way you manage your travel partner network with an advanced B2B booking platform built for modern travel businesses. Enable seamless agent bookings, automate pricing and commissions, manage credit limits and distribute live travel inventory through a single, powerful system designed to improve efficiency, increase revenue and support business growth at scale.",
     },
     heroShows: [
       "Flight search",
@@ -59,7 +59,7 @@ export const productPages: ProductPage[] = [
     ],
     trusted: {
       heading: "Powering Travel Agencies Across Multiple Markets",
-      body: "Travel agencies, consolidators, wholesalers, tour operators, and DMCs use Flysync to streamline operations, expand distribution networks, and increase booking volumes through a scalable B2B ecosystem.",
+      body: "Travel agencies, consolidators, wholesalers, tour operators and DMCs use Flysync to streamline operations, expand distribution networks and increase booking volumes through a scalable B2B ecosystem.",
     },
     challenges: {
       heading: "Managing Agent Networks Shouldn't Be Complicated",
@@ -74,15 +74,15 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Limited Visibility",
-          body: "Tracking agent performance, transactions, and outstanding balances becomes difficult as networks grow.",
+          body: "Tracking agent performance, transactions and outstanding balances becomes difficult as networks grow.",
         },
         {
           title: "Inventory Distribution Challenges",
-          body: "Sharing inventory across multiple partners without real-time synchronization creates inefficiencies.",
+          body: "Sharing inventory across multiple partners without real time synchronization creates inefficiencies.",
         },
         {
           title: "Credit & Payment Management",
-          body: "Managing agent credits, deposits, and settlements manually can impact cash flow.",
+          body: "Managing agent credits, deposits and settlements manually can impact cash flow.",
         },
         {
           title: "Communication Gaps",
@@ -92,42 +92,42 @@ export const productPages: ProductPage[] = [
     },
     solution: {
       heading: "One Platform to Manage Your Entire B2B Travel Network",
-      body: "Flysync brings inventory distribution, agent management, bookings, payments, and reporting together in a unified platform designed specifically for travel businesses.",
+      body: "Flysync brings inventory distribution, agent management, bookings, payments and reporting together in a unified platform designed specifically for travel businesses.",
     },
     features: {
       heading: "Everything You Need to Run a Successful B2B Travel Business",
       items: [
         {
-          title: "Agent & Sub-Agent Management",
-          body: "Create and manage unlimited agents, distributors, and branch networks with customized access controls.",
+          title: "Agent & Sub Agent Management",
+          body: "Create and manage unlimited agents, distributors and branch networks with customized access controls.",
         },
         {
           title: "Dynamic Markup Management",
-          body: "Configure markups, commissions, and pricing rules at agent, supplier, or product level.",
+          body: "Configure markups, commissions and pricing rules at agent, supplier, or product level.",
         },
         {
-          title: "Real-Time Inventory Access",
-          body: "Provide instant access to flights, hotels, holidays, and other travel products.",
+          title: "Real Time Inventory Access",
+          body: "Provide instant access to flights, hotels, holidays and other travel products.",
         },
         {
           title: "Credit & Wallet Management",
-          body: "Control agent balances, credit limits, deposits, and transactions effortlessly.",
+          body: "Control agent balances, credit limits, deposits and transactions effortlessly.",
         },
         {
           title: "Booking Management",
-          body: "Monitor bookings, cancellations, amendments, and vouchers from a centralized dashboard.",
+          body: "Monitor bookings, cancellations, amendments and vouchers from a centralized dashboard.",
         },
         {
           title: "Reporting & Analytics",
-          body: "Access detailed business reports, revenue insights, and agent performance metrics.",
+          body: "Access detailed business reports, revenue insights and agent performance metrics.",
         },
         {
           title: "Supplier & API Integration",
-          body: "Connect with GDSs, airlines, hotels, consolidators, and third-party suppliers.",
+          body: "Connect with GDSs, airlines, hotels, consolidators and third party suppliers.",
         },
         {
           title: "Automated Notifications",
-          body: "Keep agents informed through booking confirmations, alerts, and status updates.",
+          body: "Keep agents informed through booking confirmations, alerts and status updates.",
         },
       ],
     },
@@ -148,29 +148,29 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Improve Agent Experience",
-          body: "Provide a fast, self-service booking platform available 24/7.",
+          body: "Provide a fast, self service booking platform available 24/7.",
         },
         {
-          title: "Make Data-Driven Decisions",
-          body: "Gain complete visibility into bookings, revenue, and business performance.",
+          title: "Make Data Driven Decisions",
+          body: "Gain complete visibility into bookings, revenue and business performance.",
         },
       ],
     },
     steps: {
       heading: "Get Started in 3 Simple Steps",
       items: [
-        "Connect suppliers, APIs, and inventory sources.",
-        "Create agents, define markups, and configure credit settings.",
+        "Connect suppliers, APIs and inventory sources.",
+        "Create agents, define markups and configure credit settings.",
         "Start accepting bookings and grow your distribution network.",
       ],
     },
     integrations: {
       heading: "Seamlessly Connect With Your Existing Travel Ecosystem",
-      body: "Integrate with GDSs, airlines, hotel suppliers, payment gateways, accounting software, and third-party travel APIs to create a fully connected booking environment.",
+      body: "Integrate with GDSs, airlines, hotel suppliers, payment gateways, accounting software and third party travel APIs to create a fully connected booking environment.",
     },
     cta: {
       heading: "Grow Your Travel Business with Flysync",
-      body: "Empower your travel agency with a modern B2B platform built to automate operations, strengthen partner relationships, and accelerate business growth.",
+      body: "Empower your travel agency with a modern B2B platform built to automate operations, strengthen partner relationships and accelerate business growth.",
     },
   },
 
@@ -182,11 +182,11 @@ export const productPages: ProductPage[] = [
     icon: "CalendarRange",
     card: {
       headline: "Simplify Fixed Departure Management",
-      body: "Manage fixed departures, group tours, and series bookings efficiently with real-time availability tracking and streamlined booking workflows.",
+      body: "Manage fixed departures, group tours, and series bookings efficiently with real time availability tracking and streamlined booking workflows.",
     },
     hero: {
       headline: "Series Booking Portal Software for Fixed Departures",
-      sub: "Simplify fixed departure management with a centralized series booking platform built for modern travel businesses. Create and manage departures, track real-time availability, automate bookings, control pricing, and distribute inventory seamlessly through a single system designed to improve efficiency, maximize occupancy, and accelerate business growth.",
+      sub: "Simplify fixed departure management with a centralized series booking platform built for modern travel businesses. Create and manage departures, track real time availability, automate bookings, control pricing, and distribute inventory seamlessly through a single system designed to improve efficiency, maximize occupancy, and accelerate business growth.",
     },
     heroShows: [
       "Departure calendar",
@@ -207,7 +207,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Limited Seat Visibility",
-          body: "Without real-time inventory tracking, monitoring available seats across departures becomes difficult.",
+          body: "Without real time inventory tracking, monitoring available seats across departures becomes difficult.",
         },
         {
           title: "Manual Booking Operations",
@@ -229,7 +229,7 @@ export const productPages: ProductPage[] = [
     },
     solution: {
       heading: "One Platform to Manage Every Fixed Departure",
-      body: "Flysync's Series Booking Portal centralizes departure scheduling, seat inventory, booking management, pricing control, and partner distribution in a single platform. Travel businesses can efficiently manage group tours and fixed departures while providing real-time availability to agents and customers.",
+      body: "Flysync's Series Booking Portal centralizes departure scheduling, seat inventory, booking management, pricing control, and partner distribution in a single platform. Travel businesses can efficiently manage group tours and fixed departures while providing real time availability to agents and customers.",
     },
     features: {
       heading: "Everything You Need to Run Successful Fixed Departure Programs",
@@ -239,7 +239,7 @@ export const productPages: ProductPage[] = [
           body: "Create, organize, and manage multiple departures with complete scheduling control.",
         },
         {
-          title: "Real-Time Seat Inventory",
+          title: "Real Time Seat Inventory",
           body: "Monitor seat availability and occupancy levels across all departures instantly.",
         },
         {
@@ -289,7 +289,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Improve Business Visibility",
-          body: "Gain real-time insights into bookings, revenue, and departure performance.",
+          body: "Gain real time insights into bookings, revenue, and departure performance.",
         },
       ],
     },
@@ -311,7 +311,7 @@ export const productPages: ProductPage[] = [
     },
     cta: {
       heading: "Grow Your Fixed Departure Business with Flysync",
-      body: "Empower your team with a modern series booking platform built to simplify departure management, improve occupancy rates, and accelerate business growth through automated operations and real-time inventory control.",
+      body: "Empower your team with a modern series booking platform built to simplify departure management, improve occupancy rates, and accelerate business growth through automated operations and real time inventory control.",
     },
   },
 
@@ -322,11 +322,11 @@ export const productPages: ProductPage[] = [
     icon: "Globe",
     card: {
       headline: "Deliver Seamless Online Travel Bookings",
-      body: "Provide customers with a fast, secure, and user-friendly booking experience for flights, hotels, holidays, and other travel services.",
+      body: "Provide customers with a fast, secure and user-friendly booking experience for flights, hotels, holidays and other travel services.",
     },
     hero: {
       headline: "Launch Your Own Online Travel Booking Platform",
-      sub: "Empower travelers to search, compare, and book flights, hotels, holiday packages, activities, and more through a fully branded B2C travel portal. Deliver seamless booking experiences, increase direct sales, and grow your travel business with a powerful online booking solution.",
+      sub: "Empower travelers to search, compare and book flights, hotels, holiday packages, activities and more through a fully branded B2C travel portal. Deliver seamless booking experiences, increase direct sales and grow your travel business with a powerful online booking solution.",
     },
     heroShows: [
       "Flight search",
@@ -337,7 +337,7 @@ export const productPages: ProductPage[] = [
     ],
     trusted: {
       heading: "Helping Travel Brands Sell Directly to Customers",
-      body: "Travel agencies, tour operators, OTAs, DMCs, and travel startups use Flysync's B2C portal to create engaging online booking experiences, attract more customers, and increase direct bookings through a centralized digital platform.",
+      body: "Travel agencies, tour operators, OTAs, DMCs and travel startups use Flysync's B2C portal to create engaging online booking experiences, attract more customers and increase direct bookings through a centralized digital platform.",
     },
     challenges: {
       heading: "Growing Online Travel Sales Isn't Always Easy",
@@ -348,19 +348,19 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Manual Booking Management",
-          body: "Handling inquiries and bookings manually leads to delays, errors, and missed sales opportunities.",
+          body: "Handling inquiries and bookings manually leads to delays, errors and missed sales opportunities.",
         },
         {
           title: "Low Direct Bookings",
-          body: "Dependence on third-party marketplaces reduces profit margins and brand visibility.",
+          body: "Dependence on third party marketplaces reduces profit margins and brand visibility.",
         },
         {
           title: "Poor User Experience",
-          body: "Slow websites, complicated booking flows, and outdated designs can result in abandoned bookings.",
+          body: "Slow websites, complicated booking flows and outdated designs can result in abandoned bookings.",
         },
         {
           title: "Mobile Booking Challenges",
-          body: "Customers expect seamless booking experiences across mobile, tablet, and desktop devices.",
+          body: "Customers expect seamless booking experiences across mobile, tablet and desktop devices.",
         },
         {
           title: "Payment & Conversion Issues",
@@ -381,7 +381,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Flight Booking Engine",
-          body: "Provide customers with real-time flight search, pricing, and instant booking capabilities.",
+          body: "Provide customers with real time flight search, pricing and instant booking capabilities.",
         },
         {
           title: "Hotel Booking System",
@@ -389,7 +389,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Holiday Package Management",
-          body: "Create, manage, and sell customized tour packages and travel experiences.",
+          body: "Create, manage and sell customized tour packages and travel experiences.",
         },
         {
           title: "Mobile Responsive Design",
@@ -401,19 +401,19 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Customer Account Management",
-          body: "Allow travelers to manage bookings, profiles, vouchers, and travel history.",
+          body: "Allow travelers to manage bookings, profiles, vouchers and travel history.",
         },
         {
           title: "Promotions & Offers",
-          body: "Create discounts, promo codes, seasonal offers, and marketing campaigns to drive conversions.",
+          body: "Create discounts, promo codes, seasonal offers and marketing campaigns to drive conversions.",
         },
         {
-          title: "SEO-Friendly Platform",
+          title: "SEO Friendly Platform",
           body: "Improve search engine visibility and attract organic traffic through optimized website architecture.",
         },
         {
           title: "Booking Management Dashboard",
-          body: "Track reservations, cancellations, modifications, and customer activity from a centralized system.",
+          body: "Track reservations, cancellations, modifications and customer activity from a centralized system.",
         },
       ],
     },
@@ -422,7 +422,7 @@ export const productPages: ProductPage[] = [
       items: [
         {
           title: "Increase Direct Bookings",
-          body: "Reduce dependency on third-party platforms and sell directly to travelers.",
+          body: "Reduce dependency on third party platforms and sell directly to travelers.",
         },
         {
           title: "Strengthen Your Brand",
@@ -430,11 +430,11 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Improve Customer Experience",
-          body: "Provide fast, intuitive, and secure booking journeys that encourage repeat business.",
+          body: "Provide fast, intuitive and secure booking journeys that encourage repeat business.",
         },
         {
           title: "Maximize Revenue",
-          body: "Increase conversions through personalized offers, promotions, and streamlined booking processes.",
+          body: "Increase conversions through personalized offers, promotions and streamlined booking processes.",
         },
         {
           title: "Expand Market Reach",
@@ -449,18 +449,18 @@ export const productPages: ProductPage[] = [
     steps: {
       heading: "Launch Your Customer Booking Platform in 3 Simple Steps",
       items: [
-        "Connect flights, hotels, holidays, payment gateways, and supplier APIs.",
-        "Customize your brand, website content, search flow, fares, offers, and customer communication.",
-        "Go live with your booking platform so customers can search, book, and pay directly.",
+        "Connect flights, hotels, holidays, payment gateways and supplier APIs.",
+        "Customize your brand, website content, search flow, fares, offers and customer communication.",
+        "Go live with your booking platform so customers can search, book and pay directly.",
       ],
     },
     integrations: {
       heading: "Connect Every Part of Your Travel Ecosystem",
-      body: "Integrate with flight suppliers, hotel providers, payment gateways, CRM platforms, marketing tools, and third-party travel APIs to create a fully connected digital travel business.",
+      body: "Integrate with flight suppliers, hotel providers, payment gateways, CRM platforms, marketing tools and third party travel APIs to create a fully connected digital travel business.",
     },
     cta: {
       heading: "Build Your Travel Brand Online with Flysync",
-      body: "Launch a powerful B2C travel booking platform that helps you attract customers, increase direct bookings, strengthen your brand, and grow revenue through a seamless online travel experience.",
+      body: "Launch a powerful B2C travel booking platform that helps you attract customers, increase direct bookings, strengthen your brand and grow revenue through a seamless online travel experience.",
     },
   },
 
@@ -472,38 +472,38 @@ export const productPages: ProductPage[] = [
     icon: "Users",
     card: {
       headline: "Turn Leads into Loyal Customers",
-      body: "Manage inquiries, track leads, automate follow-ups, and strengthen customer relationships with a CRM built specifically for travel businesses.",
+      body: "Manage inquiries, track leads, automate follow ups and strengthen customer relationships with a CRM built specifically for travel businesses.",
     },
     hero: {
       headline: "Holiday CRM Built for Travel Agencies & Tour Operators",
-      sub: "Transform the way you manage holiday inquiries, quotations, itineraries, bookings, and customer relationships. Vacay365 helps travel businesses streamline sales operations, automate follow-ups, track leads, and convert more inquiries into confirmed bookings from a single platform.",
+      sub: "Transform the way you manage holiday inquiries, quotations, itineraries, bookings and customer relationships. Vacay365 helps travel businesses streamline sales operations, automate follow ups, track leads and convert more inquiries into confirmed bookings from a single platform.",
     },
     heroShows: [
       "Lead Pipeline",
       "Quotation Builder",
       "Itinerary Management",
-      "Follow-Up Tracker",
+      "Follow Up Tracker",
       "Booking Dashboard",
       "Sales Reports",
     ],
     trusted: {
       heading: "Built Specifically for Travel Businesses",
-      body: "Unlike generic CRM software, Vacay365 is purpose-built for travel agencies, tour operators, DMCs, and holiday specialists. From the moment an inquiry is received to quotation creation, itinerary planning, booking management, payment tracking, and customer servicing, Vacay365 supports every stage of the holiday sales lifecycle.",
+      body: "Unlike generic CRM software, Vacay365 is purpose built for travel agencies, tour operators, DMCs and holiday specialists. From the moment an inquiry is received to quotation creation, itinerary planning, booking management, payment tracking and customer servicing, Vacay365 supports every stage of the holiday sales lifecycle.",
     },
     challenges: {
       heading: "Challenges Travel Businesses Face",
       items: [
         {
           title: "Scattered Customer Information",
-          body: "Managing customer details across spreadsheets, emails, WhatsApp chats, and multiple tools makes it difficult to deliver a seamless customer experience and maintain accurate records.",
+          body: "Managing customer details across spreadsheets, emails, WhatsApp chats and multiple tools makes it difficult to deliver a seamless customer experience and maintain accurate records.",
         },
         {
-          title: "Missed Follow-Ups & Lost Opportunities",
+          title: "Missed Follow Ups & Lost Opportunities",
           body: "Without a structured lead management process, valuable inquiries often go unattended, resulting in lost bookings and reduced conversion rates.",
         },
         {
           title: "Slow Quotation & Itinerary Creation",
-          body: "Creating customized holiday quotations and itineraries manually takes time, delays customer responses, and impacts sales performance.",
+          body: "Creating customized holiday quotations and itineraries manually takes time, delays customer responses and impacts sales performance.",
         },
         {
           title: "Disconnected Sales & Operations",
@@ -511,31 +511,31 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Complex Billing & Payment Tracking",
-          body: "Tracking invoices, payment schedules, balances, and financial records manually increases the risk of errors and operational inefficiencies.",
+          body: "Tracking invoices, payment schedules, balances and financial records manually increases the risk of errors and operational inefficiencies.",
         },
         {
           title: "Limited Visibility into Business Performance",
-          body: "Without real-time reporting, travel businesses struggle to monitor lead sources, conversions, revenue trends, and team productivity effectively.",
+          body: "Without real time reporting, travel businesses struggle to monitor lead sources, conversions, revenue trends and team productivity effectively.",
         },
       ],
     },
     solution: {
       heading: "One Ecosystem for Sales, Operations and Customers",
-      body: "The platform combines sales, operations, customer management, and reporting into a single ecosystem, helping travel businesses improve efficiency, increase conversions, and deliver exceptional travel experiences.",
+      body: "The platform combines sales, operations, customer management and reporting into a single ecosystem, helping travel businesses improve efficiency, increase conversions and deliver exceptional travel experiences.",
     },
     features: {
       heading: "Why Travel Agencies Choose Vacay365",
       items: [
         {
           title: "Manage Everything from One Platform",
-          body: "Centralize inquiries, customer information, quotations, itineraries, bookings, payments, and reports in a single system designed for travel businesses.",
+          body: "Centralize inquiries, customer information, quotations, itineraries, bookings, payments and reports in a single system designed for travel businesses.",
         },
         {
           title: "Respond Faster to Customer Inquiries",
           body: "Create professional quotations and itineraries quickly, helping your team engage prospects faster and improve conversion opportunities.",
         },
         {
-          title: "Never Miss a Follow-Up",
+          title: "Never Miss a Follow Up",
           body: "Automated reminders and lead tracking ensure every inquiry receives timely attention throughout the sales journey.",
         },
         {
@@ -543,12 +543,12 @@ export const productPages: ProductPage[] = [
           body: "Streamline workflows and reduce manual tasks, allowing teams to focus on customer engagement and business growth.",
         },
         {
-          title: "Gain Real-Time Business Insights",
-          body: "Monitor sales performance, booking trends, conversion rates, and revenue through actionable dashboards and reports.",
+          title: "Gain Real Time Business Insights",
+          body: "Monitor sales performance, booking trends, conversion rates and revenue through actionable dashboards and reports.",
         },
         {
           title: "Scale Operations with Confidence",
-          body: "Handle increasing inquiry volumes, bookings, and customer interactions efficiently without adding operational complexity.",
+          body: "Handle increasing inquiry volumes, bookings and customer interactions efficiently without adding operational complexity.",
         },
       ],
     },
@@ -557,11 +557,11 @@ export const productPages: ProductPage[] = [
       items: [
         { title: "Centralize Customer & Inquiry Management", body: "" },
         { title: "Improve Lead Conversion Rates", body: "" },
-        { title: "Automate Follow-Up Processes", body: "" },
+        { title: "Automate Follow Up Processes", body: "" },
         { title: "Accelerate Quotation & Itinerary Creation", body: "" },
         { title: "Streamline Booking & Operations Workflows", body: "" },
         { title: "Simplify Billing & Payment Management", body: "" },
-        { title: "Gain Real-Time Sales & Revenue Insights", body: "" },
+        { title: "Gain Real Time Sales & Revenue Insights", body: "" },
         { title: "Enhance Team Collaboration", body: "" },
         { title: "Improve Customer Experience", body: "" },
         { title: "Scale Your Travel Business Efficiently", body: "" },
@@ -572,12 +572,12 @@ export const productPages: ProductPage[] = [
       items: [
         "Capture inquiries from every channel into one lead pipeline.",
         "Build costed quotations and itineraries, then send them branded.",
-        "Automate follow-ups and convert more inquiries into bookings.",
+        "Automate follow ups and convert more inquiries into bookings.",
       ],
     },
     cta: {
       heading: "Ready to Simplify Holiday Sales Management?",
-      body: "Empower your travel business with a CRM built specifically for the travel industry. Manage inquiries, create quotations, automate follow-ups, and convert more leads into bookings with Vacay365.",
+      body: "Empower your travel business with a CRM built specifically for the travel industry. Manage inquiries, create quotations, automate follow ups and convert more leads into bookings with Vacay365.",
     },
   },
 

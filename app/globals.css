@@ -570,7 +570,7 @@
      panels all come from the design system instead of one-off strings. */
   .form-card {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     border: 1px solid color-mix(in srgb, var(--color-line) 86%, #ffffff);
     border-radius: var(--radius-card);
     background:

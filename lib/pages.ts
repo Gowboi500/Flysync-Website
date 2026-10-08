@@ -264,8 +264,8 @@ export const careers = {
   hero: {
     headline: "Join the Team That's Shaping Travel Technology",
     body: [
-      "At Flysync, we're building innovative technology solutions that help travel businesses grow smarter, operate more efficiently, and scale with confidence.",
-      "We're looking for passionate, driven individuals who are eager to learn, innovate, and make an impact. Whether you're starting your career or bringing industry experience, Flysync offers opportunities to grow, collaborate, and succeed.",
+      "At Flysync, we're building innovative technology solutions that help travel businesses grow smarter, operate more efficiently and scale with confidence.",
+      "We're looking for passionate, driven individuals who are eager to learn, innovate and make an impact. Whether you're starting your career or bringing industry experience, Flysync offers opportunities to grow, collaborate and succeed.",
     ],
     kicker: "Ready to build the future of travel technology with us?",
   },
@@ -281,7 +281,7 @@ export const careers = {
       {
         icon: "Lightbulb",
         title: "Innovation",
-        body: "Work on cutting-edge travel technology products and solutions.",
+        body: "Work on cutting edge travel technology products and solutions.",
       },
       {
         icon: "Handshake",
@@ -291,14 +291,14 @@ export const careers = {
       {
         icon: "GraduationCap",
         title: "Learning",
-        body: "Continuously expand your skills through hands-on experience and new challenges.",
+        body: "Continuously expand your skills through hands on experience and new challenges.",
       },
     ],
   },
 
   life: {
     heading: "Life at Flysync",
-    body: "At Flysync, we foster a culture of creativity, ownership, and continuous learning. We believe great ideas come from collaboration, curiosity, and a shared passion for building exceptional products.",
+    body: "At Flysync, we foster a culture of creativity, ownership and continuous learning. We believe great ideas come from collaboration, curiosity and a shared passion for building exceptional products.",
   },
 
   openings: {
@@ -354,14 +354,14 @@ export const contact = {
     {
       icon: "MapPin",
       title: "Visit Our Office",
-      body: "Sri Sakthi Towers, 3rd Floor, Balaji Avenue, Chitlapakkam",
-      value: "Chennai – 600073",
+      body: "3rd floor, Sri Sakthi Towers, Babu St junction, Balaji Ave, Chitlapakkam Main Rd, Chitlapakkam, Tambaram, Tamil Nadu 600073, India",
+      value: "Chitlapakkam, Tambaram, Tamil Nadu 600073",
     },
     {
       icon: "Clock",
       title: "Working Hours",
-      body: "Monday – Friday",
-      value: "9:30 AM – 6:30 PM",
+      body: "Working hours",
+      value: "10.00 am–7.00 pm",
     },
   ],
 
@@ -392,13 +392,14 @@ export const contact = {
     body: "If you'd like to discuss your project in person, our team would be happy to meet you.",
     lines: [
       "Flysync Technologies Private Limited",
-      "Sri Sakthi Towers, 3rd Floor",
-      "Balaji Avenue, Chitlapakkam",
-      "Chennai – 600073",
-      "Tamil Nadu, India",
+      "3rd floor, Sri Sakthi Towers",
+      "Babu St junction, Balaji Ave",
+      "Chitlapakkam Main Rd",
+      "Chitlapakkam, Tambaram",
+      "Tamil Nadu 600073, India",
     ],
     mapsUrl:
-      "https://www.google.com/maps/search/?api=1&query=Sri+Sakthi+Towers+Balaji+Avenue+Chitlapakkam+Chennai+600073",
+      "https://www.google.com/maps/search/?api=1&query=3rd+floor+Sri+Sakthi+Towers+Babu+St+junction+Balaji+Ave+Chitlapakkam+Main+Rd+Chitlapakkam+Tambaram+Tamil+Nadu+600073+India",
   },
 
   cta: {
@@ -421,13 +422,11 @@ export const demo = {
     "Corporate Booking Portal",
   ],
   businessTypes: [
-    "Travel Agency",
+    "B2B Agent",
+    "Fixed Departure Agent",
+    "B2C Agent",
+    "Corporate Travel Agency",
     "Tour Operator",
-    "DMC",
-    "OTA",
-    "Corporate Travel Company",
-    "Startup",
-    "Other",
   ],
   employees: ["1–10", "11–50", "51–100", "100+"],
   challengesPlaceholder:
