@@ -18,20 +18,20 @@ export const home = {
     /** The single italic-serif word in the headline — the one permitted
         flourish. Must appear verbatim in `headline`. */
     flourish: "Backbone",
-    sub: "A complete ecosystem of travel technology solutions that helps travel agencies, tour operators, and travel companies streamline operations, connect with partners, and scale efficiently in a competitive market.",
+    sub: "A complete ecosystem of travel technology solutions that helps travel agencies, tour operators and travel companies streamline operations, connect with partners and scale efficiently in a competitive market.",
     cta: "Request a Demo",
   },
 
   trusted: {
     heading: "Trusted by Travel Companies Across the Industry",
-    body: "From emerging travel agencies to established travel brands, businesses rely on Flysync to simplify operations, improve customer experiences, and drive sustainable growth through technology.",
+    body: "From emerging travel agencies to established travel brands, businesses rely on Flysync to simplify operations, improve customer experiences and drive sustainable growth through technology.",
   },
 
   about: {
     eyebrow: "About Flysync",
     heading: "Built for the Future of Travel Commerce",
     body: [
-      "Flysync delivers a complete ecosystem of travel technology solutions designed to help travel businesses operate more efficiently and grow with confidence. Our platforms connect bookings, customers, suppliers, and business operations into one seamless digital experience.",
+      "Flysync delivers a complete ecosystem of travel technology solutions designed to help travel businesses operate more efficiently and grow with confidence. Our platforms connect bookings, customers, suppliers and business operations into one seamless digital experience.",
       "Whether you're managing travel agents, selling directly to customers, operating fixed departures, or handling holiday inquiries, Flysync provides the technology foundation to support every stage of your business journey.",
     ],
   },
@@ -46,32 +46,32 @@ export const home = {
   why: {
     eyebrow: "Why Travel Businesses Choose Flysync",
     heading: "Technology Designed Around Travel Operations",
-    body: "We understand the operational challenges travel businesses face every day. Our solutions are built to improve efficiency, increase visibility, and create opportunities for growth.",
+    body: "We understand the operational challenges travel businesses face every day. Our solutions are built to improve efficiency, increase visibility and create opportunities for growth.",
     benefits: [
       {
         icon: "TrendingUp",
         title: "Increase Revenue Opportunities",
-        body: "Expand distribution channels, reach new customers, and maximize booking potential through connected travel platforms.",
+        body: "Expand distribution channels, reach new customers and maximize booking potential through connected travel platforms.",
       },
       {
         icon: "Zap",
         title: "Automate Daily Operations",
-        body: "Reduce manual work by automating booking processes, quotations, customer management, and reporting.",
+        body: "Reduce manual work by automating booking processes, quotations, customer management and reporting.",
       },
       {
         icon: "Users",
         title: "Improve Team Productivity",
-        body: "Give your team powerful tools to manage inquiries, bookings, suppliers, and customers from a centralized system.",
+        body: "Give your team powerful tools to manage inquiries, bookings, suppliers and customers from a centralized system.",
       },
       {
         icon: "Sparkles",
         title: "Deliver Better Customer Experiences",
-        body: "Provide faster responses, seamless booking journeys, and personalized travel experiences.",
+        body: "Provide faster responses, seamless booking journeys and personalized travel experiences.",
       },
       {
         icon: "LineChart",
         title: "Gain Real-Time Business Insights",
-        body: "Monitor sales performance, bookings, conversions, revenue, and operational metrics through actionable dashboards.",
+        body: "Monitor sales performance, bookings, conversions, revenue and operational metrics through actionable dashboards.",
       },
       {
         icon: "Cloud",
@@ -84,7 +84,7 @@ export const home = {
   dashboard: {
     eyebrow: "Smart Dashboard Preview",
     heading: "Complete Visibility Across Your Business",
-    body: "Track inquiries, quotations, bookings, conversions, revenue, customer interactions, and team performance from a single intelligent dashboard designed for travel businesses.",
+    body: "Track inquiries, quotations, bookings, conversions, revenue, customer interactions and team performance from a single intelligent dashboard designed for travel businesses.",
     highlights: [
       "Sales Analytics",
       "Booking Management",
@@ -98,7 +98,7 @@ export const home = {
   success: {
     eyebrow: "Customer Success",
     heading: "Helping Travel Businesses Grow Faster",
-    body: "Travel businesses use Flysync to simplify operations, increase booking efficiency, improve customer engagement, and build scalable digital travel businesses.",
+    body: "Travel businesses use Flysync to simplify operations, increase booking efficiency, improve customer engagement and build scalable digital travel businesses.",
     metrics: [
       { value: "100+", label: "Travel Businesses Powered" },
       { value: "Millions", label: "in Booking Transactions Processed" },
@@ -128,14 +128,14 @@ export const home = {
       {
         icon: "Layers",
         title: "Flexible & Scalable",
-        body: "Solutions designed to support startups, growing agencies, and enterprise travel businesses.",
+        body: "Solutions designed to support startups, growing agencies and enterprise travel businesses.",
       },
     ],
   },
 
   finalCta: {
     heading: "Ready to Transform Your Travel Business?",
-    body: "Discover how Flysync can help automate operations, improve customer experiences, and accelerate growth with travel technology built for modern travel businesses.",
+    body: "Discover how Flysync can help automate operations, improve customer experiences and accelerate growth with travel technology built for modern travel businesses.",
     primary: "Request a Demo",
     secondary: "Talk to Our Team",
   },
@@ -149,7 +149,7 @@ export const about = {
   hero: {
     eyebrow: "Empowering Travel Businesses Through Technology",
     headline: "Building Technology for Modern Travel Businesses",
-    sub: "Flysync is a travel technology company helping travel agencies, tour operators, and travel businesses streamline operations, enhance customer experiences, and accelerate growth through innovative digital solutions.",
+    sub: "Flysync is a travel technology company helping travel agencies, tour operators and travel businesses streamline operations, enhance customer experiences and accelerate growth through innovative digital solutions.",
   },
 
   story: {
@@ -157,8 +157,8 @@ export const about = {
     body: [
       "Flysync was founded with a clear vision: to simplify and modernize the way travel businesses operate.",
       "What began as an ambitious startup has evolved into a growing travel technology company focused on solving real-world challenges faced by travel agencies in an increasingly digital marketplace.",
-      "With a deep understanding of the travel industry's complexities, we develop innovative solutions that help businesses automate operations, improve efficiency, and deliver exceptional customer experiences.",
-      "Today, Flysync continues to partner with travel businesses across the industry, helping them embrace technology, scale confidently, and stay competitive in a rapidly changing world.",
+      "With a deep understanding of the travel industry's complexities, we develop innovative solutions that help businesses automate operations, improve efficiency and deliver exceptional customer experiences.",
+      "Today, Flysync continues to partner with travel businesses across the industry, helping them embrace technology, scale confidently and stay competitive in a rapidly changing world.",
     ],
   },
 
@@ -166,12 +166,12 @@ export const about = {
     {
       icon: "Target",
       title: "Our Mission",
-      body: "To empower travel businesses with intelligent technology solutions that simplify operations, enhance customer experiences, and drive sustainable growth.",
+      body: "To empower travel businesses with intelligent technology solutions that simplify operations, enhance customer experiences and drive sustainable growth.",
     },
     {
       icon: "Rocket",
       title: "Our Vision",
-      body: "To become a leading force in travel technology by helping businesses embrace innovation, unlock efficiency, and succeed in a digital-first future.",
+      body: "To become a leading force in travel technology by helping businesses embrace innovation, unlock efficiency and succeed in a digital-first future.",
     },
   ],
 
@@ -182,7 +182,7 @@ export const about = {
       {
         icon: "Globe",
         title: "B2C Travel Portal",
-        body: "Enable customers to search, compare, and book travel services online with ease.",
+        body: "Enable customers to search, compare and book travel services online with ease.",
       },
       {
         icon: "Network",
@@ -202,12 +202,12 @@ export const about = {
       {
         icon: "Users",
         title: "Vacay365 CRM",
-        body: "Streamline customer management, sales tracking, and business operations.",
+        body: "Streamline customer management, sales tracking and business operations.",
       },
       {
         icon: "Plug",
         title: "API Integrations",
-        body: "Connect flights, hotels, holidays, and other travel services seamlessly.",
+        body: "Connect flights, hotels, holidays and other travel services seamlessly.",
       },
     ],
   },
@@ -231,10 +231,10 @@ export const about = {
     initials: "A",
     body: [
       "Arun is the visionary leader behind Flysync's growth and innovation journey. With extensive knowledge of the travel industry and a passion for technology, he has dedicated his career to helping travel businesses embrace digital transformation.",
-      "His leadership focuses on innovation, customer success, and delivering technology solutions that create measurable business impact. Under his guidance, Flysync continues to develop scalable platforms that help travel companies adapt, grow, and thrive in a rapidly evolving industry.",
+      "His leadership focuses on innovation, customer success and delivering technology solutions that create measurable business impact. Under his guidance, Flysync continues to develop scalable platforms that help travel companies adapt, grow and thrive in a rapidly evolving industry.",
     ],
     quote:
-      "At Flysync, we believe technology should empower travel businesses, not complicate them. Our mission is to help our partners grow smarter, operate efficiently, and deliver exceptional travel experiences.",
+      "At Flysync, we believe technology should empower travel businesses, not complicate them. Our mission is to help our partners grow smarter, operate efficiently and deliver exceptional travel experiences.",
   },
 
   values: {
@@ -331,7 +331,7 @@ export const contact = {
     eyebrow: "Contact Flysync",
     headline: "Have a Project in Mind?",
     body: [
-      "We're here to help travel businesses simplify operations, improve efficiency, and accelerate growth through innovative technology solutions.",
+      "We're here to help travel businesses simplify operations, improve efficiency and accelerate growth through innovative technology solutions.",
       "Reach out to our team and let's discuss how Flysync can support your business objectives.",
     ],
   },
@@ -457,10 +457,10 @@ export const faqs = [
   },
   {
     q: "How do I get started with Flysync?",
-    a: "Simply request a demo, and our team will help identify the right solution for your business.",
+    a: "Simply request a demo and our team will help identify the right solution for your business.",
   },
   {
     q: "Why choose Flysync among travel tech companies?",
-    a: "Flysync combines innovative travel technology, industry expertise, and scalable solutions to support your business growth.",
+    a: "Flysync combines innovative travel technology, industry expertise and scalable solutions to support your business growth.",
   },
 ];

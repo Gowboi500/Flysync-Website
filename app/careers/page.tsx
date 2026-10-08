@@ -119,7 +119,7 @@ export default function CareersPage() {
                 Questions about careers?
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-[0.9375rem] leading-[1.65] text-fg-muted sm:text-base">
-                Reach our team for applications, openings, and hiring conversations.
+                Reach our team for applications, openings and hiring conversations.
               </p>
             </div>
 

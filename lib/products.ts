@@ -182,11 +182,11 @@ export const productPages: ProductPage[] = [
     icon: "CalendarRange",
     card: {
       headline: "Simplify Fixed Departure Management",
-      body: "Manage fixed departures, group tours, and series bookings efficiently with real time availability tracking and streamlined booking workflows.",
+      body: "Manage fixed departures, group tours and series bookings efficiently with real time availability tracking and streamlined booking workflows.",
     },
     hero: {
       headline: "Series Booking Portal Software for Fixed Departures",
-      sub: "Simplify fixed departure management with a centralized series booking platform built for modern travel businesses. Create and manage departures, track real time availability, automate bookings, control pricing, and distribute inventory seamlessly through a single system designed to improve efficiency, maximize occupancy, and accelerate business growth.",
+      sub: "Simplify fixed departure management with a centralized series booking platform built for modern travel businesses. Create and manage departures, track real time availability, automate bookings, control pricing and distribute inventory seamlessly through a single system designed to improve efficiency, maximize occupancy and accelerate business growth.",
     },
     heroShows: [
       "Departure calendar",
@@ -196,14 +196,14 @@ export const productPages: ProductPage[] = [
     ],
     trusted: {
       heading: "Helping Travel Businesses Sell Fixed Departures More Efficiently",
-      body: "Tour operators, travel agencies, DMCs, pilgrimage organizers, and holiday providers rely on Flysync to manage fixed departures, optimize inventory utilization, and streamline booking operations through a single platform.",
+      body: "Tour operators, travel agencies, DMCs, pilgrimage organizers and holiday providers rely on Flysync to manage fixed departures, optimize inventory utilization and streamline booking operations through a single platform.",
     },
     challenges: {
       heading: "Managing Fixed Departures Shouldn't Be Complicated",
       items: [
         {
           title: "Departure Management Complexity",
-          body: "Managing multiple departures, schedules, and tour packages manually often leads to operational inefficiencies.",
+          body: "Managing multiple departures, schedules and tour packages manually often leads to operational inefficiencies.",
         },
         {
           title: "Limited Seat Visibility",
@@ -211,7 +211,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Manual Booking Operations",
-          body: "Processing bookings, confirmations, and passenger information manually consumes valuable time.",
+          body: "Processing bookings, confirmations and passenger information manually consumes valuable time.",
         },
         {
           title: "Occupancy Management Issues",
@@ -229,14 +229,14 @@ export const productPages: ProductPage[] = [
     },
     solution: {
       heading: "One Platform to Manage Every Fixed Departure",
-      body: "Flysync's Series Booking Portal centralizes departure scheduling, seat inventory, booking management, pricing control, and partner distribution in a single platform. Travel businesses can efficiently manage group tours and fixed departures while providing real time availability to agents and customers.",
+      body: "Flysync's Series Booking Portal centralizes departure scheduling, seat inventory, booking management, pricing control and partner distribution in a single platform. Travel businesses can efficiently manage group tours and fixed departures while providing real time availability to agents and customers.",
     },
     features: {
       heading: "Everything You Need to Run Successful Fixed Departure Programs",
       items: [
         {
           title: "Fixed Departure Management",
-          body: "Create, organize, and manage multiple departures with complete scheduling control.",
+          body: "Create, organize and manage multiple departures with complete scheduling control.",
         },
         {
           title: "Real Time Seat Inventory",
@@ -244,15 +244,15 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Group Booking Management",
-          body: "Handle individual, family, and group reservations through a centralized system.",
+          body: "Handle individual, family and group reservations through a centralized system.",
         },
         {
           title: "Departure Calendar",
-          body: "Provide clear visibility of upcoming departures, schedules, and availability.",
+          body: "Provide clear visibility of upcoming departures, schedules and availability.",
         },
         {
           title: "Dynamic Pricing Controls",
-          body: "Configure pricing, promotions, and departure-specific rates with ease.",
+          body: "Configure pricing, promotions and departure-specific rates with ease.",
         },
         {
           title: "Agent Booking Portal",
@@ -260,11 +260,11 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Passenger Management",
-          body: "Manage traveler details, rooming lists, documents, and booking records efficiently.",
+          body: "Manage traveler details, rooming lists, documents and booking records efficiently.",
         },
         {
           title: "Reports & Analytics",
-          body: "Track bookings, revenue, occupancy rates, and departure performance through detailed reports.",
+          body: "Track bookings, revenue, occupancy rates and departure performance through detailed reports.",
         },
       ],
     },
@@ -289,7 +289,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Improve Business Visibility",
-          body: "Gain real time insights into bookings, revenue, and departure performance.",
+          body: "Gain real time insights into bookings, revenue and departure performance.",
         },
       ],
     },
@@ -297,13 +297,13 @@ export const productPages: ProductPage[] = [
       heading: "Get Started in 3 Simple Steps",
       items: [
         "Create and publish your fixed departure schedules.",
-        "Configure inventory, pricing, and booking rules.",
+        "Configure inventory, pricing and booking rules.",
         "Start accepting bookings from agents and customers in real time.",
       ],
     },
     integrations: {
       heading: "Seamlessly Connect With Your Existing Travel Ecosystem",
-      body: "Integrate with payment gateways, CRM systems, accounting software, communication platforms, and travel APIs to create a fully connected departure management environment.",
+      body: "Integrate with payment gateways, CRM systems, accounting software, communication platforms and travel APIs to create a fully connected departure management environment.",
     },
     apiOutPartners: {
       heading: "API Out Partners for Series Booking",
@@ -311,7 +311,7 @@ export const productPages: ProductPage[] = [
     },
     cta: {
       heading: "Grow Your Fixed Departure Business with Flysync",
-      body: "Empower your team with a modern series booking platform built to simplify departure management, improve occupancy rates, and accelerate business growth through automated operations and real time inventory control.",
+      body: "Empower your team with a modern series booking platform built to simplify departure management, improve occupancy rates and accelerate business growth through automated operations and real time inventory control.",
     },
   },
 
@@ -588,11 +588,11 @@ export const productPages: ProductPage[] = [
     icon: "Building2",
     card: {
       headline: "Corporate Travel Management Made Simple",
-      body: "Simplify business travel management with employee booking workflows, policy controls, approval systems, and centralized expense visibility.",
+      body: "Simplify business travel management with employee booking workflows, policy controls, approval systems and centralized expense visibility.",
     },
     hero: {
       headline: "Corporate Travel Management Made Simple",
-      sub: "Streamline business travel with a centralized corporate booking platform designed for modern organizations. Manage employee travel, automate approvals, control travel expenses, enforce company policies, and provide a seamless booking experience through a single, powerful platform.",
+      sub: "Streamline business travel with a centralized corporate booking platform designed for modern organizations. Manage employee travel, automate approvals, control travel expenses, enforce company policies and provide a seamless booking experience through a single, powerful platform.",
     },
     heroShows: [
       "Flight & hotel booking",
@@ -603,7 +603,7 @@ export const productPages: ProductPage[] = [
     ],
     trusted: {
       heading: "Helping Companies Manage Business Travel More Efficiently",
-      body: "Organizations, travel management companies, corporate travel departments, and business travel agencies use Flysync's Corporate Booking Portal to simplify travel planning, improve policy compliance, reduce travel costs, and deliver a seamless booking experience for employees.",
+      body: "Organizations, travel management companies, corporate travel departments and business travel agencies use Flysync's Corporate Booking Portal to simplify travel planning, improve policy compliance, reduce travel costs and deliver a seamless booking experience for employees.",
     },
     challenges: {
       heading: "Managing Corporate Travel Shouldn't Be Complicated",
@@ -626,17 +626,17 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Multiple Booking Platforms",
-          body: "Using different systems for flights, hotels, and travel management creates operational inefficiencies.",
+          body: "Using different systems for flights, hotels and travel management creates operational inefficiencies.",
         },
         {
           title: "Limited Reporting & Insights",
-          body: "Businesses struggle to analyze travel expenses, booking trends, and budget performance.",
+          body: "Businesses struggle to analyze travel expenses, booking trends and budget performance.",
         },
       ],
     },
     solution: {
       heading: "A Complete Corporate Travel Management Platform",
-      body: "Flysync's Corporate Booking Portal centralizes every aspect of business travel management. From travel requests and approvals to booking, expense tracking, reporting, and policy enforcement, everything is managed through one integrated platform.",
+      body: "Flysync's Corporate Booking Portal centralizes every aspect of business travel management. From travel requests and approvals to booking, expense tracking, reporting and policy enforcement, everything is managed through one integrated platform.",
     },
     features: {
       heading: "Everything You Need to Manage Corporate Travel",
@@ -647,7 +647,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Travel Policy Management",
-          body: "Set company travel policies, spending limits, preferred suppliers, and booking rules.",
+          body: "Set company travel policies, spending limits, preferred suppliers and booking rules.",
         },
         {
           title: "Automated Approval Workflows",
@@ -663,7 +663,7 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Expense Tracking & Reporting",
-          body: "Monitor travel expenses, budgets, and spending trends in real time.",
+          body: "Monitor travel expenses, budgets and spending trends in real time.",
         },
         {
           title: "Cost Center Allocation",
@@ -671,11 +671,11 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Role-Based Access Control",
-          body: "Manage permissions for employees, managers, finance teams, and travel administrators.",
+          body: "Manage permissions for employees, managers, finance teams and travel administrators.",
         },
         {
           title: "Centralized Travel Dashboard",
-          body: "Track bookings, approvals, cancellations, traveler activity, and travel spend from one place.",
+          body: "Track bookings, approvals, cancellations, traveler activity and travel spend from one place.",
         },
         {
           title: "Mobile-Friendly Platform",
@@ -704,39 +704,39 @@ export const productPages: ProductPage[] = [
         },
         {
           title: "Complete Visibility",
-          body: "Access real-time insights into travel activity, budgets, and expenses.",
+          body: "Access real-time insights into travel activity, budgets and expenses.",
         },
         {
           title: "Scale with Confidence",
-          body: "Manage growing travel demands across teams, departments, and locations efficiently.",
+          body: "Manage growing travel demands across teams, departments and locations efficiently.",
         },
       ],
     },
     steps: {
       heading: "Manage Corporate Travel in 3 Simple Steps",
       items: [
-        "Configure company travel policies, approval workflows, and user roles.",
-        "Connect travel inventory, suppliers, negotiated rates, and payment methods.",
-        "Employees book travel, managers approve requests, and administrators track everything through a centralized dashboard.",
+        "Configure company travel policies, approval workflows and user roles.",
+        "Connect travel inventory, suppliers, negotiated rates and payment methods.",
+        "Employees book travel, managers approve requests and administrators track everything through a centralized dashboard.",
       ],
     },
     integrations: {
       heading: "Connect Your Entire Corporate Travel Ecosystem",
-      body: "Integrate with travel suppliers, accounting software, ERP systems, HR platforms, payment gateways, CRM solutions, and reporting tools to create a seamless corporate travel management environment.",
+      body: "Integrate with travel suppliers, accounting software, ERP systems, HR platforms, payment gateways, CRM solutions and reporting tools to create a seamless corporate travel management environment.",
     },
     extras: [
       {
         heading: "Maintain Control Without Slowing Down Travel",
-        body: "Create custom travel policies, spending limits, approval hierarchies, and preferred supplier rules to ensure compliance while providing employees with a smooth booking experience.",
+        body: "Create custom travel policies, spending limits, approval hierarchies and preferred supplier rules to ensure compliance while providing employees with a smooth booking experience.",
       },
       {
         heading: "Make Smarter Travel Decisions with Data",
-        body: "Access detailed reports on travel spend, department-wise budgets, booking trends, policy compliance, supplier performance, and employee travel activity to optimize corporate travel programs.",
+        body: "Access detailed reports on travel spend, department-wise budgets, booking trends, policy compliance, supplier performance and employee travel activity to optimize corporate travel programs.",
       },
     ],
     cta: {
       heading: "Take Control of Your Corporate Travel Operations",
-      body: "Simplify business travel, reduce costs, improve compliance, and provide employees with a seamless booking experience through Flysync's Corporate Booking Portal.",
+      body: "Simplify business travel, reduce costs, improve compliance and provide employees with a seamless booking experience through Flysync's Corporate Booking Portal.",
     },
   },
 ];
@@ -744,7 +744,7 @@ export const productPages: ProductPage[] = [
 export const productsOverview = {
   eyebrow: "Products Overview",
   heading: "Travel Technology Solutions Built for Growth",
-  body: "Explore Flysync's suite of travel technology products designed to simplify operations, increase bookings, and help travel businesses grow efficiently.",
+  body: "Explore Flysync's suite of travel technology products designed to simplify operations, increase bookings and help travel businesses grow efficiently.",
   cta: {
     heading: "Need a Complete Travel Technology Solution?",
     body: "Whether you're looking to streamline operations, expand your distribution network, improve customer engagement, or increase bookings, Flysync has the right solution for your business.",

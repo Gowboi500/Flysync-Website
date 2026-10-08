@@ -3,7 +3,7 @@ import { ArrowRight, Quote, Star } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
 const testimonial =
-  "They are a very advanced technology provider, and have given us an excellent portal for our travel business with advanced features. It is easy to use, and their service is excellent. Highly recommended!";
+  "They are a very advanced technology provider and have given us an excellent portal for our travel business with advanced features. It is easy to use and their service is excellent. Highly recommended!";
 
 export function CustomerReview() {
   return (

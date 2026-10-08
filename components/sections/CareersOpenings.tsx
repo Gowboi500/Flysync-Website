@@ -292,7 +292,7 @@ export function CareersOpenings({
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="career-skill-set">Skill set *</label>
-                        <textarea id="career-skill-set" name="skillSet" required rows={3} placeholder="Share the tools, platforms, and skills relevant to this role" className={`${inputClass} form-textarea`} />
+                        <textarea id="career-skill-set" name="skillSet" required rows={3} placeholder="Share the tools, platforms and skills relevant to this role" className={`${inputClass} form-textarea`} />
                       </div>
                     </div>
                   </div>

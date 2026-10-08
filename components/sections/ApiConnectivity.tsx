@@ -20,8 +20,8 @@ export function ApiConnectivity() {
               Connecting <span className="text-accent">150+</span> Travel Businesses Through APIs
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-[1rem] leading-relaxed text-fg-body">
-              Flysync brings airline, GDS, consolidator, and supplier API-in connections into one
-              reliable platform, helping travel teams search, book, manage fares, and control
+              Flysync brings airline, GDS, consolidator and supplier API-in connections into one
+              reliable platform, helping travel teams search, book, manage fares and control
               inventory without switching between systems.
             </p>
           </div>
