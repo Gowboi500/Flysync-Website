@@ -48,7 +48,11 @@ function ProductScreen({ slug }: { slug: string }) {
   const Screen = PRODUCT_SCREENS[slug];
   if (!Screen) return null;
   const screenSize =
-    slug === "b2b-portal"
+    slug === "corporate-booking-portal-sign-in"
+      ? { w: 1440, h: 1024 }
+      : slug === "corporate-booking-portal-trip-search"
+      ? { w: 2974, h: 2116 }
+      : slug === "b2b-portal"
       ? { w: 2880, h: 2048 }
       : slug === "b2b-portal-solution"
         ? { w: 2880, h: 2304 }
@@ -145,6 +149,22 @@ function ApiOutPartnersBlock({
 export function ProductPageTemplate({ product }: { product: ProductPage }) {
   // Vacay365's benefit list is a plain checklist in the source content
   const benefitsAreChecklist = product.benefits.items.every((b) => !b.body);
+  const heroScreenSlug =
+    product.slug === "corporate-booking-portal"
+      ? "corporate-booking-portal-sign-in"
+      : product.slug;
+  const solutionScreenSlug =
+    product.slug === "corporate-booking-portal"
+      ? "corporate-booking-portal-trip-search"
+      : product.slug === "b2b-portal"
+        ? "b2b-portal-solution"
+        : product.slug === "series-booking-portal"
+          ? "series-booking-portal-solution"
+          : product.slug === "b2c-portal"
+            ? "b2c-portal-solution"
+            : product.slug === "vacay365"
+              ? "vacay365-solution"
+              : product.slug;
 
   return (
     <>
@@ -154,7 +174,7 @@ export function ProductPageTemplate({ product }: { product: ProductPage }) {
         }
         headline={product.hero.headline}
         sub={product.hero.sub}
-        aside={<ProductScreen slug={product.slug} />}
+        aside={<ProductScreen slug={heroScreenSlug} />}
       >
         <Link href="/demo" className="btn btn-primary btn-lg group">
           Request Demo
@@ -210,21 +230,7 @@ export function ProductPageTemplate({ product }: { product: ProductPage }) {
         eyebrow="The solution"
         heading={product.solution.heading}
         body={<p>{product.solution.body}</p>}
-        aside={
-          <ProductScreen
-            slug={
-              product.slug === "b2b-portal"
-                ? "b2b-portal-solution"
-                : product.slug === "series-booking-portal"
-                ? "series-booking-portal-solution"
-                : product.slug === "b2c-portal"
-                  ? "b2c-portal-solution"
-                : product.slug === "vacay365"
-                  ? "vacay365-solution"
-                : product.slug
-            }
-          />
-        }
+        aside={<ProductScreen slug={solutionScreenSlug} />}
         clip
         reverse
       />
@@ -278,24 +284,25 @@ export function ProductPageTemplate({ product }: { product: ProductPage }) {
 
       <Steps heading={product.steps.heading} items={product.steps.items} />
 
-      {product.extras?.map((x) => (
-        <SplitBand
-          key={x.heading}
-          eyebrow="Built in"
-          heading={x.heading}
-          body={<p>{x.body}</p>}
-          aside={
-            <ProductScreen
-              slug={
-                product.slug === "b2c-portal"
-                  ? "b2c-portal-built-in"
-                  : product.slug
-              }
-            />
-          }
-          clip
-        />
-      ))}
+      {product.slug !== "corporate-booking-portal" &&
+        product.extras?.map((x) => (
+          <SplitBand
+            key={x.heading}
+            eyebrow="Built in"
+            heading={x.heading}
+            body={<p>{x.body}</p>}
+            aside={
+              <ProductScreen
+                slug={
+                  product.slug === "b2c-portal"
+                    ? "b2c-portal-built-in"
+                    : product.slug
+                }
+              />
+            }
+            clip
+          />
+        ))}
 
       {product.integrations && (
         <section className="section relative">

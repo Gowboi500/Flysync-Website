@@ -31,7 +31,7 @@ export const site = {
       postalCode: "600073",
       country: "India",
     },
-    hours: "10.00 am–7.00 pm",
+    hours: "10:00 AM to 7:00 PM",
   },
 
   social: {

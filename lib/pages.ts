@@ -361,7 +361,7 @@ export const contact = {
       icon: "Clock",
       title: "Working Hours",
       body: "Working hours",
-      value: "10.00 am–7.00 pm",
+      value: "10:00 AM to 7:00 PM",
     },
   ],
 

@@ -330,6 +330,35 @@ function CorporateScreen() {
   );
 }
 
+function CorporateSignInScreen() {
+  return (
+    <LiveMock className="screen-ui relative h-full overflow-hidden bg-white">
+      <Image
+        src="/images/mockups/corporate-booking-sign-in.png"
+        alt="Flysync Corporate Booking Portal sign-in screen"
+        fill
+        sizes="(min-width: 1024px) 45vw, 92vw"
+        className="object-contain"
+        priority
+      />
+    </LiveMock>
+  );
+}
+
+function CorporateTripSearchScreen() {
+  return (
+    <LiveMock className="screen-ui relative h-full overflow-hidden bg-white">
+      <Image
+        src="/images/mockups/corporate-booking-trip-search.png"
+        alt="Flysync Corporate Booking Portal trip search dashboard"
+        fill
+        sizes="(min-width: 1024px) 45vw, 92vw"
+        className="object-contain"
+      />
+    </LiveMock>
+  );
+}
+
 function SeriesScreen() {
   return (
     <LiveMock className="screen-ui relative h-full overflow-hidden bg-white">
@@ -514,5 +543,7 @@ export const PRODUCT_SCREENS: Record<string, () => React.JSX.Element> = {
   "b2c-portal-built-in": B2CAddOnsScreen,
   vacay365: CrmScreen,
   "vacay365-solution": CrmCustomerScreen,
+  "corporate-booking-portal-sign-in": CorporateSignInScreen,
+  "corporate-booking-portal-trip-search": CorporateTripSearchScreen,
   "corporate-booking-portal": CorporateScreen,
 };

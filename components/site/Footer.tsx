@@ -9,7 +9,6 @@ const columns = [
     links: nav.products.map((p) => ({
       name: p.subtitle ? `${p.name} (${p.subtitle})` : p.name,
       href: p.href,
-      comingSoon: p.name === "Corporate Booking Portal",
     })),
   },
   {
@@ -121,24 +120,12 @@ export function Footer() {
                 <ul className="mt-4 space-y-2.5">
                   {col.links.map((l) => (
                     <li key={l.name}>
-                      {"comingSoon" in l && l.comingSoon ? (
-                        <span
-                          aria-disabled="true"
-                          className="flex cursor-default items-center gap-2 whitespace-nowrap text-sm text-fg-muted"
-                        >
-                          <span>{l.name}</span>
-                          <span className="inline-flex rounded-full border border-line bg-canvas px-1.5 py-0.5 text-[0.5625rem] font-semibold uppercase tracking-[0.06em] text-fg-subtle">
-                            Coming soon
-                          </span>
-                        </span>
-                      ) : (
-                        <a
-                          href={l.href}
-                          className="link-underline text-sm text-fg-muted transition-colors hover:text-accent"
-                        >
-                          {l.name}
-                        </a>
-                      )}
+                      <a
+                        href={l.href}
+                        className="link-underline text-sm text-fg-muted transition-colors hover:text-accent"
+                      >
+                        {l.name}
+                      </a>
                     </li>
                   ))}
                 </ul>

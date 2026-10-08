@@ -191,8 +191,6 @@ export function Header() {
                       {nav.products.map((p, i) => {
                         const Icon =
                           ICONS[p.icon as keyof typeof ICONS] ?? Network;
-                        const comingSoon =
-                          p.name === "Corporate Booking Portal";
                         // An odd product count leaves the last cell beside an
                         // empty one. Spanning it reads as deliberate and buys
                         // the longest blurb a single line.
@@ -211,11 +209,6 @@ export function Header() {
                                   dragged that row taller than its neighbour. */}
                               <span className="block text-sm font-medium leading-snug text-fg">
                                 {p.name}
-                                {comingSoon && (
-                                  <span className="ml-2 inline-flex align-middle rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-amber-700">
-                                    Coming soon
-                                  </span>
-                                )}
                                 {p.subtitle && (
                                   <span className="font-normal text-fg-subtle">
                                     {" "}
@@ -230,20 +223,6 @@ export function Header() {
                             </span>
                           </>
                         );
-
-                        if (comingSoon) {
-                          return (
-                            <div
-                              key={p.href}
-                              aria-disabled="true"
-                              className={`dropdown-item flex h-full cursor-default gap-3 p-3 ${
-                                lonely ? "col-span-2" : ""
-                              }`}
-                            >
-                              {content}
-                            </div>
-                          );
-                        }
 
                         return (
                           <a
@@ -360,7 +339,6 @@ export function Header() {
             <div className="grid gap-1">
               {nav.products.map((p) => {
                 const Icon = ICONS[p.icon as keyof typeof ICONS] ?? Network;
-                const comingSoon = p.name === "Corporate Booking Portal";
                 const content = (
                   <>
                     <span className="grad-badge grid h-8 w-8 shrink-0 place-items-center rounded-control border">
@@ -368,11 +346,6 @@ export function Header() {
                     </span>
                     <span className="text-[0.9375rem] font-medium text-fg">
                       {p.name}
-                      {comingSoon && (
-                        <span className="ml-2 inline-flex align-middle rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[0.625rem] font-semibold uppercase tracking-[0.08em] text-amber-700">
-                          Coming soon
-                        </span>
-                      )}
                       {p.subtitle && (
                         <span className="font-normal text-fg-subtle">
                           {" "}
@@ -382,18 +355,6 @@ export function Header() {
                     </span>
                   </>
                 );
-
-                if (comingSoon) {
-                  return (
-                    <div
-                      key={p.href}
-                      aria-disabled="true"
-                    className="dropdown-item flex cursor-default items-center gap-3 border border-line bg-surface px-3.5 py-3"
-                    >
-                      {content}
-                    </div>
-                  );
-                }
 
                 return (
                   <a
