@@ -15,6 +15,7 @@ import {
   TrendingUp,
   Upload,
 } from "lucide-react";
+import { FormDropdown } from "@/components/ui/FormDropdown";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
 
 type RoleMeta = {
@@ -59,7 +60,106 @@ const ROLE_META: Record<string, RoleMeta> = {
 const inputClass =
   "career-input form-field field-ring px-3 py-2.5 text-sm";
 const labelClass = "career-label form-label text-xs";
-const selectClass = `${inputClass} form-select`;
+
+type CareerSelectName =
+  | "graduationYear"
+  | "gender"
+  | "experienceYears"
+  | "currentCtc"
+  | "expectedCtc"
+  | "noticePeriod"
+  | "preferredLocation"
+  | "source";
+
+type CareerSelectState = Record<CareerSelectName, string>;
+
+const initialCareerSelects: CareerSelectState = {
+  graduationYear: "",
+  gender: "",
+  experienceYears: "",
+  currentCtc: "",
+  expectedCtc: "",
+  noticePeriod: "",
+  preferredLocation: "",
+  source: "",
+};
+
+const graduationYears = Array.from({ length: 16 }, (_, index) =>
+  String(2026 - index),
+);
+
+const genderOptions = ["Prefer not to say", "Female", "Male", "Non-binary"];
+const experienceOptions = [
+  "Fresher",
+  "Less than 1 year",
+  "1-2 years",
+  "3-5 years",
+  "6+ years",
+];
+const ctcOptions = [
+  "Not applicable",
+  "0-3 LPA",
+  "3-6 LPA",
+  "6-10 LPA",
+  "10+ LPA",
+];
+const noticePeriodOptions = [
+  "Immediate",
+  "15 days",
+  "30 days",
+  "60 days",
+  "90 days",
+];
+const preferredLocationOptions = [
+  "Chennai, Tamil Nadu",
+  "Remote / Hybrid",
+  "Open to relocate",
+];
+const sourceOptions = [
+  "Flysync careers page",
+  "LinkedIn",
+  "Employee referral",
+  "Job board",
+  "Social media",
+  "Other",
+];
+
+const requiredCareerSelects: Array<{
+  name: CareerSelectName;
+  controlId: string;
+  message: string;
+}> = [
+  {
+    name: "graduationYear",
+    controlId: "career-graduation-year",
+    message: "Select year.",
+  },
+  {
+    name: "gender",
+    controlId: "career-gender",
+    message: "Select gender.",
+  },
+  {
+    name: "experienceYears",
+    controlId: "career-experience-years",
+    message: "Select experience.",
+  },
+  {
+    name: "noticePeriod",
+    controlId: "career-notice-period",
+    message: "Select notice period.",
+  },
+  {
+    name: "preferredLocation",
+    controlId: "career-preferred-location",
+    message: "Select preferred location.",
+  },
+  {
+    name: "source",
+    controlId: "career-source",
+    message: "Select source.",
+  },
+];
 
 export function CareersOpenings({
   roles,
@@ -72,6 +172,11 @@ export function CareersOpenings({
 }) {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [careerSelects, setCareerSelects] =
+    useState<CareerSelectState>(initialCareerSelects);
+  const [careerSelectErrors, setCareerSelectErrors] = useState<
+    Partial<Record<CareerSelectName, string>>
+  >({});
   const selected = selectedRole ? ROLE_META[selectedRole] : null;
   const selectedRoleTint =
     selectedRole && roles.includes(selectedRole) ? roles.indexOf(selectedRole) % 6 : 0;
@@ -84,9 +189,28 @@ export function CareersOpenings({
     });
   };
 
+  const updateCareerSelect = (name: CareerSelectName, value: string) => {
+    setCareerSelects((current) => ({ ...current, [name]: value }));
+    setCareerSelectErrors((current) => ({ ...current, [name]: undefined }));
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedRole) return;
+
+    const missing = requiredCareerSelects.filter(
+      ({ name }) => !careerSelects[name],
+    );
+
+    if (missing.length > 0) {
+      setCareerSelectErrors(
+        Object.fromEntries(
+          missing.map(({ name, message }) => [name, message]),
+        ) as Partial<Record<CareerSelectName, string>>,
+      );
+      document.getElementById(missing[0].controlId)?.focus();
+      return;
+    }
 
     const data = new FormData(event.currentTarget);
     const resume = data.get("resume") as File | null;
@@ -149,6 +273,8 @@ export function CareersOpenings({
                       onClick={() => {
                         setSelectedRole(role);
                         setSubmitted(false);
+                        setCareerSelects(initialCareerSelects);
+                        setCareerSelectErrors({});
                       }}
                       className={`career-role-card career-role-card--${index % 6} surface card-hover group relative flex h-full min-h-64 w-full flex-col p-6 text-left`}
                     >
@@ -192,6 +318,8 @@ export function CareersOpenings({
               onClick={() => {
                 setSelectedRole(null);
                 setSubmitted(false);
+                setCareerSelects(initialCareerSelects);
+                setCareerSelectErrors({});
                 scrollToOpenings();
               }}
               className="group mb-7 inline-flex items-center gap-2 text-[0.875rem] font-semibold text-fg-muted transition-colors hover:text-accent"
@@ -200,7 +328,7 @@ export function CareersOpenings({
               Back to roles
             </button>
 
-            <div className={`career-application career-application--${selectedRoleTint} surface overflow-hidden rounded-card`}>
+            <div className={`career-application career-application--${selectedRoleTint} surface rounded-card`}>
               <div className="career-application-header relative overflow-hidden border-b px-6 py-7 sm:px-8">
                 <div className="relative flex items-start gap-4">
                   <span className="career-icon-shape grid h-11 w-11 shrink-0 place-items-center rounded-control border">
@@ -261,34 +389,76 @@ export function CareersOpenings({
                       <div className="grid gap-5">
                         <div>
                           <label className={labelClass} htmlFor="career-graduation-year">Year of graduation *</label>
-                          <select id="career-graduation-year" name="graduationYear" required defaultValue="" className={selectClass}>
-                            <option value="" disabled>Select year</option>
-                            {Array.from({ length: 16 }, (_, index) => 2026 - index).map((year) => (
-                              <option key={year}>{year}</option>
-                            ))}
-                          </select>
+                          <FormDropdown
+                            id="career-graduation-year"
+                            name="graduationYear"
+                            required
+                            value={careerSelects.graduationYear}
+                            placeholder="Select year"
+                            options={graduationYears}
+                            onChange={(value) => updateCareerSelect("graduationYear", value)}
+                            buttonClassName={inputClass}
+                            invalid={Boolean(careerSelectErrors.graduationYear)}
+                            ariaDescribedBy={
+                              careerSelectErrors.graduationYear
+                                ? "career-graduation-year-error"
+                                : undefined
+                            }
+                          />
+                          {careerSelectErrors.graduationYear ? (
+                            <p id="career-graduation-year-error" className="mt-2 text-xs font-medium text-red-600">
+                              {careerSelectErrors.graduationYear}
+                            </p>
+                          ) : null}
                         </div>
                         <div>
                           <label className={labelClass} htmlFor="career-gender">Gender *</label>
-                          <select id="career-gender" name="gender" required defaultValue="" className={selectClass}>
-                            <option value="" disabled>Select gender</option>
-                            <option>Prefer not to say</option>
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Non-binary</option>
-                          </select>
+                          <FormDropdown
+                            id="career-gender"
+                            name="gender"
+                            required
+                            value={careerSelects.gender}
+                            placeholder="Select gender"
+                            options={genderOptions}
+                            onChange={(value) => updateCareerSelect("gender", value)}
+                            buttonClassName={inputClass}
+                            invalid={Boolean(careerSelectErrors.gender)}
+                            ariaDescribedBy={
+                              careerSelectErrors.gender
+                                ? "career-gender-error"
+                                : undefined
+                            }
+                          />
+                          {careerSelectErrors.gender ? (
+                            <p id="career-gender-error" className="mt-2 text-xs font-medium text-red-600">
+                              {careerSelectErrors.gender}
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="career-experience-years">Experience in years *</label>
-                        <select id="career-experience-years" name="experienceYears" required defaultValue="" className={selectClass}>
-                          <option value="" disabled>Select experience</option>
-                          <option>Fresher</option>
-                          <option>Less than 1 year</option>
-                          <option>1-2 years</option>
-                          <option>3-5 years</option>
-                          <option>6+ years</option>
-                        </select>
+                        <FormDropdown
+                          id="career-experience-years"
+                          name="experienceYears"
+                          required
+                          value={careerSelects.experienceYears}
+                          placeholder="Select experience"
+                          options={experienceOptions}
+                          onChange={(value) => updateCareerSelect("experienceYears", value)}
+                          buttonClassName={inputClass}
+                          invalid={Boolean(careerSelectErrors.experienceYears)}
+                          ariaDescribedBy={
+                            careerSelectErrors.experienceYears
+                              ? "career-experience-years-error"
+                              : undefined
+                          }
+                        />
+                        {careerSelectErrors.experienceYears ? (
+                          <p id="career-experience-years-error" className="mt-2 text-xs font-medium text-red-600">
+                            {careerSelectErrors.experienceYears}
+                          </p>
+                        ) : null}
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="career-skill-set">Skill set *</label>
@@ -309,37 +479,52 @@ export function CareersOpenings({
                       <div className="grid gap-5">
                         <div>
                           <label className={labelClass} htmlFor="career-current-ctc">Current CTC</label>
-                          <select id="career-current-ctc" name="currentCtc" defaultValue="" className={selectClass}>
-                            <option value="">Select current CTC</option>
-                            <option>Not applicable</option>
-                            <option>0-3 LPA</option>
-                            <option>3-6 LPA</option>
-                            <option>6-10 LPA</option>
-                            <option>10+ LPA</option>
-                          </select>
+                          <FormDropdown
+                            id="career-current-ctc"
+                            name="currentCtc"
+                            value={careerSelects.currentCtc}
+                            placeholder="Select current CTC"
+                            options={ctcOptions}
+                            onChange={(value) => updateCareerSelect("currentCtc", value)}
+                            buttonClassName={inputClass}
+                          />
                         </div>
                         <div>
                           <label className={labelClass} htmlFor="career-expected-ctc">Expected CTC</label>
-                          <select id="career-expected-ctc" name="expectedCtc" defaultValue="" className={selectClass}>
-                            <option value="">Select expected CTC</option>
-                            <option>Not applicable</option>
-                            <option>0-3 LPA</option>
-                            <option>3-6 LPA</option>
-                            <option>6-10 LPA</option>
-                            <option>10+ LPA</option>
-                          </select>
+                          <FormDropdown
+                            id="career-expected-ctc"
+                            name="expectedCtc"
+                            value={careerSelects.expectedCtc}
+                            placeholder="Select expected CTC"
+                            options={ctcOptions}
+                            onChange={(value) => updateCareerSelect("expectedCtc", value)}
+                            buttonClassName={inputClass}
+                          />
                         </div>
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="career-notice-period">Notice period *</label>
-                        <select id="career-notice-period" name="noticePeriod" required defaultValue="" className={selectClass}>
-                          <option value="" disabled>Select notice period</option>
-                          <option>Immediate</option>
-                          <option>15 days</option>
-                          <option>30 days</option>
-                          <option>60 days</option>
-                          <option>90 days</option>
-                        </select>
+                        <FormDropdown
+                          id="career-notice-period"
+                          name="noticePeriod"
+                          required
+                          value={careerSelects.noticePeriod}
+                          placeholder="Select notice period"
+                          options={noticePeriodOptions}
+                          onChange={(value) => updateCareerSelect("noticePeriod", value)}
+                          buttonClassName={inputClass}
+                          invalid={Boolean(careerSelectErrors.noticePeriod)}
+                          ariaDescribedBy={
+                            careerSelectErrors.noticePeriod
+                              ? "career-notice-period-error"
+                              : undefined
+                          }
+                        />
+                        {careerSelectErrors.noticePeriod ? (
+                          <p id="career-notice-period-error" className="mt-2 text-xs font-medium text-red-600">
+                            {careerSelectErrors.noticePeriod}
+                          </p>
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -356,25 +541,52 @@ export function CareersOpenings({
                         </div>
                         <div>
                           <label className={labelClass} htmlFor="career-preferred-location">Preferred location *</label>
-                          <select id="career-preferred-location" name="preferredLocation" required defaultValue="" className={selectClass}>
-                            <option value="" disabled>Select preferred location</option>
-                            <option>Chennai, Tamil Nadu</option>
-                            <option>Remote / Hybrid</option>
-                            <option>Open to relocate</option>
-                          </select>
+                          <FormDropdown
+                            id="career-preferred-location"
+                            name="preferredLocation"
+                            required
+                            value={careerSelects.preferredLocation}
+                            placeholder="Select preferred location"
+                            options={preferredLocationOptions}
+                            onChange={(value) => updateCareerSelect("preferredLocation", value)}
+                            buttonClassName={inputClass}
+                            invalid={Boolean(careerSelectErrors.preferredLocation)}
+                            ariaDescribedBy={
+                              careerSelectErrors.preferredLocation
+                                ? "career-preferred-location-error"
+                                : undefined
+                            }
+                          />
+                          {careerSelectErrors.preferredLocation ? (
+                            <p id="career-preferred-location-error" className="mt-2 text-xs font-medium text-red-600">
+                              {careerSelectErrors.preferredLocation}
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="career-source">How did you come across this vacancy? *</label>
-                        <select id="career-source" name="source" required defaultValue="" className={selectClass}>
-                          <option value="" disabled>Select source</option>
-                          <option>Flysync careers page</option>
-                          <option>LinkedIn</option>
-                          <option>Employee referral</option>
-                          <option>Job board</option>
-                          <option>Social media</option>
-                          <option>Other</option>
-                        </select>
+                        <FormDropdown
+                          id="career-source"
+                          name="source"
+                          required
+                          value={careerSelects.source}
+                          placeholder="Select source"
+                          options={sourceOptions}
+                          onChange={(value) => updateCareerSelect("source", value)}
+                          buttonClassName={inputClass}
+                          invalid={Boolean(careerSelectErrors.source)}
+                          ariaDescribedBy={
+                            careerSelectErrors.source
+                              ? "career-source-error"
+                              : undefined
+                          }
+                        />
+                        {careerSelectErrors.source ? (
+                          <p id="career-source-error" className="mt-2 text-xs font-medium text-red-600">
+                            {careerSelectErrors.source}
+                          </p>
+                        ) : null}
                       </div>
                     </div>
                   </div>

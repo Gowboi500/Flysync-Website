@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { contact } from "@/lib/pages";
 import { site } from "@/lib/site";
+import { FormCheckboxDropdown } from "@/components/ui/FormDropdown";
 
 /**
  * With no backend attached, the form hands off to WhatsApp with the details
@@ -16,13 +17,12 @@ export function ContactForm() {
     company: "",
     email: "",
     phone: "",
-    interest: contact.form.interestedIn[0],
+    interest: [contact.form.interestedIn[0]],
     message: "",
   });
 
   const field = "form-field field-ring";
   const label = "form-label";
-  const select = `${field} form-select`;
 
   /**
    * The morph is feedback, not a delay. WhatsApp is opened synchronously
@@ -41,7 +41,7 @@ export function ContactForm() {
       `Company: ${form.company}`,
       `Email: ${form.email}`,
       `Phone: ${form.phone}`,
-      `Interested in: ${form.interest}`,
+      `Interested in: ${form.interest.length > 0 ? form.interest.join(", ") : "Not specified"}`,
       form.message ? `\nRequirements:\n${form.message}` : "",
     ]
       .filter(Boolean)
@@ -137,16 +137,14 @@ export function ContactForm() {
             >
               Interested In
             </label>
-            <select
+            <FormCheckboxDropdown
               id="c-interest"
-              className={select}
-              value={form.interest}
-              onChange={(e) => setForm({ ...form, interest: e.target.value })}
-            >
-              {contact.form.interestedIn.map((o) => (
-                <option key={o}>{o}</option>
-              ))}
-            </select>
+              values={form.interest}
+              options={contact.form.interestedIn}
+              onChange={(interest) => setForm({ ...form, interest })}
+              placeholder="Select products"
+              buttonClassName={field}
+            />
           </div>
 
           <div>

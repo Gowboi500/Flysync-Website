@@ -418,6 +418,7 @@ export const demo = {
   products: [
     "B2B Travel Portal",
     "B2C Travel Portal",
+    "Travel CRM",
     "Series Booking Portal",
     "Corporate Booking Portal",
   ],
