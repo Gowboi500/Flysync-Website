@@ -16,7 +16,7 @@ export const API_IN_PARTNERS: ApiPartner[] = [
     logo: "/images/api-logos/api-in/air-india-express.png",
   },
   { name: "Akasa Air", logo: "/images/api-logos/api-in/akasa-air.png" },
-  { name: "Akbar Travels", logo: "/images/api-logos/api-in/akbar-travels.png" },
+  { name: "IndiGo", logo: "/images/api-logos/api-in/indigo.png" },
   { name: "Amadeus", logo: "/images/api-logos/api-in/amadeus.png" },
   {
     name: "Galileo",
@@ -24,9 +24,9 @@ export const API_IN_PARTNERS: ApiPartner[] = [
     className: "max-h-14 max-w-[6.5rem] object-contain",
   },
   {
-    name: "Kafila",
-    logo: "/images/api-logos/api-in/kafila.png",
-    className: "max-h-14 max-w-[7rem] object-contain",
+    name: "Alhind",
+    logo: "/images/api-logos/alhind.png",
+    className: "max-h-14 max-w-[10rem] object-contain",
   },
   { name: "Mystifly", logo: "/images/api-logos/api-in/mystifly.png" },
   { name: "Cleartrip", logo: "/images/api-logos/api-in/cleartrip.png" },
