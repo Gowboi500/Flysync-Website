@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { clientLogos, type ClientLogo } from "@/lib/clients";
 import { home } from "@/lib/pages";
 
-const PARTNER_NAMES = ["FlyNext", "FlyforSure", "Flybest", "Fly360"];
+const PARTNER_NAMES = ["Bittu Happy Overseas", "Flybest", "FlyforSure", "FlyNext"];
 const PARTNERS = PARTNER_NAMES.map((name) => clientLogos.find((logo) => logo.name === name)).filter(
   (logo): logo is (typeof clientLogos)[number] => Boolean(logo),
 );

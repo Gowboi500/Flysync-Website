@@ -87,7 +87,7 @@ export const clientLogos: ClientLogo[] = [
   { name: "Farenest", src: "/logos/farenest.png", w: 307, h: 136, shape: "wide" },
   { name: "Fareport", src: "/logos/fareport.png", w: 232, h: 136, shape: "mid" },
   { name: "Flight Guru Online", src: "/logos/flight-guru-online.png", w: 340, h: 119, shape: "wide" },
-  { name: "Fly360", src: "/logos/fly360.png", w: 332, h: 136, shape: "wide" },
+  { name: "Bittu Happy Overseas", src: "/logos/bittu-happy-overseas.png", w: 512, h: 512, shape: "emblem" },
   { name: "Flybest", src: "/logos/flybest.png", w: 340, h: 120, shape: "wide" },
   { name: "FlyforSure", src: "/logos/flyforsure.png", w: 340, h: 104, shape: "wide" },
   { name: "FlyNext", src: "/logos/flynext.png", w: 340, h: 115, shape: "wide" },
