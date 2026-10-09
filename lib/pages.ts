@@ -341,8 +341,8 @@ export const contact = {
       icon: "Phone",
       title: "Call Us",
       body: "Speak directly with our team for product inquiries and consultations.",
-      value: "+91 9600731771",
-      href: "tel:+919600731771",
+      value: "+91 95005 31771",
+      href: "tel:+919500531771",
     },
     {
       icon: "Mail",

@@ -376,7 +376,7 @@ export function CareersOpenings({
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="career-contact">Contact number *</label>
-                        <input id="career-contact" name="contact" required type="tel" autoComplete="tel" placeholder="+91 9600731771" className={inputClass} />
+                        <input id="career-contact" name="contact" required type="tel" autoComplete="tel" placeholder="Your contact number" className={inputClass} />
                       </div>
                     </div>
                   </div>

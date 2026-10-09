@@ -12,6 +12,7 @@ import { Icon } from "@/components/ui/Icon";
 import { cardTint, iconTint } from "@/components/ui/iconTints";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
 import { contact } from "@/lib/pages";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -40,8 +41,8 @@ export default function ContactPage() {
           <Link href="/demo" className="btn btn-primary btn-lg">
             Book a Free Demo
           </Link>
-          <a href="tel:+919600731771" className="btn btn-secondary btn-lg">
-            +91 9600731771
+          <a href={site.contact.phoneHref} className="btn btn-secondary btn-lg">
+            {site.contact.phone}
           </a>
         </PageHero>
 
@@ -146,7 +147,7 @@ export default function ContactPage() {
           <Link href="/demo" className="btn btn-primary btn-lg">
             Book a Free Demo
           </Link>
-          <a href="tel:+919600731771" className="btn btn-secondary btn-lg">
+          <a href={site.contact.phoneHref} className="btn btn-secondary btn-lg">
             Contact Our Team
           </a>
         </CTABanner>
