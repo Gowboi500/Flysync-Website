@@ -145,6 +145,16 @@ const requiredCareerSelects: Array<{
     message: "Select experience.",
   },
   {
+    name: "currentCtc",
+    controlId: "career-current-ctc",
+    message: "Select current CTC.",
+  },
+  {
+    name: "expectedCtc",
+    controlId: "career-expected-ctc",
+    message: "Select expected CTC.",
+  },
+  {
     name: "noticePeriod",
     controlId: "career-notice-period",
     message: "Select notice period.",
@@ -223,9 +233,9 @@ export function CareersOpenings({
       `Year of graduation: ${data.get("graduationYear")}`,
       `Gender: ${data.get("gender")}`,
       `Experience in years: ${data.get("experienceYears")}`,
-      `Current employer: ${data.get("currentEmployer") || "Not provided"}`,
-      `Current CTC: ${data.get("currentCtc") || "Not provided"}`,
-      `Expected CTC: ${data.get("expectedCtc") || "Not provided"}`,
+      `Current employer: ${data.get("currentEmployer")}`,
+      `Current CTC: ${data.get("currentCtc")}`,
+      `Expected CTC: ${data.get("expectedCtc")}`,
       `Notice period: ${data.get("noticePeriod")}`,
       `Skill set: ${data.get("skillSet")}`,
       `How they came across this vacancy: ${data.get("source")}`,
@@ -473,33 +483,57 @@ export function CareersOpenings({
                     </p>
                     <div className="mt-4 grid gap-5">
                       <div>
-                        <label className={labelClass} htmlFor="career-current-employer">Current employer</label>
-                        <input id="career-current-employer" name="currentEmployer" placeholder="Company name" className={inputClass} />
+                        <label className={labelClass} htmlFor="career-current-employer">Current employer *</label>
+                        <input id="career-current-employer" name="currentEmployer" required placeholder="Company name" className={inputClass} />
                       </div>
                       <div className="grid gap-5">
                         <div>
-                          <label className={labelClass} htmlFor="career-current-ctc">Current CTC</label>
+                          <label className={labelClass} htmlFor="career-current-ctc">Current CTC *</label>
                           <FormDropdown
                             id="career-current-ctc"
                             name="currentCtc"
+                            required
                             value={careerSelects.currentCtc}
                             placeholder="Select current CTC"
                             options={ctcOptions}
                             onChange={(value) => updateCareerSelect("currentCtc", value)}
                             buttonClassName={inputClass}
+                            invalid={Boolean(careerSelectErrors.currentCtc)}
+                            ariaDescribedBy={
+                              careerSelectErrors.currentCtc
+                                ? "career-current-ctc-error"
+                                : undefined
+                            }
                           />
+                          {careerSelectErrors.currentCtc ? (
+                            <p id="career-current-ctc-error" className="mt-2 text-xs font-medium text-red-600">
+                              {careerSelectErrors.currentCtc}
+                            </p>
+                          ) : null}
                         </div>
                         <div>
-                          <label className={labelClass} htmlFor="career-expected-ctc">Expected CTC</label>
+                          <label className={labelClass} htmlFor="career-expected-ctc">Expected CTC *</label>
                           <FormDropdown
                             id="career-expected-ctc"
                             name="expectedCtc"
+                            required
                             value={careerSelects.expectedCtc}
                             placeholder="Select expected CTC"
                             options={ctcOptions}
                             onChange={(value) => updateCareerSelect("expectedCtc", value)}
                             buttonClassName={inputClass}
+                            invalid={Boolean(careerSelectErrors.expectedCtc)}
+                            ariaDescribedBy={
+                              careerSelectErrors.expectedCtc
+                                ? "career-expected-ctc-error"
+                                : undefined
+                            }
                           />
+                          {careerSelectErrors.expectedCtc ? (
+                            <p id="career-expected-ctc-error" className="mt-2 text-xs font-medium text-red-600">
+                              {careerSelectErrors.expectedCtc}
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                       <div>
