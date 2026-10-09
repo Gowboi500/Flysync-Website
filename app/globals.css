@@ -1680,7 +1680,6 @@
     --career-application-soft: #eaf5ff;
     --career-application-wash: rgba(8, 122, 230, 0.12);
     border-color: var(--career-application-line);
-    overflow: hidden;
   }
 
   .career-system .career-application-header {

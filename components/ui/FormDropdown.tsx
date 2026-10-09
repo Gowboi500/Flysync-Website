@@ -1,7 +1,39 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
+
+type DropdownPlacement = "bottom" | "top";
+
+const dropdownGap = 8;
+const estimatedOptionHeight = 46;
+const panelVerticalPadding = 20;
+
+function getDropdownPlacement(
+  element: HTMLDivElement | null,
+  optionCount: number,
+): DropdownPlacement {
+  if (!element || typeof window === "undefined") return "bottom";
+
+  const rect = element.getBoundingClientRect();
+  const rootFontSize =
+    Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+  const maxPanelHeight = 18 * rootFontSize;
+  const estimatedPanelHeight = Math.min(
+    maxPanelHeight,
+    optionCount * estimatedOptionHeight + panelVerticalPadding,
+  );
+  const spaceBelow = window.innerHeight - rect.bottom - dropdownGap;
+  const spaceAbove = rect.top - dropdownGap;
+
+  return spaceBelow < estimatedPanelHeight && spaceAbove > spaceBelow
+    ? "top"
+    : "bottom";
+}
+
+function getDropdownPlacementClass(placement: DropdownPlacement) {
+  return placement === "top" ? "bottom-full mb-2" : "top-full mt-2";
+}
 
 type FormDropdownProps = {
   id: string;
@@ -33,12 +65,18 @@ export function FormDropdown({
   ariaDescribedBy,
 }: FormDropdownProps) {
   const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState<DropdownPlacement>("bottom");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const listId = useId();
   const selected = options.includes(value) ? value : "";
+  const updatePlacement = useCallback(() => {
+    setPlacement(getDropdownPlacement(dropdownRef.current, options.length));
+  }, [options.length]);
 
   useEffect(() => {
     if (!open) return;
+
+    updatePlacement();
 
     const handlePointerDown = (event: PointerEvent) => {
       if (
@@ -55,14 +93,18 @@ export function FormDropdown({
       }
     };
 
+    window.addEventListener("resize", updatePlacement);
+    window.addEventListener("scroll", updatePlacement, true);
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      window.removeEventListener("resize", updatePlacement);
+      window.removeEventListener("scroll", updatePlacement, true);
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open]);
+  }, [open, updatePlacement]);
 
   return (
     <div ref={dropdownRef} className={`${wrapperClassName} ${open ? "z-40" : "z-0"}`}>
@@ -78,7 +120,10 @@ export function FormDropdown({
         aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={ariaDescribedBy}
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => {
+          if (!open) updatePlacement();
+          setOpen((current) => !current);
+        }}
       >
         <span
           className={`min-w-0 truncate ${
@@ -101,7 +146,7 @@ export function FormDropdown({
           id={listId}
           role="listbox"
           aria-labelledby={id}
-          className="dropdown-panel absolute left-0 right-0 top-full z-30 mt-2"
+          className={`dropdown-panel absolute left-0 right-0 z-30 ${getDropdownPlacementClass(placement)}`}
           style={{ maxHeight: "18rem", overflowX: "hidden", overflowY: "auto" }}
         >
           <div className="grid gap-1.5">
@@ -172,12 +217,18 @@ export function FormCheckboxDropdown({
   ariaDescribedBy,
 }: FormCheckboxDropdownProps) {
   const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState<DropdownPlacement>("bottom");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const listId = useId();
   const selectedValues = values.filter((value) => options.includes(value));
+  const updatePlacement = useCallback(() => {
+    setPlacement(getDropdownPlacement(dropdownRef.current, options.length));
+  }, [options.length]);
 
   useEffect(() => {
     if (!open) return;
+
+    updatePlacement();
 
     const handlePointerDown = (event: PointerEvent) => {
       if (
@@ -194,14 +245,18 @@ export function FormCheckboxDropdown({
       }
     };
 
+    window.addEventListener("resize", updatePlacement);
+    window.addEventListener("scroll", updatePlacement, true);
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      window.removeEventListener("resize", updatePlacement);
+      window.removeEventListener("scroll", updatePlacement, true);
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open]);
+  }, [open, updatePlacement]);
 
   const toggleOption = (option: string) => {
     const selected = selectedValues.includes(option);
@@ -230,7 +285,10 @@ export function FormCheckboxDropdown({
         aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={ariaDescribedBy}
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => {
+          if (!open) updatePlacement();
+          setOpen((current) => !current);
+        }}
       >
         <span
           className={`min-w-0 truncate ${
@@ -253,7 +311,7 @@ export function FormCheckboxDropdown({
           id={listId}
           role="group"
           aria-labelledby={id}
-          className="dropdown-panel absolute left-0 right-0 top-full z-30 mt-2"
+          className={`dropdown-panel absolute left-0 right-0 z-30 ${getDropdownPlacementClass(placement)}`}
           style={{ maxHeight: "18rem", overflowX: "hidden", overflowY: "auto" }}
         >
           <div className="grid gap-1.5">
