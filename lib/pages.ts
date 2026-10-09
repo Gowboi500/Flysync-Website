@@ -373,6 +373,7 @@ export const contact = {
       "B2C Portal",
       "CRM",
       "Series Booking Portal",
+      "Corporate Booking Tool",
     ],
     submit: "Request Consultation",
   },
