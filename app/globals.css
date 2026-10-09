@@ -1292,14 +1292,18 @@
      even the 3:1 large-text floor. The #e0479e tail is 3.69:1.
 
      Only ever used at display sizes. `padding-bottom` + the negative margin
-     stop the clip box guillotining a descender. */
+     stop the clip box guillotining a descender. The right padding gives
+     italic end strokes room inside the gradient clip without changing the
+     word's measured width. */
   .grad-text {
     background-image: var(--brand-gradient-text);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     padding-bottom: 0.08em;
+    padding-right: 0.08em;
     margin-bottom: -0.08em;
+    margin-right: -0.08em;
   }
 
   /* ---- Icon badges ----
