@@ -171,7 +171,11 @@ export function TrustedBy() {
                   alt={partner.name}
                   width={partner.w}
                   height={partner.h}
-                  className="max-h-9 w-full object-contain"
+                  className={
+                    partner.shape === "emblem"
+                      ? "max-h-[3.75rem] w-auto object-contain sm:max-h-16"
+                      : "max-h-9 w-full object-contain"
+                  }
                 />
               </li>
             ))}
