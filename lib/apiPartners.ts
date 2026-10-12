@@ -62,7 +62,11 @@ export const API_OUT_PARTNERS: ApiPartner[] = [
     logo: "/images/api-logos/orn.png",
     className: "max-h-14 max-w-[4.25rem] object-contain",
   },
-  { name: "FlightsMojo", logo: "/images/api-logos/flightsmojo.png" },
+  {
+    name: "Akbaronline",
+    logo: "/images/api-logos/akbar-travels-online.jpg",
+    className: "max-h-14 max-w-[10rem] object-contain",
+  },
   {
     name: "Via",
     logo: "/images/api-logos/via.png",
