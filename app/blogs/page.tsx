@@ -11,6 +11,7 @@ import { ScrollChrome } from "@/components/site/ScrollChrome";
 import { CTABanner, PageHero } from "@/components/ui/Blocks";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
+import { iconTint } from "@/components/ui/iconTints";
 import { blogPosts } from "./blogData";
 
 export const metadata: Metadata = {
@@ -66,7 +67,7 @@ export default function BlogsPage() {
 
                     <div className="px-1 pb-2 pt-6">
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className="rounded-full bg-accent/10 px-3 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-accent">
+                        <span className={`grad-badge ${iconTint(index)} rounded-full border px-3 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.08em]`}>
                           {post.category}
                         </span>
                         <span className="flex items-center gap-1.5 text-[0.8125rem] text-fg-subtle">
