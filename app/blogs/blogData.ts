@@ -9,6 +9,7 @@ export type BlogPost = {
   image: string;
   imageAlt: string;
   article?: {
+    title?: string;
     intro: string[];
     sections: Array<{
       heading: string;
@@ -18,6 +19,10 @@ export type BlogPost = {
         body: string;
       }>;
       bullets?: string[];
+      table?: {
+        headers: string[];
+        rows: string[][];
+      };
     }>;
     conclusion: string[];
   };
@@ -174,6 +179,53 @@ export const blogPosts: BlogPost[] = [
     image: "/images/blogs/b2b-vs-series-flight-booking.jpg",
     imageAlt:
       "Travelers checking an airport departures board before their flight",
+    article: {
+      title: "B2B Flight Booking vs Series Flight Booking: What's the Difference?",
+      intro: [
+        "Travel agencies use different booking methods depending on customer requirements, passenger volume, and travel plans.",
+        "Two common approaches are regular B2B flight booking and series flight booking. Although both involve airline reservations, their purposes and workflows can be different.",
+      ],
+      sections: [
+        {
+          heading: "Understanding B2B Flight Booking",
+          paragraphs: [
+            "B2B flight booking allows travel agents to search for and reserve flights based on available airline or supplier inventory.",
+            "It is commonly used for individual travelers, families, corporate passengers, and customers with flexible travel requirements.",
+          ],
+        },
+        {
+          heading: "Understanding Series Flight Booking",
+          paragraphs: [
+            "Series flight booking involves securing a predefined allocation of seats for selected flights and departure dates.",
+            "It is commonly used for organized group tours, holiday packages, and recurring travel programs.",
+          ],
+        },
+        {
+          heading: "Key Differences",
+          table: {
+            headers: ["Feature", "B2B Flight Booking", "Series Flight Booking"],
+            rows: [
+              ["Booking Type", "Individual or group reservations", "Pre-arranged seat allocations"],
+              ["Seat Availability", "Based on supplier availability", "Based on allocated inventory"],
+              ["Travel Dates", "Customer-selected dates", "Predetermined departures"],
+              ["Common Usage", "FIT, corporate, general travel", "Group tours, travel packages"],
+              ["Inventory Planning", "Usually booking-based", "Advance allocation planning"],
+            ],
+          },
+        },
+        {
+          heading: "Which Booking Method Is Better?",
+          paragraphs: [
+            "The right choice depends on the agency's business model.",
+            "Regular B2B flight booking is suitable for agencies handling different customer travel requests daily.",
+            "Series flight booking can be suitable for businesses that regularly organize group departures and need greater control over allocated seats.",
+          ],
+        },
+      ],
+      conclusion: [
+        "Both booking methods play important roles in the travel industry. By understanding their differences, travel agencies can select the most appropriate booking approach for their customers and business operations.",
+      ],
+    },
   },
 ];
 

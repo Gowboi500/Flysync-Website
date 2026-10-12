@@ -25,15 +25,16 @@ export async function generateMetadata({
   const post = getPublishedBlogPost(slug);
   if (!post || !post.article) return {};
 
+  const title = post.article.title ?? post.title;
   const description = post.article.intro[0];
 
   return {
-    title: post.title,
+    title,
     description,
     keywords: post.keywords,
     alternates: { canonical: `/blogs/${post.slug}` },
     openGraph: {
-      title: post.title,
+      title,
       description,
       images: [{ url: post.image, alt: post.imageAlt }],
     },
@@ -50,6 +51,7 @@ export default async function BlogArticlePage({
   if (!post || !post.article) notFound();
 
   const article = post.article;
+  const title = article.title ?? post.title;
 
   return (
     <>
@@ -86,7 +88,7 @@ export default async function BlogArticlePage({
                 className="rise mt-5 text-[length:var(--text-h1)] font-bold leading-[1.02] tracking-[-0.032em] text-fg"
                 style={{ ["--d" as string]: "0.06s" }}
               >
-                {post.title}
+                {title}
               </h1>
               <div
                 className="rise mt-6 flex flex-wrap items-center justify-center gap-4 text-[0.875rem] text-fg-muted"
@@ -181,6 +183,42 @@ export default async function BlogArticlePage({
                         </li>
                       ))}
                     </ul>
+                  )}
+
+                  {section.table && (
+                    <div className="mt-6 overflow-x-auto rounded-control border border-line bg-surface">
+                      <table className="min-w-[42rem] w-full border-collapse text-left text-[0.9375rem]">
+                        <thead>
+                          <tr className="border-b border-line bg-accent/5">
+                            {section.table.headers.map((header) => (
+                              <th
+                                key={header}
+                                scope="col"
+                                className="px-5 py-4 font-semibold text-fg"
+                              >
+                                {header}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.table.rows.map((row) => (
+                            <tr key={row.join("|")} className="border-b border-line last:border-b-0">
+                              {row.map((cell, index) => (
+                                <td
+                                  key={`${row[0]}-${cell}`}
+                                  className={`px-5 py-4 align-top leading-relaxed ${
+                                    index === 0 ? "font-semibold text-fg" : "text-fg-muted"
+                                  }`}
+                                >
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   )}
                 </section>
               ))}
