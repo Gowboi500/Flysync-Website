@@ -168,6 +168,20 @@ export default async function BlogArticlePage({
                       ))}
                     </ol>
                   )}
+
+                  {section.bullets && (
+                    <ul className="mt-6 space-y-3">
+                      {section.bullets.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-3 rounded-control border border-line bg-surface px-5 py-4 text-[0.9375rem] leading-relaxed text-fg-muted"
+                        >
+                          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </section>
               ))}
 

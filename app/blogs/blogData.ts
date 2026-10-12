@@ -17,6 +17,7 @@ export type BlogPost = {
         title: string;
         body: string;
       }>;
+      bullets?: string[];
     }>;
     conclusion: string[];
   };
@@ -97,6 +98,66 @@ export const blogPosts: BlogPost[] = [
     image: "/images/blogs/series-flight-booking-guide.jpg",
     imageAlt:
       "Passengers boarding a flight through a jet bridge at an airport gate",
+    article: {
+      intro: [
+        "Series flight booking is an important concept in the travel industry, particularly for travel agencies that regularly handle group tours, holiday packages, and high-volume passenger bookings.",
+        "Understanding how series flight bookings work can help travel professionals plan inventory, manage seat availability, and organize group travel more effectively.",
+      ],
+      sections: [
+        {
+          heading: "What Is Series Flight Booking?",
+          paragraphs: [
+            "Series flight booking refers to an arrangement in which a travel agency or tour operator secures a predetermined number of airline seats on specific routes and travel dates, often across multiple departures.",
+            "These arrangements are commonly used for group tours, seasonal travel packages, and destinations with consistent passenger demand.",
+          ],
+        },
+        {
+          heading: "How Does Series Flight Booking Work?",
+          benefits: [
+            {
+              title: "Step 1: Select the Route",
+              body: "The travel agency identifies a route based on customer demand and business requirements.",
+            },
+            {
+              title: "Step 2: Secure Seat Inventory",
+              body: "The agency negotiates an arrangement with an airline or authorized supplier for a specific number of seats, subject to agreed conditions.",
+            },
+            {
+              title: "Step 3: Manage Available Seats",
+              body: "The allocated seats are organized according to departure dates, booking status, and remaining availability.",
+            },
+            {
+              title: "Step 4: Sell Seats to Travelers",
+              body: "The agency sells the available inventory to customers, partner agencies, or sub-agents.",
+            },
+            {
+              title: "Step 5: Monitor Bookings",
+              body: "As reservations are confirmed, the agency tracks seat utilization and manages the remaining inventory.",
+            },
+          ],
+        },
+        {
+          heading: "Benefits of Series Flight Booking",
+          bullets: [
+            "Supports advance travel planning.",
+            "Helps organize group travel requirements.",
+            "Provides greater visibility into allocated seat inventory.",
+            "Creates opportunities for planned travel packages.",
+            "Helps agencies manage recurring departures.",
+          ],
+        },
+        {
+          heading: "Who Can Benefit from Series Flight Booking?",
+          paragraphs: [
+            "Series flight booking can be useful for tour operators, holiday package providers, group travel specialists, destination management companies, and travel agencies handling recurring passenger demand.",
+          ],
+        },
+      ],
+      conclusion: [
+        "Series flight booking can help travel businesses plan group departures and manage allocated airline seats more systematically.",
+        "With proper inventory planning and booking management, travel agencies can improve operational efficiency and make better use of their available seats.",
+      ],
+    },
   },
   {
     slug: "b2b-flight-booking-vs-series-flight-booking-whats-the-difference",
