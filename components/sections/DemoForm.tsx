@@ -259,10 +259,11 @@ export function DemoForm() {
         </div>
         <div>
           <label className={label} htmlFor="d-website">
-            Website
+            Website *
           </label>
           <input
             id="d-website"
+            required
             type="url"
             inputMode="url"
             placeholder="https://"
@@ -314,6 +315,7 @@ export function DemoForm() {
               aria-haspopup="true"
               aria-expanded={productDropdownOpen}
               aria-controls="d-product-options"
+              aria-required="true"
               aria-describedby={productError ? "d-product-error" : undefined}
               onClick={() => {
                 setBusinessDropdownOpen(false);
@@ -396,6 +398,7 @@ export function DemoForm() {
               aria-haspopup="true"
               aria-expanded={businessDropdownOpen}
               aria-controls="d-type-options"
+              aria-required="true"
               aria-describedby={businessTypeError ? "d-type-error" : undefined}
               onClick={() => {
                 setProductDropdownOpen(false);
@@ -468,7 +471,7 @@ export function DemoForm() {
         </fieldset>
         <div>
           <label className={label} htmlFor="d-emp">
-            Number of Employees
+            Number of Employees *
           </label>
           <div ref={employeesDropdownRef} className="relative z-10">
             <button
@@ -478,6 +481,7 @@ export function DemoForm() {
               aria-haspopup="true"
               aria-expanded={employeesDropdownOpen}
               aria-controls="d-emp-options"
+              aria-required="true"
               onClick={() => {
                 setProductDropdownOpen(false);
                 setBusinessDropdownOpen(false);
@@ -537,10 +541,11 @@ export function DemoForm() {
         </div>
         <div>
           <label className={label} htmlFor="d-when">
-            Preferred Demo Date &amp; Time
+            Preferred Demo Date &amp; Time *
           </label>
           <input
             id="d-when"
+            required
             type="datetime-local"
             className={field}
             value={form.when}
@@ -550,10 +555,11 @@ export function DemoForm() {
 
         <div>
           <label className={label} htmlFor="d-challenges">
-            Current Challenges
+            Current Challenges *
           </label>
           <textarea
             id="d-challenges"
+            required
             rows={4}
             placeholder={demo.challengesPlaceholder}
             className={`${field} form-textarea`}

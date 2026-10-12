@@ -31,9 +31,16 @@ export function ContactForm() {
    * handoff happen together rather than one waiting on the other.
    */
   const [sent, setSent] = useState(false);
+  const [interestError, setInterestError] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (form.interest.length === 0) {
+      setInterestError(true);
+      return;
+    }
+
     const body = [
       "Hi Flysync, I'd like to request a consultation.",
       "",
@@ -41,8 +48,8 @@ export function ContactForm() {
       `Company: ${form.company}`,
       `Email: ${form.email}`,
       `Phone: ${form.phone}`,
-      `Interested in: ${form.interest.length > 0 ? form.interest.join(", ") : "Not specified"}`,
-      form.message ? `\nRequirements:\n${form.message}` : "",
+      `Interested in: ${form.interest.join(", ")}`,
+      `\nRequirements:\n${form.message}`,
     ]
       .filter(Boolean)
       .join("\n");
@@ -72,13 +79,13 @@ export function ContactForm() {
         <div className="mt-7 grid gap-3">
           <div>
             <label htmlFor="c-name" className="sr-only">
-              Full name
+              Full name *
             </label>
             <input
               id="c-name"
               required
               autoComplete="name"
-              placeholder="Full Name"
+              placeholder="Full Name *"
               className={field}
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -86,13 +93,13 @@ export function ContactForm() {
           </div>
           <div>
             <label htmlFor="c-company" className="sr-only">
-              Company name
+              Company name *
             </label>
             <input
               id="c-company"
               required
               autoComplete="organization"
-              placeholder="Company Name"
+              placeholder="Company Name *"
               className={field}
               value={form.company}
               onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -100,14 +107,14 @@ export function ContactForm() {
           </div>
           <div>
             <label htmlFor="c-email" className="sr-only">
-              Email address
+              Email address *
             </label>
             <input
               id="c-email"
               required
               type="email"
               autoComplete="email"
-              placeholder="Email Address"
+              placeholder="Email Address *"
               className={field}
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -115,7 +122,7 @@ export function ContactForm() {
           </div>
           <div>
             <label htmlFor="c-phone" className="sr-only">
-              Phone number
+              Phone number *
             </label>
             <input
               id="c-phone"
@@ -123,7 +130,7 @@ export function ContactForm() {
               type="tel"
               inputMode="tel"
               autoComplete="tel"
-              placeholder="Phone Number"
+              placeholder="Phone Number *"
               className={field}
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -135,26 +142,38 @@ export function ContactForm() {
               htmlFor="c-interest"
               className={label}
             >
-              Interested In
+              Interested In *
             </label>
             <FormCheckboxDropdown
               id="c-interest"
               values={form.interest}
               options={contact.form.interestedIn}
-              onChange={(interest) => setForm({ ...form, interest })}
+              onChange={(interest) => {
+                setInterestError(false);
+                setForm({ ...form, interest });
+              }}
               placeholder="Select products"
               buttonClassName={field}
+              required
+              invalid={interestError}
+              ariaDescribedBy={interestError ? "c-interest-error" : undefined}
             />
+            {interestError ? (
+              <p id="c-interest-error" className="mt-2 text-sm font-medium text-red-600">
+                Select at least one product.
+              </p>
+            ) : null}
           </div>
 
           <div>
             <label htmlFor="c-msg" className="sr-only">
-              Message
+              Message *
             </label>
             <textarea
               id="c-msg"
+              required
               rows={4}
-              placeholder="Tell us more about your requirements."
+              placeholder="Tell us more about your requirements. *"
               className={`${field} form-textarea`}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
