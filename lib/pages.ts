@@ -329,10 +329,10 @@ export const careers = {
 export const contact = {
   hero: {
     eyebrow: "Contact Flysync",
-    headline: "Have a Project in Mind?",
+    headline: "Need a Travel Agent Portal?",
     body: [
-      "We're here to help travel businesses simplify operations, improve efficiency and accelerate growth through innovative technology solutions.",
-      "Reach out to our team and let's discuss how Flysync can support your business objectives.",
+      "We're here to help travel agencies simplify bookings, manage customers and grow with online travel portal solutions.",
+      "Reach out to our team and let's discuss the right booking portal, CRM or travel workflow for your business.",
     ],
   },
 
@@ -390,7 +390,7 @@ export const contact = {
 
   office: {
     heading: "Visit Our Chennai Office",
-    body: "If you'd like to discuss your project in person, our team would be happy to meet you.",
+    body: "If you'd like to discuss your travel portal requirements in person, our team would be happy to meet you.",
     lines: [
       "Flysync Technologies Private Limited",
       "3rd floor, Sri Sakthi Towers",
