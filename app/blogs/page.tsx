@@ -44,10 +44,21 @@ const blogCards = [
     imageAlt:
       "Passengers boarding a flight through a jet bridge at an airport gate",
   },
-];
-
-const blogCardPlaceholders = [
-  { date: "Dec 2026", isoDate: "2026-12" },
+  {
+    title: "B2B Flight Booking vs Series Flight Booking — What's the Difference?",
+    category: "Flight Booking Guide",
+    keywords: [
+      "B2B flight booking vs series booking",
+      "group airline booking",
+      "travel agent flight booking",
+    ],
+    date: "Dec 2026",
+    isoDate: "2026-12",
+    readTime: "5 min read",
+    image: "/images/blogs/b2b-vs-series-flight-booking.jpg",
+    imageAlt:
+      "Travelers checking an airport departures board before their flight",
+  },
 ];
 
 export const metadata: Metadata = {
@@ -134,61 +145,6 @@ export default function BlogsPage() {
                 </StaggerItem>
               ))}
 
-              {blogCardPlaceholders.map((post, index) => (
-                <StaggerItem key={`blog-card-${index}`} index={blogCards.length + index}>
-                  <article className="group h-full rounded-card border border-line bg-surface p-4 transition-[border-color,transform] duration-[var(--duration-base)] ease-[var(--ease-entrance)] hover:-translate-y-1 hover:border-accent-line">
-                    <div className="relative aspect-[16/9] overflow-hidden rounded-control border border-line bg-canvas-alt">
-                      <div
-                        aria-hidden="true"
-                        className="absolute inset-0 bg-[linear-gradient(110deg,rgba(8,122,230,0.08),rgba(255,255,255,0.75)_42%,rgba(223,14,43,0.07))]"
-                      />
-                      <div className="absolute inset-0 p-5">
-                        <div className="flex items-center gap-2">
-                          <span className="h-7 w-7 rounded-control bg-white/80 shadow-[var(--shadow-soft)]" />
-                          <span className="h-2.5 w-20 rounded-full bg-white/85" />
-                        </div>
-                        <div className="mt-9 max-w-[72%] space-y-3">
-                          <span className="block h-4 w-full rounded-full bg-white/85" />
-                          <span className="block h-4 w-4/5 rounded-full bg-white/75" />
-                          <span className="block h-4 w-2/3 rounded-full bg-white/65" />
-                        </div>
-                        <div className="absolute bottom-5 right-5 h-16 w-28 rounded-control border border-white/80 bg-white/55 backdrop-blur-sm">
-                          <span className="mx-3 mt-3 block h-2 rounded-full bg-white/80" />
-                          <span className="mx-3 mt-2 block h-2 w-2/3 rounded-full bg-white/70" />
-                        </div>
-                      </div>
-                      <span className="absolute right-4 top-4 h-6 w-24 rounded-full border border-accent-line bg-white/90" />
-                    </div>
-
-                    <div className="px-1 pb-2 pt-6">
-                      <div className="flex items-center gap-3">
-                        <span className="h-4 w-28 rounded-full bg-accent/15" />
-                        <span className="flex items-center gap-1.5 text-fg-subtle">
-                          <Clock3
-                            className="h-3.5 w-3.5 shrink-0"
-                            strokeWidth={1.75}
-                            aria-hidden="true"
-                          />
-                          <span className="h-3 w-16 rounded-full bg-line" />
-                        </span>
-                      </div>
-                      <div className="mt-3 space-y-3">
-                        <span className="block h-6 w-full rounded-full bg-line" />
-                        <span className="block h-6 w-[86%] rounded-full bg-line" />
-                        <span className="block h-6 w-[62%] rounded-full bg-line" />
-                      </div>
-                      <p className="mt-6 flex items-center gap-2 text-[0.875rem] text-fg-muted">
-                        <CalendarDays
-                          className="h-4 w-4 shrink-0"
-                          strokeWidth={1.75}
-                          aria-hidden="true"
-                        />
-                        <time dateTime={post.isoDate}>{post.date}</time>
-                      </p>
-                    </div>
-                  </article>
-                </StaggerItem>
-              ))}
             </StaggerGroup>
           </div>
         </section>
