@@ -11,8 +11,19 @@ import { ScrollChrome } from "@/components/site/ScrollChrome";
 import { CTABanner, PageHero } from "@/components/ui/Blocks";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StaggerGroup, StaggerItem } from "@/components/ui/Reveal";
-import { iconTint } from "@/components/ui/iconTints";
 import { blogPosts } from "./blogData";
+
+const BLOG_BADGE_TINTS = [
+  "grad-badge--blue",
+  "grad-badge--violet",
+  "grad-badge--teal",
+  "grad-badge--amber",
+  "grad-badge--rose",
+] as const;
+
+function blogBadgeTint(index: number) {
+  return BLOG_BADGE_TINTS[index % BLOG_BADGE_TINTS.length];
+}
 
 export const metadata: Metadata = {
   title: "Blogs",
@@ -67,7 +78,7 @@ export default function BlogsPage() {
 
                     <div className="px-1 pb-2 pt-6">
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className={`grad-badge ${iconTint(index)} rounded-full border px-3 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.08em]`}>
+                        <span className={`grad-badge ${blogBadgeTint(index)} rounded-full border px-3 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.08em]`}>
                           {post.category}
                         </span>
                         <span className="flex items-center gap-1.5 text-[0.8125rem] text-fg-subtle">
