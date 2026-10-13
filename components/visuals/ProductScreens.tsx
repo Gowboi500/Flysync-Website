@@ -145,8 +145,8 @@ function B2BScreen() {
   return (
     <LiveMock className="screen-ui relative h-full overflow-hidden bg-white">
       <Image
-        src="/images/mockups/insight-b2b.png"
-        alt="Flysync B2B portal insights dashboard"
+        src="/images/mockups/b2b-portal-flight-results.png"
+        alt="Flysync B2B portal flight booking results"
         fill
         sizes="(min-width: 1024px) 45vw, 92vw"
         className="object-cover"
